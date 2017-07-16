@@ -24,12 +24,15 @@ requirements:
     - python
     - setuptools
     - toolchain
+    - libcxx  # [osx]
     - openmp  # [osx]
 
   run:
     - python
     - numpy
     - scipy
+    - libcxx  # [osx]
+    - openmp  # [osx]
 
 test:
   requires:

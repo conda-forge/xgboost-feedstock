@@ -8,7 +8,7 @@
 -export CXX = $(if $(shell which g++-5),g++-5,clang-omp++)
 +export CC = clang
 +export CXX = clang++
-+export ADD_LDFLAGS = -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib
++export ADD_LDFLAGS = -L${PREFIX}/lib
  endif
 
  export LDFLAGS= -pthread -lm $(ADD_LDFLAGS) $(DMLC_LDFLAGS) $(PLUGIN_LDFLAGS)
