@@ -24,13 +24,12 @@ requirements:
     - python
     - setuptools
     - toolchain
-    - gcc  # [osx]
+    - openmp  # [osx]
 
   run:
     - python
     - numpy
     - scipy
-    - libgcc
 
 test:
   requires:

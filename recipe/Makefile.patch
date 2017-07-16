@@ -6,9 +6,9 @@
  ifeq ($(OS), Darwin)
 -export CC = $(if $(shell which gcc-5),gcc-5,clang-omp)
 -export CXX = $(if $(shell which g++-5),g++-5,clang-omp++)
-+export CC = gcc
-+export CXX = g++
-+export ADD_LDFLAGS = -lgcc_eh
++export CC = clang
++export CXX = clang++
++export ADD_LDFLAGS = -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib
  endif
- 
+
  export LDFLAGS= -pthread -lm $(ADD_LDFLAGS) $(DMLC_LDFLAGS) $(PLUGIN_LDFLAGS)
