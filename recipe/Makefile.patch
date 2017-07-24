@@ -1,6 +1,6 @@
 --- xgboost-0.6a2/xgboost/Makefile
 +++ xgboost-0.6a2/xgboost/Makefile
-@@ -43,8 +43,8 @@
+@@ -43,8 +43,9 @@
  # it is useful for pip install compiling-on-the-fly
  OS := $(shell uname)
  ifeq ($(OS), Darwin)
@@ -8,6 +8,7 @@
 -export CXX = $(if $(shell which g++-5),g++-5,clang-omp++)
 +export CC = clang
 +export CXX = clang++
++export ADD_LDFLAGS = -L${PREFIX}/lib
  endif
- 
+
  export LDFLAGS= -pthread -lm $(ADD_LDFLAGS) $(DMLC_LDFLAGS) $(PLUGIN_LDFLAGS)

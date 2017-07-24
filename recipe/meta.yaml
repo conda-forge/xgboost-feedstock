@@ -15,7 +15,7 @@ source:
     - build-python.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win]
   script: python setup.py install --single-version-externally-managed --record record.txt
 
@@ -24,11 +24,15 @@ requirements:
     - python
     - setuptools
     - toolchain
+    - libcxx  # [osx]
+    - openmp  # [osx]
 
   run:
     - python
     - numpy
     - scipy
+    - libcxx  # [osx]
+    - openmp  # [osx]
 
 test:
   requires:
