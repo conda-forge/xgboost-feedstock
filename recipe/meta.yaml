@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
-{% set version = "0.6a2" %}
-{% set sha256 = "ebc4e2bf8c8266212e342ff8ec4f6ae469e8c41a05d099b6778de8424ce32563" %}
+{% set version = "0.7.post3" %}
+{% set sha256 = "4224193159763ab50352b3c53087510a9ebef4c9dcbafb5c5f8c7e2a1d6d7b70" %}
 
 package:
   name: {{ name|lower }}
@@ -11,11 +11,10 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
-    - Makefile.patch  # [osx]
-    - build-python.patch  # [osx]
+    - config.mk.patch  # [osx]
 
 build:
-  number: 2
+  number: 0
   skip: True  # [win]
   script: python setup.py install --single-version-externally-managed --record record.txt
 
@@ -64,3 +63,4 @@ about:
 extra:
   recipe-maintainers:
     - beckermr
+    - aldanor
