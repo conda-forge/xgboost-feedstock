@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "0.7" %}
+{% set version = "0.7.post3" %}
 {% set sha256 = "4224193159763ab50352b3c53087510a9ebef4c9dcbafb5c5f8c7e2a1d6d7b70" %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-0.7.post3.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
     - config.mk.patch  # [osx]
