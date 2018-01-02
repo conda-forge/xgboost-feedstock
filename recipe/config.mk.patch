@@ -1,5 +1,5 @@
---- xgboost-0.7/xgboost/make/config.mk.orig
-+++ xgboost-0.7/xgboost/make/config.mk
+--- xgboost-0.7.post3/xgboost/make/config.mk.orig
++++ xgboost-0.7.post3/xgboost/make/config.mk
 @@ -17,12 +17,12 @@
  #----------------------------------------------------
 
