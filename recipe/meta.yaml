@@ -11,8 +11,7 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
-    - Makefile.patch  # [osx]
-    - build-python.patch  # [osx]
+    - config.mk.patch  # [osx]
 
 build:
   number: 2

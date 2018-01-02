@@ -1,0 +1,20 @@
+--- xgboost-0.7/xgboost/make/config.mk.orig
++++ xgboost-0.7/xgboost/make/config.mk
+@@ -17,12 +17,14 @@
+ #----------------------------------------------------
+
+ # choice of compiler, by default use system preference.
+-# export CC = gcc
+-# export CXX = g++
++export CC = clang
++export CXX = clang++
+ # export MPICXX = mpicxx
+
++USE_OPENMP = 0
++
+ # the additional link flags you want to add
+-ADD_LDFLAGS =
++ADD_LDFLAGS = -L${PREFIX}/lib
+
+ # the additional compile flags you want to add
+ ADD_CFLAGS =
