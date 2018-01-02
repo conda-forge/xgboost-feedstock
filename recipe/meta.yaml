@@ -8,8 +8,7 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  # url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-0.7.post3.tar.gz
-  url: https://github.com/dmlc/xgboost/files/1596618/xgboost-0.7.post3.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-0.7.post3.tar.gz
   sha256: {{ sha256 }}
   patches:
     - config.mk.patch  # [osx]
