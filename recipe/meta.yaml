@@ -24,15 +24,15 @@ requirements:
     - setuptools
     - toolchain
     - clangdev
-    - libcxx 4.0.*  # [osx]
-    - openmp 4.0.*  # [osx]
+    - libcxx >=4.0  # [osx]
+    - openmp >=4.0  # [osx]
 
   run:
     - python
     - numpy
     - scipy
-    - libcxx 4.0.*  # [osx]
-    - openmp 4.0.*  # [osx]
+    - libcxx >=4.0  # [osx]
+    - openmp >=4.0  # [osx]
 
 test:
   requires:
