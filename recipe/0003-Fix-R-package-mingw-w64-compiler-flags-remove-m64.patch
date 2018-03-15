@@ -1,14 +1,14 @@
-From 7eaf3c32b6dceb29e15214456442da6dc9767af4 Mon Sep 17 00:00:00 2001
+From a47714a5c4eafb154664ca7524f4189a185ebc77 Mon Sep 17 00:00:00 2001
 From: Ray Donnelly <mingw.android@gmail.com>
 Date: Sun, 26 Mar 2017 00:05:20 +0000
-Subject: [PATCH 3/3] Fix R package mingw-w64 compiler flags remove -m64
+Subject: [PATCH 3/4] Fix R package mingw-w64 compiler flags remove -m64
 
 ---
  make/mingw64.mk | 9 +++++++--
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/make/mingw64.mk b/make/mingw64.mk
-index e20220bf..7895c45e 100644
+index e20220b..7895c45 100644
 --- a/make/mingw64.mk
 +++ b/make/mingw64.mk
 @@ -6,8 +6,13 @@
@@ -28,5 +28,5 @@ index e20220bf..7895c45e 100644
  # Whether enable openmp support, needed for multi-threading.
  USE_OPENMP = 1
 -- 
-2.14.3 (Apple Git-98)
+1.9.5 (Apple Git-50.3)
 
