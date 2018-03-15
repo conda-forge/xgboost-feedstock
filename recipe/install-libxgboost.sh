@@ -18,7 +18,11 @@ else
   INCDIR=${PREFIX}/include
   BINDIR=${PREFIX}/bin
   SODIR=${LIBDIR}
-  SOEXT=.so
+  if [[ $(uname) == Darwin ]]; then
+    SOEXT=.dylib
+  else
+    SOEXT=.so
+  fi
   EXEEXT=
 fi
 

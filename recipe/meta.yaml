@@ -7,12 +7,14 @@ package:
 
 source:
   git_url: https://github.com/dmlc/xgboost
-  git_tag: v{{ version }}
+  # This is the commit where the CRAN version got updated
+  git_tag: 98be9aef9aab76ca8e1ca6c250c565dcdbcb7be0
   patches:
     # xgboost patches
-    - 0001-conda-Unbundle-libxgboost.-so-dll.patch
+    - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0002-Fix-R-package-PKGROOT.patch
     - 0003-Fix-R-package-mingw-w64-compiler-flags-remove-m64.patch
+    - 0004-Fix-configure-check-for-OpenMP-on-macOS.patch
     # dmlc-core patches
     - 0001-Do-not-define-fopen64-as-std-fopen-on-32-bit-mingw-w.patch
 
@@ -43,8 +45,8 @@ outputs:
       host:
         - llvm-openmp >=4.0.1    # [osx]
       run:
-        - m2w64-gcc-libs         # [win]
         - llvm-openmp >=4.0.1    # [osx]
+        - m2w64-gcc-libs         # [win]
 
   - name: py-xgboost
     script: install-py-xgboost.sh
@@ -60,6 +62,7 @@ outputs:
         - setuptools
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
+        - llvm-openmp >=4.0.1    # [osx]
         - python
         - numpy
         - scipy
@@ -91,6 +94,7 @@ outputs:
         - r-stringi
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
+        - llvm-openmp >=4.0.1    # [osx]
         - r-base
         - r-matrix
         - r-data.table
