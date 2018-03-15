@@ -26,20 +26,39 @@ requirements:
     - m2-git                 # [win]
     - make                   # [not win]
     - m2-make                # [win]
-  host:
-    - llvm-openmp >=4.0.1    # [osx]
 
 outputs:
   - name: libxgboost
     script: install-libxgboost.sh
     requirements:
+      build:
+        - {{ compiler('c') }}    # [not win]
+        - {{ compiler('cxx') }}  # [not win]
+        - llvm-openmp >=4.0.1    # [osx]
+        - m2w64-toolchain        # [win]
+        - git                    # [not win]
+        - m2-git                 # [win]
+        - make                   # [not win]
+        - m2-make                # [win]
+      host:
+        - llvm-openmp >=4.0.1    # [osx]
       run:
-        - m2w64-gcc-libs     # [win]
+        - m2w64-gcc-libs         # [win]
+        - llvm-openmp >=4.0.1    # [osx]
 
   - name: py-xgboost
     script: install-py-xgboost.sh
     requirements:
+      build:
+        - {{ compiler('c') }}    # [not win]
+        - {{ compiler('cxx') }}  # [not win]
+        - llvm-openmp >=4.0.1    # [osx]
+        - m2w64-toolchain        # [win]
       host:
+        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - python
+        - setuptools
+      run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - numpy
@@ -49,13 +68,33 @@ outputs:
       script: test-py-xgboost.py
 
   - name: r-xgboost
-    requirements:
-      - {{ pin_subpackage('libxgboost', exact=True) }}
-      - r-base
-      - r-matrix
-      - r-data.table
-      - r-magrittr
-      - r-stringi
     script: install-r-xgboost.sh
+    build:
+      rpaths:
+        - lib/R/lib
+    requirements:
+      build:
+        - {{ compiler('c') }}    # [not win]
+        - {{ compiler('cxx') }}  # [not win]
+        - llvm-openmp >=4.0.1    # [osx]
+        - m2w64-toolchain        # [win]
+        - git                    # [not win]
+        - m2-git                 # [win]
+        - make                   # [not win]
+        - m2-make                # [win]
+      host:
+        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - r-base
+        - r-matrix
+        - r-data.table
+        - r-magrittr
+        - r-stringi
+      run:
+        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - r-base
+        - r-matrix
+        - r-data.table
+        - r-magrittr
+        - r-stringi
     test:
       script: test-r-xgboost.r
