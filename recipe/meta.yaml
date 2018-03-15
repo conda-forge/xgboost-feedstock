@@ -87,7 +87,7 @@ outputs:
         - m2-make                # [win]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
-        - r-base
+        - {{ r_implementation }}
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -95,10 +95,13 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - llvm-openmp >=4.0.1    # [osx]
-        - r-base
+        - {{ r_implementation }}
         - r-matrix
         - r-data.table
         - r-magrittr
         - r-stringi
     test:
-      script: test-r-xgboost.r
+      files:
+        - test-r-xgboost.r
+      commands:
+        - Rscript test-r-xgboost.r
