@@ -27,7 +27,7 @@ requirements:
     - git                    # [not win]
     - m2-git                 # [win]
     - make                   # [not win]
-    - m2-make                # [win]
+    - posix                  # [win]
 
 outputs:
   - name: libxgboost
@@ -41,7 +41,7 @@ outputs:
         - git                    # [not win]
         - m2-git                 # [win]
         - make                   # [not win]
-        - m2-make                # [win]
+        - posix                  # [win]
       host:
         - llvm-openmp >=4.0.1    # [osx]
       run:
@@ -80,11 +80,15 @@ outputs:
         - {{ compiler('c') }}    # [not win]
         - {{ compiler('cxx') }}  # [not win]
         - llvm-openmp >=4.0.1    # [osx]
+        {% if r_implementation == "mro-base" %}
+        - rtools                 # [win]
+        {% else %}
         - m2w64-toolchain        # [win]
+        {% endif %}
         - git                    # [not win]
         - m2-git                 # [win]
         - make                   # [not win]
-        - m2-make                # [win]
+        - posix                  # [win]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ r_implementation }}
@@ -92,6 +96,7 @@ outputs:
         - r-data.table
         - r-magrittr
         - r-stringi
+        - r-knitr
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - llvm-openmp >=4.0.1    # [osx]
