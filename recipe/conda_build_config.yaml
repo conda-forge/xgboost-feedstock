@@ -4,4 +4,4 @@ python:
   - 3.6
 r_implementation:
   - r-base
-  - mro-base  # [not osx]
+  - mro-base  # [not osx and not linux32 and not win32]
