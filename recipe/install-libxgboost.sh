@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. activate "${BUILD_PREFIX}"
+
 if [[ ${OSTYPE} == msys ]]; then
   # Just for now; should we handle slash fixing in conda-build?
   PREFIX=${PREFIX//\\//}
@@ -11,7 +13,7 @@ if [[ ${OSTYPE} == msys ]]; then
   INCDIR=${PREFIX}/Library/mingw-w64/include
   BINDIR=${PREFIX}/Library/mingw-w64/bin
   SODIR=${BINDIR}
-  SOEXT=.dll
+  XGBOOSTDSO=xgboost.dll
   EXEEXT=.exe
 else
   LIBDIR=${PREFIX}/lib
@@ -19,9 +21,9 @@ else
   BINDIR=${PREFIX}/bin
   SODIR=${LIBDIR}
   if [[ $(uname) == Darwin ]]; then
-    SOEXT=.dylib
+    XGBOOSTDSO=libxgboost.dylib
   else
-    SOEXT=.so
+    XGBOOSTDSO=libxgboost.so
   fi
   EXEEXT=
 fi
@@ -29,7 +31,7 @@ fi
 mkdir -p ${LIBDIR} ${INCDIR}/xgboost ${BINDIR} || true
 cp -f ${SRC_DIR}/lib/*.a ${LIBDIR}/
 cp ${SRC_DIR}/xgboost${EXEEXT} ${BINDIR}/
-cp ${SRC_DIR}/lib/libxgboost${SOEXT} ${SODIR}/
+cp ${SRC_DIR}/lib/${XGBOOSTDSO} ${SODIR}/
 cp -Rf ${SRC_DIR}/include/xgboost ${INCDIR}/
 cp -Rf ${SRC_DIR}/rabit/include/rabit ${INCDIR}/xgboost/
 cp -f ${SRC_DIR}/src/c_api/*.h ${INCDIR}/xgboost/
