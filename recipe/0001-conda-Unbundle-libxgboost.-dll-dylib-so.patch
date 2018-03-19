@@ -1,13 +1,13 @@
 From c26010425f7ebd70517f3fc8f95885c014b71eb1 Mon Sep 17 00:00:00 2001
 From: Ray Donnelly <mingw.android@gmail.com>
 Date: Wed, 1 Mar 2017 17:16:37 +0000
-Subject: [PATCH 1/4] conda: Unbundle libxgboost.{dll,dylib,so}
+Subject: [PATCH 1/5] conda: Unbundle libxgboost.{dll,dylib,so}
 
 .. and put libxgboost.{dylib,so} into $PREFIX/lib/
 .. and libxgboost.dll into $PREFIX/Library/mingw-w64/lib/
 ---
- python-package/setup.py           | 9 +++++++--
- python-package/xgboost/libpath.py | 4 ++++
+ python-package/setup.py           |    9 +++++++--
+ python-package/xgboost/libpath.py |    4 ++++
  2 files changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/python-package/setup.py b/python-package/setup.py
@@ -53,5 +53,5 @@ index 6abb9ad..b6904e6 100644
              dll_path.append(os.path.join(curr_path, '../../windows/x64/Release/'))
              # hack for pip installation when copy all parent source directory here
 -- 
-1.9.5 (Apple Git-50.3)
+1.7.1
 
