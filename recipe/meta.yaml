@@ -19,6 +19,9 @@ source:
     # dmlc-core patches
     - 0001-Do-not-define-fopen64-as-std-fopen-on-32-bit-mingw-w.patch
 
+build:
+  skip: true  # [win32 or linux32]
+
 requirements:
   build:
     - {{ compiler('c') }}    # [not win]
