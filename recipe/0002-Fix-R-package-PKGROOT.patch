@@ -1,13 +1,13 @@
 From e38b3321574d37da2581f4d4135d9f7d0bd2a48a Mon Sep 17 00:00:00 2001
 From: Ray Donnelly <mingw.android@gmail.com>
 Date: Fri, 24 Mar 2017 07:23:49 -0500
-Subject: [PATCH 2/4] Fix R-package PKGROOT
+Subject: [PATCH 2/5] Fix R-package PKGROOT
 
 It pointed to the wrong directory on Windows and had a
 trailing / on all systems leading to double /
 ---
- R-package/src/Makevars.in  | 2 +-
- R-package/src/Makevars.win | 2 +-
+ R-package/src/Makevars.in  |    2 +-
+ R-package/src/Makevars.win |    2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/R-package/src/Makevars.in b/R-package/src/Makevars.in
@@ -33,5 +33,5 @@ index 195310d..1573ba7 100644
  # _*_ mode: Makefile; _*_
  
 -- 
-1.9.5 (Apple Git-50.3)
+1.7.1
 
