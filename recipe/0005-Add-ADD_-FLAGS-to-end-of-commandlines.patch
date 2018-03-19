@@ -1,0 +1,37 @@
+From d18b622bea78d5af28d4c1983792b68c29050ec7 Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Mon, 19 Mar 2018 12:46:19 +0000
+Subject: [PATCH 5/5] Add ADD_*FLAGS to end of commandlines
+
+.. so they take precedence.
+---
+ Makefile |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index ff9d9b7..a4da564 100644
+--- a/Makefile
++++ b/Makefile
+@@ -68,7 +68,7 @@ endif
+ endif
+ 
+ export LDFLAGS= -pthread -lm $(ADD_LDFLAGS) $(DMLC_LDFLAGS) $(PLUGIN_LDFLAGS)
+-export CFLAGS=  -std=c++11 -Wall -Wno-unknown-pragmas -Iinclude $(ADD_CFLAGS) $(PLUGIN_CFLAGS)
++export CFLAGS=  -std=c++11 -Wall -Wno-unknown-pragmas -Iinclude $(PLUGIN_CFLAGS)
+ CFLAGS += -I$(DMLC_CORE)/include -I$(RABIT)/include -I$(GTEST_PATH)/include
+ #java include path
+ export JAVAINCFLAGS = -I${JAVA_HOME}/include -I./java
+@@ -116,6 +116,10 @@ else
+ endif
+ CFLAGS += $(OPENMP_FLAGS)
+ 
++# Add the ADD_*FLAGS last so they take precedence
++LDFLAGS += $(ADD_LDFLAGS)
++CFLAGS += $(ADD_CFLAGS)
++
+ # specify tensor path
+ .PHONY: clean all lint clean_all doxygen rcpplint pypack Rpack Rbuild Rcheck java pylint
+ 
+-- 
+1.7.1
+
