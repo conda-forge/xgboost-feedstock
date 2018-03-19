@@ -10,8 +10,13 @@ elif [[ ${OSTYPE} == msys ]]; then
     export CC="gcc -mstackrealign"
     export CXX="g++ -mstackrealign"
   fi
-  cp make/mingw64.mk ./config.mk
+  cp make/mingw64.mk config.mk
 else
-  cp make/config.mk ./config.mk
+  cp make/config.mk config.mk
 fi
+
+# XGBoost uses its own compilation flags.
+echo "ADD_LDFLAGS = ${LDFLAGS}" >> config.mk
+echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
+
 make -j${CPU_COUNT}
