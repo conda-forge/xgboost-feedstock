@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
-{% set version = "0.7.post3" %}
-{% set sha256 = "4224193159763ab50352b3c53087510a9ebef4c9dcbafb5c5f8c7e2a1d6d7b70" %}
+{% set version = "0.7.post4" %}
+{% set sha256 = "62be4ffcb9175f992f803380bc137b9a3a29b6ced6d4120bfd5f16be81d9fe73" %}
 
 package:
   name: {{ name|lower }}
@@ -14,7 +14,7 @@ source:
     - config.mk.patch  # [osx]
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win]
   script: python setup.py install --single-version-externally-managed --record record.txt
 
