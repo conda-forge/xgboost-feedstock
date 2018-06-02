@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
-{% set version = "0.71" %}
-{% set sha256 = "a76fb937fe28c7ce2a7348173efba90eb3524454b0ce4e196d8124e6edab9ec4" %}
+{% set version = "0.72" %}
+{% set sha256 = "44c2a0e26e3914bd136537d0a7cb9049a17a4fc5630a834b470c9471eef98123" %}
 
 package:
   name: {{ name|lower }}
