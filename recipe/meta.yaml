@@ -50,6 +50,11 @@ outputs:
         - llvm-openmp >=4.0.1    # [osx]
         - m2w64-gcc-libs         # [win]
 
+  - name: _py-xgboost-mutex
+    version: 2.0
+    build:
+      string: cpu_0
+
   - name: py-xgboost
     script: install-py-xgboost.sh
     requirements:
@@ -64,6 +69,7 @@ outputs:
         - setuptools
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - llvm-openmp >=4.0.1    # [osx]
         - python
         - numpy
@@ -71,6 +77,19 @@ outputs:
         - scikit-learn
     test:
       script: test-py-xgboost.py
+
+  - name: py-xgboost-cpu
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage('py-xgboost', exact=True) }}
+
+  - name: _r-xgboost-mutex
+    version: 2.0
+    build:
+      string: cpu_0
 
   - name: r-xgboost
     script: install-r-xgboost.sh
@@ -102,6 +121,7 @@ outputs:
         - r-knitr
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - llvm-openmp >=4.0.1    # [osx]
         - {{ r_implementation }}
         - r-matrix
@@ -113,3 +133,11 @@ outputs:
         - test-r-xgboost.r
       commands:
         - Rscript test-r-xgboost.r
+
+  - name: r-xgboost-cpu
+    requirements:
+      host:
+        - {{ r_implementation }}
+      run:
+        - {{ r_implementation }}
+        - {{ pin_subpackage('r-xgboost', exact=True) }}
