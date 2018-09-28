@@ -14,7 +14,7 @@ Xtrn, Xtst, ytrn, ytst = sklearn.model_selection.train_test_split(
     X, y, train_size=0.8, random_state=4)
 
 clf = xgboost.XGBClassifier(
-    max_depth=3,
+    max_depth=2,
     learning_rate=1,
     n_estimators=10,
     silent=True,
