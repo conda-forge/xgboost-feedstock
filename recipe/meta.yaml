@@ -18,6 +18,7 @@ source:
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch
 
 build:
+  number: 1
   skip: true  # [win32 or linux32]
 
 requirements:
