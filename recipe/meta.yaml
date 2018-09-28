@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "0.72" %}
+{% set version = "0.80" %}
 
 package:
   name: {{ name|lower }}
@@ -7,48 +7,43 @@ package:
 
 source:
   git_url: https://github.com/dmlc/xgboost
-  # corresponds to 0.72 tag
-  git_tag: 1214081f994c3798703a035419aafb84716c3cba
+  # corresponds to 0.80 tag
+  git_tag: 96826a35155d42f78cd4253b3d134a208dbbaccb
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0002-Fix-R-package-PKGROOT.patch
     - 0003-Fix-R-package-mingw-w64-compiler-flags-remove-m64.patch
     - 0004-Fix-configure-check-for-OpenMP-on-macOS.patch
-    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch
+    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch  # [not osx]
+    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
 
 build:
-  skip: true  # [win32 or linux32]
+  number: 1
+  skip: true  # [win or linux32]
 
 requirements:
   build:
-    - {{ compiler('c') }}    # [not win]
-    - {{ compiler('cxx') }}  # [not win]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - git
+    - make
+  host:
     - llvm-openmp >=4.0.1    # [osx]
-    - m2w64-toolchain        # [win]
-    - git                    # [not win]
-    - m2-git                 # [win]
-    - make                   # [not win]
-    - posix                  # [win]
 
 outputs:
   - name: libxgboost
     script: install-libxgboost.sh
     requirements:
       build:
-        - {{ compiler('c') }}    # [not win]
-        - {{ compiler('cxx') }}  # [not win]
-        - llvm-openmp >=4.0.1    # [osx]
-        - m2w64-toolchain        # [win]
-        - git                    # [not win]
-        - m2-git                 # [win]
-        - make                   # [not win]
-        - posix                  # [win]
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - git
+        - make
       host:
         - llvm-openmp >=4.0.1    # [osx]
       run:
         - llvm-openmp >=4.0.1    # [osx]
-        - m2w64-gcc-libs         # [win]
 
   - name: _py-xgboost-mutex
     version: 2.0
@@ -59,14 +54,14 @@ outputs:
     script: install-py-xgboost.sh
     requirements:
       build:
-        - {{ compiler('c') }}    # [not win]
-        - {{ compiler('cxx') }}  # [not win]
-        - llvm-openmp >=4.0.1    # [osx]
-        - m2w64-toolchain        # [win]
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - setuptools
+        - pip
+        - llvm-openmp >=4.0.1    # [osx]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
@@ -77,8 +72,18 @@ outputs:
         - scikit-learn
     test:
       script: test-py-xgboost.py
+      imports:
+        - xgboost
 
   - name: py-xgboost-cpu
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage('py-xgboost', exact=True) }}
+
+  - name: xgboost
     requirements:
       host:
         - python
@@ -94,26 +99,18 @@ outputs:
   - name: r-xgboost
     script: install-r-xgboost.sh
     build:
-      merge_build_host: True  # [win]
       rpaths:
         - lib/R/lib
     requirements:
       build:
-        - {{ compiler('c') }}    # [not win]
-        - {{ compiler('cxx') }}  # [not win]
-        - llvm-openmp >=4.0.1    # [osx]
-        {% if r_implementation == "mro-base" %}
-        - rtools                 # [win]
-        {% else %}
-        - m2w64-toolchain        # [win]
-        {% endif %}
-        - git                    # [not win]
-        - m2-git                 # [win]
-        - make                   # [not win]
-        - posix                  # [win]
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - git
+        - make
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ r_implementation }}
+        - llvm-openmp >=4.0.1    # [osx]
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -141,3 +138,25 @@ outputs:
       run:
         - {{ r_implementation }}
         - {{ pin_subpackage('r-xgboost', exact=True) }}
+
+about:
+  home: https://github.com/dmlc/xgboost
+  license: Apache-2.0
+  license_file: {{ RECIPE_DIR }}/LICENSE
+  summary: |
+    Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library, for
+    Python, R, Java, Scala, C++ and more. Runs on single machine, Hadoop, Spark, Flink
+    and DataFlow
+  description: |
+    XGBoost is an optimized distributed gradient boosting library designed to be highly efficient,
+    flexible and portable. It implements machine learning algorithms under the Gradient Boosting
+    framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many
+    data science problems in a fast and accurate way. The same code runs on major distributed
+    environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.
+  doc_url: https://xgboost.readthedocs.io/
+  dev_url: https://github.com/dmlc/xgboost/
+
+extra:
+  recipe-maintainers:
+    - beckermr
+    - aldanor

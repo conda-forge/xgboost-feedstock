@@ -18,4 +18,10 @@ fi
 echo "ADD_LDFLAGS = ${LDFLAGS}" >> config.mk
 echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
 
+# this seems to be expected by clang when linking
+if [[ $(uname) == Darwin ]]
+then
+    ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
+fi
+
 make -j${CPU_COUNT}
