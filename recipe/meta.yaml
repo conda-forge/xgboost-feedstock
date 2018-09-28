@@ -78,6 +78,8 @@ outputs:
         - scikit-learn
     test:
       script: test-py-xgboost.py
+      imports:
+        - xgboost
 
   - name: py-xgboost-cpu
     requirements:
