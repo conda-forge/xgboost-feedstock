@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "0.72" %}
+{% set version = "0.80" %}
 
 package:
   name: {{ name|lower }}
