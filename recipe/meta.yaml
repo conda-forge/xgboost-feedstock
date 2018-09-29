@@ -7,8 +7,8 @@ package:
 
 source:
   git_url: https://github.com/dmlc/xgboost
-  # corresponds to 0.72 tag
-  git_tag: 1214081f994c3798703a035419aafb84716c3cba
+  # corresponds to 0.80 tag
+  git_tag: 96826a35155d42f78cd4253b3d134a208dbbaccb
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch

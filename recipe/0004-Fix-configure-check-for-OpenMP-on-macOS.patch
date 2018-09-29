@@ -1,22 +1,12 @@
-From 2cf0bb1c1b166cff7ed3a68b9546d3309e2e9ed3 Mon Sep 17 00:00:00 2001
-From: Ray Donnelly <mingw.android@gmail.com>
-Date: Thu, 15 Mar 2018 12:18:38 -0700
-Subject: [PATCH 4/5] Fix configure check for OpenMP on macOS
-
-RBIN was not getting set.
----
- R-package/configure    |    8 ++++++++
- R-package/configure.ac |   10 +++++++++-
- 2 files changed, 17 insertions(+), 1 deletions(-)
-
 diff --git a/R-package/configure b/R-package/configure
-index 7db7190..6a9783b 100755
+index 7db7190..ab1cd9f 100755
 --- a/R-package/configure
 +++ b/R-package/configure
-@@ -1663,6 +1663,14 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
- 
- 
- 
+@@ -1661,7 +1661,13 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
+-
 +# find R home and set CC/CFLAGS
 +: ${R_HOME=`R RHOME`}
 +if test -z "${R_HOME}"; then
@@ -24,20 +14,19 @@ index 7db7190..6a9783b 100755
 +  exit 1
 +fi
 +RBIN="${R_HOME}/bin/R"
-+
+
  OPENMP_CXXFLAGS=""
- 
- if test `uname -s` = "Linux"
+
 diff --git a/R-package/configure.ac b/R-package/configure.ac
-index d9b706e..302a61f 100644
+index d9b706e..6b37ca1 100644
 --- a/R-package/configure.ac
 +++ b/R-package/configure.ac
 @@ -2,7 +2,15 @@
- 
+
  AC_PREREQ(2.62)
- 
+
 -AC_INIT([xgboost],[0.6-3],[],[xgboost],[])
-+AC_INIT([xgboost],[0.7-0],[],[xgboost],[])
++AC_INIT([xgboost],[0.8-0],[],[xgboost],[])
 +
 +# find R home and set CC/CFLAGS
 +: ${R_HOME=`R RHOME`}
@@ -46,9 +35,5 @@ index d9b706e..302a61f 100644
 +  exit 1
 +fi
 +RBIN="${R_HOME}/bin/R"
- 
- OPENMP_CXXFLAGS=""
- 
--- 
-1.7.1
 
+ OPENMP_CXXFLAGS=""
