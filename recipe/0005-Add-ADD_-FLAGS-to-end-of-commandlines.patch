@@ -16,7 +16,7 @@ index 9ad197e..41b6696 100644
  OPENMP_FLAGS =
  ifeq ($(USE_OPENMP), 1)
 -	OPENMP_FLAGS = -fopenmp
-+	OPENMP_FLAGS = -fopenmp=libomp
++	OPENMP_FLAGS = -fopenmp
  else
  	OPENMP_FLAGS = -DDISABLE_OPENMP
  endif

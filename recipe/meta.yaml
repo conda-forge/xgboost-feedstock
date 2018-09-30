@@ -25,7 +25,7 @@ requirements:
   build:
     - {{ compiler('c') }}    # [not win]
     - {{ compiler('cxx') }}  # [not win]
-    - llvm-openmp >=4.0.1    # [osx]
+    - openmp >=4.0.0         # [osx]
     - m2w64-toolchain        # [win]
     - git                    # [not win]
     - m2-git                 # [win]
@@ -39,7 +39,7 @@ outputs:
       build:
         - {{ compiler('c') }}    # [not win]
         - {{ compiler('cxx') }}  # [not win]
-        - llvm-openmp >=4.0.1    # [osx]
+        - openmp >=4.0.0         # [osx]
         - m2w64-toolchain        # [win]
         - git                    # [not win]
         - m2-git                 # [win]
