@@ -20,7 +20,7 @@ index d4b6aa6..a81adfa 100644
        # this is the golden line
        include_package_data=True,
 -      data_files=[('xgboost', LIB_PATH)],
-+      data_files=[data_files],,
++      data_files=[data_files],
        license='Apache-2.0',
        classifiers=['License :: OSI Approved :: Apache Software License'],
        url='https://github.com/dmlc/xgboost')
