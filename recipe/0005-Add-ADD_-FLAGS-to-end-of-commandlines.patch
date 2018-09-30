@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index 9ad197e..7a958c8 100644
+index 9ad197e..41b6696 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -68,7 +68,7 @@ endif
@@ -11,7 +11,14 @@ index 9ad197e..7a958c8 100644
  CFLAGS += -I$(DMLC_CORE)/include -I$(RABIT)/include -I$(GTEST_PATH)/include
  #java include path
  export JAVAINCFLAGS = -I${JAVA_HOME}/include -I./java
-@@ -116,6 +116,10 @@ else
+@@ -110,12 +110,16 @@ endif
+
+ OPENMP_FLAGS =
+ ifeq ($(USE_OPENMP), 1)
+-	OPENMP_FLAGS = -fopenmp
++	OPENMP_FLAGS = -fopenmp=libomp
+ else
+ 	OPENMP_FLAGS = -DDISABLE_OPENMP
  endif
  CFLAGS += $(OPENMP_FLAGS)
 
