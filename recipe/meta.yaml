@@ -46,9 +46,9 @@ outputs:
         - make                   # [not win]
         - posix                  # [win]
       host:
-        - llvm-openmp >=4.0.1    # [osx]
+        - openmp >=4.0.0         # [osx]
       run:
-        - llvm-openmp >=4.0.1    # [osx]
+        - openmp >=4.0.0         # [osx]
         - m2w64-gcc-libs         # [win]
 
   - name: _py-xgboost-mutex
@@ -62,7 +62,7 @@ outputs:
       build:
         - {{ compiler('c') }}    # [not win]
         - {{ compiler('cxx') }}  # [not win]
-        - llvm-openmp >=4.0.1    # [osx]
+        - openmp >=4.0.0    # [osx]
         - m2w64-toolchain        # [win]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
@@ -71,7 +71,7 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - llvm-openmp >=4.0.1    # [osx]
+        - openmp >=4.0.0    # [osx]
         - python
         - numpy
         - scipy
@@ -112,7 +112,7 @@ outputs:
       build:
         - {{ compiler('c') }}    # [not win]
         - {{ compiler('cxx') }}  # [not win]
-        - llvm-openmp >=4.0.1    # [osx]
+        - openmp >=4.0.0    # [osx]
         {% if r_implementation == "mro-base" %}
         - rtools                 # [win]
         {% else %}
@@ -133,7 +133,7 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
-        - llvm-openmp >=4.0.1    # [osx]
+        - openmp >=4.0.0    # [osx]
         - {{ r_implementation }}
         - r-matrix
         - r-data.table
