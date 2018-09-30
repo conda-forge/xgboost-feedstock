@@ -19,9 +19,7 @@ echo "ADD_LDFLAGS = ${LDFLAGS}" >> config.mk
 echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
 
 # hacky symlink
-if [[ -z "${OSX_ARCH}" ]]
-then
-    ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
-fi
+ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
+ls -lah ${PREFIX}/lib/lib*
 
 make -j${CPU_COUNT}
