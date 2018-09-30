@@ -15,7 +15,8 @@ source:
     - 0002-Fix-R-package-PKGROOT.patch
     - 0003-Fix-R-package-mingw-w64-compiler-flags-remove-m64.patch
     - 0004-Fix-configure-check-for-OpenMP-on-macOS.patch
-    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch
+    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch  # [not osx]
+    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines_osx.patch  # [osx]
 
 build:
   number: 1
@@ -25,6 +26,7 @@ requirements:
   build:
     - {{ compiler('c') }}    # [not win]
     - {{ compiler('cxx') }}  # [not win]
+    - clangdev >=4.0.0       # [osx]
     - openmp >=4.0.0         # [osx]
     - m2w64-toolchain        # [win]
     - git                    # [not win]
@@ -39,6 +41,7 @@ outputs:
       build:
         - {{ compiler('c') }}    # [not win]
         - {{ compiler('cxx') }}  # [not win]
+        - clangdev >=4.0.0       # [osx]
         - openmp >=4.0.0         # [osx]
         - m2w64-toolchain        # [win]
         - git                    # [not win]
@@ -46,8 +49,10 @@ outputs:
         - make                   # [not win]
         - posix                  # [win]
       host:
+        - clangdev >=4.0.0       # [osx]
         - openmp >=4.0.0         # [osx]
       run:
+        - clangdev >=4.0.0       # [osx]
         - openmp >=4.0.0         # [osx]
         - m2w64-gcc-libs         # [win]
 
@@ -62,15 +67,19 @@ outputs:
       build:
         - {{ compiler('c') }}    # [not win]
         - {{ compiler('cxx') }}  # [not win]
+        - clangdev >=4.0.0       # [osx]
         - openmp >=4.0.0    # [osx]
         - m2w64-toolchain        # [win]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - setuptools
+        - clangdev >=4.0.0    # [osx]
+        - openmp >=4.0.0    # [osx]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
+        - clangdev >=4.0.0       # [osx]
         - openmp >=4.0.0    # [osx]
         - python
         - numpy
@@ -112,6 +121,7 @@ outputs:
       build:
         - {{ compiler('c') }}    # [not win]
         - {{ compiler('cxx') }}  # [not win]
+        - clangdev >=4.0.0    # [osx]
         - openmp >=4.0.0    # [osx]
         {% if r_implementation == "mro-base" %}
         - rtools                 # [win]
@@ -130,9 +140,12 @@ outputs:
         - r-magrittr
         - r-stringi
         - r-knitr
+        - clangdev >=4.0.0    # [osx]
+        - openmp >=4.0.0    # [osx]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
+        - clangdev >=4.0.0    # [osx]
         - openmp >=4.0.0    # [osx]
         - {{ r_implementation }}
         - r-matrix
