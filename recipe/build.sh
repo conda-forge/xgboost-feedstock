@@ -18,7 +18,4 @@ fi
 echo "ADD_LDFLAGS = ${LDFLAGS}" >> config.mk
 echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
 
-# hacky symlink
-ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
-
 make -j${CPU_COUNT}
