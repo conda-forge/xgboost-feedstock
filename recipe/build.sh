@@ -22,10 +22,11 @@ echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
 if [[ $(uname) == Darwin ]]
 then
     ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
-fi
 
-# post-link and pre-unlink scripts for libxgboost
-cp libxgboost-post-link.sh ${PREFIX}/bin/.libxgboost-post-link.sh
-cp libxgboost-pre-unlink.sh ${PREFIX}/bin/.libxgboost-pre-unlink.sh
+    # post-link and pre-unlink scripts that make the link above when the
+    # package is installed
+    cp ${RECIPE_DIR}/libxgboost-post-link.sh ${PREFIX}/bin/.libxgboost-post-link.sh
+    cp ${RECIPE_DIR}/libxgboost-pre-unlink.sh ${PREFIX}/bin/.libxgboost-pre-unlink.sh
+fi
 
 make -j${CPU_COUNT}
