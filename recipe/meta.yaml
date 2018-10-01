@@ -68,6 +68,7 @@ outputs:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - setuptools
+        - pip
         - llvm-openmp >=4.0.1    # [osx]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
