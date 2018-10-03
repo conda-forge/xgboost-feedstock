@@ -1,8 +1,5 @@
 #!/bin/bash
 
-mkdir --help
-cp --help
-
 if [[ ${OSTYPE} == msys ]]; then
   # Just for now; should we handle slash fixing in conda-build?
   PREFIX=${PREFIX//\\//}
