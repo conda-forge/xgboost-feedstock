@@ -1,5 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
+build_number_decrement:
+- '1000'
 c_compiler:
 - toolchain_c
 channel_sources:
@@ -16,9 +18,17 @@ pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
+  r-base:
+    max_pin: x.x.x
 python:
 - '2.7'
-- '3.5'
 - '3.6'
-r_implementation:
-- r-base
+- '3.7'
+r_base:
+- 3.5.1
+zip_keys:
+- - c_compiler
+  - cxx_compiler
+  - channel_sources
+  - channel_targets
+  - build_number_decrement
