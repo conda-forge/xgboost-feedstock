@@ -109,7 +109,7 @@ outputs:
         - make
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
-        - r_base
+        - r-base
         - llvm-openmp >=4.0.1    # [osx]
         - r-matrix
         - r-data.table
@@ -120,7 +120,7 @@ outputs:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - llvm-openmp >=4.0.1    # [osx]
-        - r_base
+        - r-base
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -134,9 +134,9 @@ outputs:
   - name: r-xgboost-cpu
     requirements:
       host:
-        - r_base
+        - r-base
       run:
-        - r_base
+        - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
 
 about:
