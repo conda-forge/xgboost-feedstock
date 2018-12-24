@@ -14,14 +14,20 @@ else
   cp make/config.mk config.mk
 fi
 
+if [[ $(uname) == Darwin ]] && [[ ${CC} != "clang" ]]
+then
+    # this seems to be expected by clang when linking
+    ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
+fi
+
 # XGBoost uses its own compilation flags.
 echo "ADD_LDFLAGS = ${LDFLAGS}" >> config.mk
 echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
 
-# this seems to be expected by clang when linking
-if [[ $(uname) == Darwin ]]
+# disable openmp for os toolchain builds
+if [[ $(uname) == Darwin ]] && [[ ${CC} == "clang" ]]
 then
-    ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
+    echo "USE_OPENMP = 0" >> config.mk
 fi
 
 make -j${CPU_COUNT}

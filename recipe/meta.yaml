@@ -19,7 +19,7 @@ source:
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
 
 build:
-  number: 1
+  number: 1001
   skip: true  # [win or linux32]
 
 requirements:
@@ -28,8 +28,9 @@ requirements:
     - {{ compiler('cxx') }}
     - git
     - make
+    - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
   host:
-    - llvm-openmp >=4.0.1    # [osx]
+    - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
 
 outputs:
   - name: libxgboost
@@ -40,10 +41,11 @@ outputs:
         - {{ compiler('cxx') }}
         - git
         - make
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       host:
-        - llvm-openmp >=4.0.1    # [osx]
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       run:
-        - llvm-openmp >=4.0.1    # [osx]
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
 
   - name: _py-xgboost-mutex
     version: 2.0
@@ -56,16 +58,17 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - setuptools
         - pip
-        - llvm-openmp >=4.0.1    # [osx]
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - llvm-openmp >=4.0.1    # [osx]
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
         - python
         - numpy
         - scipy
@@ -107,10 +110,11 @@ outputs:
         - {{ compiler('cxx') }}
         - git
         - make
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
-        - {{ r_implementation }}
-        - llvm-openmp >=4.0.1    # [osx]
+        - r-base
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -119,8 +123,8 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
-        - llvm-openmp >=4.0.1    # [osx]
-        - {{ r_implementation }}
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - r-base
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -134,9 +138,9 @@ outputs:
   - name: r-xgboost-cpu
     requirements:
       host:
-        - {{ r_implementation }}
+        - r-base
       run:
-        - {{ r_implementation }}
+        - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
 
 about:
