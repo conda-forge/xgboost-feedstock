@@ -28,6 +28,7 @@ requirements:
     - {{ compiler('cxx') }}
     - git
     - make
+    - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
   host:
     - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
 
@@ -40,6 +41,7 @@ outputs:
         - {{ compiler('cxx') }}
         - git
         - make
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       host:
         - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       run:
@@ -56,6 +58,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
@@ -107,6 +110,7 @@ outputs:
         - {{ compiler('cxx') }}
         - git
         - make
+        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
