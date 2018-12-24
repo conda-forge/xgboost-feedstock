@@ -28,11 +28,8 @@ requirements:
     - {{ compiler('cxx') }}
     - git
     - make
-    - clangdev   # [osx and c_compiler == 'toolchain_c' ]
   host:
     - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
-    - openmp =4.0.*   # [osx and c_compiler == 'toolchain_c' ]
-
 
 outputs:
   - name: libxgboost
@@ -45,10 +42,8 @@ outputs:
         - make
       host:
         - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
-        - openmp =4.0.*   # [osx and c_compiler == 'toolchain_c' ]
       run:
         - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
-        - openmp =4.0.*   # [osx and c_compiler == 'toolchain_c' ]
 
   - name: _py-xgboost-mutex
     version: 2.0
@@ -67,12 +62,10 @@ outputs:
         - setuptools
         - pip
         - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
-        - openmp =4.0.*   # [osx and c_compiler == 'toolchain_c' ]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
-        - openmp =4.0.*   # [osx and c_compiler == 'toolchain_c' ]
         - python
         - numpy
         - scipy
@@ -114,12 +107,10 @@ outputs:
         - {{ compiler('cxx') }}
         - git
         - make
-        - clangdev   # [osx and c_compiler == 'toolchain_c' ]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
         - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
-        - openmp =4.0.*   # [osx and c_compiler == 'toolchain_c' ]
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -129,7 +120,6 @@ outputs:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
-        - openmp =4.0.*   # [osx and c_compiler == 'toolchain_c' ]
         - r-base
         - r-matrix
         - r-data.table

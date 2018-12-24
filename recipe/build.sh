@@ -24,4 +24,10 @@ then
     ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
 fi
 
+# disable openmp for os toolchain builds
+if [[ $(uname) == Darwin ]] && [[ ${CC} == "clang" ]]
+then
+    echo "USE_OPENMP = 0" >> config.mk
+fi
+
 make -j${CPU_COUNT}
