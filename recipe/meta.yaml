@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "0.80" %}
+{% set version = "0.81" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 source:
   git_url: https://github.com/dmlc/xgboost
   # corresponds to 0.80 tag
-  git_tag: 96826a35155d42f78cd4253b3d134a208dbbaccb
+  git_tag: 78ec77fa9787de69e4458e3f32f9d39ea1281955
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
@@ -19,7 +19,7 @@ source:
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
 
 build:
-  number: 1001
+  number: 1000
   skip: true  # [win or linux32]
 
 requirements:
