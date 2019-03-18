@@ -32,6 +32,11 @@ requirements:
     - llvm-openmp >=4.0.1    # [osx]
 
 outputs:
+  - name: _py-xgboost-mutex
+    version: 2.0
+    build:
+      string: cpu_0
+
   - name: libxgboost
     script: install-libxgboost.sh
     requirements:
@@ -44,11 +49,7 @@ outputs:
         - llvm-openmp >=4.0.1    # [osx]
       run:
         - llvm-openmp >=4.0.1    # [osx]
-
-  - name: _py-xgboost-mutex
-    version: 2.0
-    build:
-      string: cpu_0
+        - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
 
   - name: py-xgboost
     script: install-py-xgboost.sh
