@@ -1,14 +1,13 @@
 {% set name = "xgboost" %}
-{% set version = "0.81" %}
+{% set version = "0.82" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  git_url: https://github.com/dmlc/xgboost
-  # corresponds to 0.80 tag
-  git_tag: 78ec77fa9787de69e4458e3f32f9d39ea1281955
+  url: https://github.com/dmlc/xgboost/archive/v{{ version }}.tar.gz
+  sha256: d6e27b4359a8bc3c9585f035da8e3074ce85ac75e3badb0b8845d2d1d11e3f6e
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
@@ -19,7 +18,7 @@ source:
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
 
 build:
-  number: 1000
+  number: 0
   skip: true  # [win or linux32]
 
 requirements:
@@ -28,9 +27,9 @@ requirements:
     - {{ compiler('cxx') }}
     - git
     - make
-    - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+    - llvm-openmp >=4.0.1  # [osx]
   host:
-    - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+    - llvm-openmp >=4.0.1  # [osx]
 
 outputs:
   - name: libxgboost
@@ -41,11 +40,11 @@ outputs:
         - {{ compiler('cxx') }}
         - git
         - make
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
       host:
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
       run:
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
 
   - name: _py-xgboost-mutex
     version: 2.0
@@ -58,17 +57,17 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - setuptools
         - pip
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
         - python
         - numpy
         - scipy
@@ -110,11 +109,11 @@ outputs:
         - {{ compiler('cxx') }}
         - git
         - make
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -123,7 +122,7 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
-        - llvm-openmp >=4.0.1  # [osx and c_compiler != 'toolchain_c' ]
+        - llvm-openmp >=4.0.1  # [osx]
         - r-base
         - r-matrix
         - r-data.table
