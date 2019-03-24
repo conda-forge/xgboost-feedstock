@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/dmlc/xgboost/archive/v{{ version }}.tar.gz
-  sha256: d6e27b4359a8bc3c9585f035da8e3074ce85ac75e3badb0b8845d2d1d11e3f6e
+  git_url: https://github.com/dmlc/xgboost
+  git_tag: 3f83dcd50286d7c8d22e552942bd6572547c32b9
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
