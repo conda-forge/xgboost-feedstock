@@ -28,6 +28,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - git
+    - cmake
     - make
     - llvm-openmp >=4.0.1  # [osx]
   host:
@@ -41,6 +42,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - git
+        - cmake
         - make
         - llvm-openmp >=4.0.1  # [osx]
       host:
@@ -110,6 +112,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - git
+        - cmake
         - make
         - llvm-openmp >=4.0.1  # [osx]
       host:
