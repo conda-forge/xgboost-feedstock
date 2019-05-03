@@ -8,8 +8,11 @@ then
     ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
 fi
 
-# XGBoost uses its own compilation flags.
-echo "ADD_LDFLAGS = ${LDFLAGS}" >> config.mk
-echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
-
+mkdir build_cmake
+cd build_cmake
+cmake -G "Unix Makefiles" \
+      -D CMAKE_BUILD_TYPE:STRING="Release" \
+      -D BUILD_SHARED_LIBS:BOOL=ON \
+      -D CMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+      "${SRC_DIR}"
 make -j${CPU_COUNT}
