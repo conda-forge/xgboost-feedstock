@@ -2,8 +2,6 @@
 
 # http://xgboost.readthedocs.io/en/latest/build.html
 
-cp make/config.mk config.mk
-
 if [[ $(uname) == Darwin ]]
 then
     # this seems to be expected by clang when linking
