@@ -10,7 +10,6 @@ fi
 
 cmake -G "Unix Makefiles" \
       -D CMAKE_BUILD_TYPE:STRING="Release" \
-      -D BUILD_SHARED_LIBS:BOOL=ON \
       -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
       -D CMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
       "${SRC_DIR}"
