@@ -8,8 +8,6 @@ then
     ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
 fi
 
-mkdir build_cmake
-cd build_cmake
 cmake -G "Unix Makefiles" \
       -D CMAKE_BUILD_TYPE:STRING="Release" \
       -D BUILD_SHARED_LIBS:BOOL=ON \
