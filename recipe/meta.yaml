@@ -20,7 +20,7 @@ source:
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win or linux32]
 
 requirements:
