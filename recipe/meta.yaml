@@ -29,6 +29,7 @@ requirements:
     - {{ compiler('cxx') }}
     - git
     - make
+    - autoconf  # [osx]
     - llvm-openmp >=4.0.1  # [osx]
   host:
     - make  # [osx]
