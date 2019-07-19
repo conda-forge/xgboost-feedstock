@@ -32,6 +32,8 @@ requirements:
     - llvm-openmp >=4.0.1  # [osx]
   host:
     - llvm-openmp >=4.0.1  # [osx]
+  run:
+    - llvm-openmp >=4.0.1  # [osx]
 
 outputs:
   - name: libxgboost
