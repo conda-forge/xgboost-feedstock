@@ -31,8 +31,7 @@ requirements:
     - make
     - llvm-openmp >=4.0.1  # [osx]
   host:
-    - llvm-openmp >=4.0.1  # [osx]
-  run:
+    - make  # [osx]
     - llvm-openmp >=4.0.1  # [osx]
 
 outputs:
