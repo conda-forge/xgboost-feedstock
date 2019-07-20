@@ -20,7 +20,7 @@ source:
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win or linux32]
 
 requirements:
@@ -91,6 +91,9 @@ outputs:
     requirements:
       host:
         - python
+        # we install llvm-opnemp here to convince conda to 
+        # install llvm-openmp in the top-level host env above
+        - llvm-openmp >=4.0.1  # [osx]        
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
