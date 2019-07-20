@@ -31,10 +31,6 @@ requirements:
     - make
     - llvm-openmp >=4.0.1  # [osx]
   host:
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - git
-    - make
     - llvm-openmp >=4.0.1  # [osx]
 
 outputs:
