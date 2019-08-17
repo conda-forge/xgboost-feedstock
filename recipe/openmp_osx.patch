@@ -1,5 +1,5 @@
 --- a/CMakeLists.txt
-+++ tb/CMakeLists.txt
++++ b/CMakeLists.txt
 @@ -137,8 +137,8 @@
  add_executable(runxgboost ${PROJECT_SOURCE_DIR}/src/cli_main.cc ${XGBOOST_OBJ_SOURCES})
  # For cli_main.cc only
