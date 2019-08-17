@@ -18,6 +18,7 @@ source:
     - 0004-Fix-configure-check-for-OpenMP-on-macOS.patch
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch  # [not osx]
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
+    - openmp_osx.patch  # [osx]
 
 build:
   number: 2
