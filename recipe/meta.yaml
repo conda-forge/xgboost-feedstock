@@ -19,6 +19,7 @@ source:
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch  # [not osx]
     - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
     - openmp_osx.patch  # [osx]
+    - dmlc_core_openmp_osx.patch  # [osx]
 
 build:
   number: 2
