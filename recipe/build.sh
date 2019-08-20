@@ -7,8 +7,9 @@ then
     # this seems to be expected by clang when linking
     # ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
     export DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib
-    export CFLAGS="${CFLAGS} -I${PREFIX}/include"
-    export CXXFLAGS="${CXXFLAGS} -I${PREFIX}/include"
+    # export CFLAGS="${CFLAGS} -I${PREFIX}/include"
+    # export CXXFLAGS="${CXXFLAGS} -I${PREFIX}/include"
+    ln -s $PREFIX/lib/clang/*/include/omp.h $BUILD_PREFIX/lib/clang/4.0.1/include/omp.h
 fi
 
 {
