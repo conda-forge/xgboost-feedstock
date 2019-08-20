@@ -16,4 +16,6 @@ cmake -G "Unix Makefiles" \
       -D CMAKE_VERBOSE_MAKEFILE=ON \
       --debug-output \
       "${SRC_DIR}"
+cat $SRC_DIR/CMakeFiles/CMakeOutput.log
+cat $SRC_DIR/CMakeFiles/CMakeError.log
 make -j${CPU_COUNT}
