@@ -4,10 +4,10 @@
 
 if [[ $(uname) == Darwin ]]
 then
-    # this seems to be expected by clang when linking
-    # ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
+    # make sure cmake can compile openmp code with clang
     export DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib
-    ln -s $PREFIX/lib/clang/*/include/omp.h $BUILD_PREFIX/lib/clang/*/include/omp.h
+    clang_version=`${CC} --version | grep "clang version" | cut -d " " -f 3`
+    ln -s $PREFIX/lib/clang/*/include/omp.h $BUILD_PREFIX/lib/clang/${clang_version}/include/omp.h
 fi
 
 {
