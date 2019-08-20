@@ -12,5 +12,6 @@ cmake -G "Unix Makefiles" \
       -D CMAKE_BUILD_TYPE:STRING="Release" \
       -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
       -D CMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+      -D VERBOSE:BOOL=ON \
       "${SRC_DIR}"
 make -j${CPU_COUNT}
