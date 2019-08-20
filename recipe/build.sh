@@ -2,11 +2,12 @@
 
 # http://xgboost.readthedocs.io/en/latest/build.html
 
-# if [[ $(uname) == Darwin ]]
-# then
-#     # this seems to be expected by clang when linking
-#     ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
-# fi
+if [[ $(uname) == Darwin ]]
+then
+    # this seems to be expected by clang when linking
+    # ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
+    export DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib
+fi
 
 cmake -G "Unix Makefiles" \
       -D CMAKE_BUILD_TYPE:STRING="Release" \
