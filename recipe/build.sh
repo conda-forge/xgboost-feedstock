@@ -2,32 +2,24 @@
 
 # http://xgboost.readthedocs.io/en/latest/build.html
 
-if [[ ${OSTYPE} == msys ]]; then
-  if [[ "${ARCH}" == "32" ]]; then
-    # SSE2 is used and we get called from MSVC
-    # CPython so 32-bit GCC needs realignment.
-    export CC="gcc -mstackrealign"
-    export CXX="g++ -mstackrealign"
-  fi
-  cp make/mingw64.mk config.mk
-else
-  cp make/config.mk config.mk
-fi
-
-if [[ $(uname) == Darwin ]] && [[ ${CC} != "clang" ]]
+if [[ $(uname) == Darwin ]]
 then
-    # this seems to be expected by clang when linking
-    ln -s ${PREFIX}/lib/libomp.dylib ${PREFIX}/lib/libgomp.dylib
+    # make sure cmake can compile openmp code with clang
+    export DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib
+    clang_version=`${CC} --version | grep "clang version" | cut -d " " -f 3`
+    ln -s $PREFIX/lib/clang/*/include/omp.h $BUILD_PREFIX/lib/clang/${clang_version}/include/omp.h
 fi
 
-# XGBoost uses its own compilation flags.
-echo "ADD_LDFLAGS = ${LDFLAGS}" >> config.mk
-echo "ADD_CFLAGS = ${CFLAGS}" >> config.mk
-
-# disable openmp for os toolchain builds
-if [[ $(uname) == Darwin ]] && [[ ${CC} == "clang" ]]
-then
-    echo "USE_OPENMP = 0" >> config.mk
-fi
-
+{
+  cmake \
+    -G "Unix Makefiles" \
+    -D CMAKE_BUILD_TYPE:STRING="Release" \
+    -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
+    -D CMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+    "${SRC_DIR}"
+} || {
+  cat $SRC_DIR/CMakeFiles/CMakeOutput.log
+  cat $SRC_DIR/CMakeFiles/CMakeError.log
+  exit 1
+}
 make -j${CPU_COUNT}

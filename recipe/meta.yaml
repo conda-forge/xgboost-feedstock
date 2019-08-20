@@ -15,12 +15,9 @@ source:
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0002-Fix-R-package-PKGROOT.patch
     - 0003-Fix-R-package-mingw-w64-compiler-flags-remove-m64.patch
-    - 0004-Fix-configure-check-for-OpenMP-on-macOS.patch
-    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines.patch  # [not osx]
-    - 0005-Add-ADD_-FLAGS-to-end-of-commandlines-osx.patch  # [osx]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win or linux32 or py2k]
 
 requirements:
@@ -28,6 +25,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - git
+    - cmake
     - make
     - llvm-openmp >=4.0.1  # [osx]
   host:
@@ -41,6 +39,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - git
+        - cmake
         - make
         - llvm-openmp >=4.0.1  # [osx]
       host:
@@ -91,9 +90,9 @@ outputs:
     requirements:
       host:
         - python
-        # we install llvm-opnemp here to convince conda to 
+        # we install llvm-opnemp here to convince conda to
         # install llvm-openmp in the top-level host env above
-        - llvm-openmp >=4.0.1  # [osx]        
+        - llvm-openmp >=4.0.1  # [osx]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -113,6 +112,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - git
+        - cmake
         - make
         - llvm-openmp >=4.0.1  # [osx]
       host:
@@ -150,7 +150,7 @@ outputs:
 about:
   home: https://github.com/dmlc/xgboost
   license: Apache-2.0
-  license_file: {{ RECIPE_DIR }}/LICENSE
+  license_file: LICENSE
   summary: |
     Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library, for
     Python, R, Java, Scala, C++ and more. Runs on single machine, Hadoop, Spark, Flink
