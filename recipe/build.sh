@@ -2,14 +2,6 @@
 
 # http://xgboost.readthedocs.io/en/latest/build.html
 
-if [[ $(uname) == Darwin ]]
-then
-    # make sure cmake can compile openmp code with clang
-    export DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib
-    clang_version=`${CC} --version | grep "clang version" | cut -d " " -f 3`
-    ln -s $PREFIX/lib/clang/*/include/omp.h $BUILD_PREFIX/lib/clang/${clang_version}/include/omp.h
-fi
-
 {
   cmake \
     -G "Unix Makefiles" \
