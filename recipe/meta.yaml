@@ -17,7 +17,7 @@ source:
     - 0003-Fix-R-package-mingw-w64-compiler-flags-remove-m64.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win or linux32 or py2k]
 
 requirements:
