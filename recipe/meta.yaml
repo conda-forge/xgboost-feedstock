@@ -124,7 +124,6 @@ outputs:
         - r-magrittr
         - r-stringi
         - r-knitr
-        - icu
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
@@ -134,7 +133,6 @@ outputs:
         - r-data.table
         - r-magrittr
         - r-stringi
-        - icu
     test:
       files:
         - test-r-xgboost.r
