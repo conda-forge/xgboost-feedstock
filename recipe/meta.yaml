@@ -55,20 +55,14 @@ outputs:
   - name: py-xgboost
     script: install-py-xgboost.sh
     requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - llvm-openmp  # [osx]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - setuptools
         - pip
-        - llvm-openmp  # [osx]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - llvm-openmp  # [osx]
         - python
         - numpy
         - scipy
