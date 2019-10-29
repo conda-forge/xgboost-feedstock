@@ -30,6 +30,7 @@ requirements:
     - llvm-openmp  # [osx]
   host:
     - llvm-openmp  # [osx]
+    - r-base
 
 outputs:
   - name: libxgboost
