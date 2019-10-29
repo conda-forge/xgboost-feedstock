@@ -17,7 +17,7 @@ source:
     - 0003-Fix-R-package-mingw-w64-compiler-flags-remove-m64.patch
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win or linux32 or py2k]
 
 requirements:
@@ -55,20 +55,14 @@ outputs:
   - name: py-xgboost
     script: install-py-xgboost.sh
     requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - llvm-openmp  # [osx]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
         - setuptools
         - pip
-        - llvm-openmp  # [osx]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - llvm-openmp  # [osx]
         - python
         - numpy
         - scipy
