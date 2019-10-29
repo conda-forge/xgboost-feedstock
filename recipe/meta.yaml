@@ -47,11 +47,6 @@ outputs:
       run:
         - llvm-openmp  # [osx]
 
-  - name: _py-xgboost-mutex
-    version: 2.0
-    build:
-      string: cpu_0
-
   - name: py-xgboost
     script: install-py-xgboost.sh
     requirements:
@@ -62,7 +57,6 @@ outputs:
         - pip
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
-        - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - python
         - numpy
         - scipy
@@ -71,14 +65,6 @@ outputs:
       script: test-py-xgboost.py
       imports:
         - xgboost
-
-  - name: py-xgboost-cpu
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
 
   - name: xgboost
     requirements:
@@ -90,11 +76,6 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-
-  - name: _r-xgboost-mutex
-    version: 2.0
-    build:
-      string: cpu_0
 
   - name: r-xgboost
     script: install-r-xgboost.sh
@@ -120,7 +101,6 @@ outputs:
         - r-knitr
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
-        - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - llvm-openmp  # [osx]
         - r-base
         - r-matrix
@@ -132,14 +112,6 @@ outputs:
         - test-r-xgboost.r
       commands:
         - Rscript test-r-xgboost.r
-
-  - name: r-xgboost-cpu
-    requirements:
-      host:
-        - r-base
-      run:
-        - r-base
-        - {{ pin_subpackage('r-xgboost', exact=True) }}
 
 about:
   home: https://github.com/dmlc/xgboost
