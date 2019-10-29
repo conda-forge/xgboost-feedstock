@@ -10,8 +10,11 @@ jobs:
   strategy:
     maxParallel: 8
     matrix:
-      osx_:
-        CONFIG: osx_
+      osx_r_base3.5.1:
+        CONFIG: osx_r_base3.5.1
+        UPLOAD_PACKAGES: True
+      osx_r_base3.6:
+        CONFIG: osx_r_base3.6
         UPLOAD_PACKAGES: True
 
   steps:
