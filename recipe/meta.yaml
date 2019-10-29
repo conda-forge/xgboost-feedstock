@@ -1,6 +1,8 @@
 {% set name = "xgboost" %}
 {% set version = "0.90" %}
 
+{% set xgboost_proc_type = "cpu" %}
+
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -32,6 +34,20 @@ requirements:
     - llvm-openmp  # [osx]
 
 outputs:
+  - name: xgboost-proc
+    version: 1.0.0
+    build:
+      number: 0
+      string: "{{ xgboost_proc_type }}"
+    test:
+      commands:
+        - exit 0
+    about:
+      home: https://github.com/conda-forge/xgboost-feedstock
+      license: BSD-3-Clause
+      license_family: BSD
+      summary: A meta-package to select CPU or GPU xgboost build.
+
   - name: libxgboost
     script: install-libxgboost.sh
     requirements:
@@ -46,6 +62,8 @@ outputs:
         - llvm-openmp  # [osx]
       run:
         - llvm-openmp  # [osx]
+      run_constrained:
+        - xgboost-proc * {{ xgboost_proc_type }}
 
   - name: py-xgboost
     script: install-py-xgboost.sh
