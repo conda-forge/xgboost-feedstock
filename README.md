@@ -79,6 +79,7 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-py--xgboost-green.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-r--xgboost-green.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-xgboost-green.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-xgboost--proc-green.svg)](https://anaconda.org/conda-forge/xgboost-proc) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/xgboost-proc.svg)](https://anaconda.org/conda-forge/xgboost-proc) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/xgboost-proc.svg)](https://anaconda.org/conda-forge/xgboost-proc) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/xgboost-proc.svg)](https://anaconda.org/conda-forge/xgboost-proc) |
 
 Installing xgboost
 ==================
@@ -89,10 +90,10 @@ Installing `xgboost` from the `conda-forge` channel can be achieved by adding `c
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `libxgboost, py-xgboost, r-xgboost, xgboost` can be installed with:
+Once the `conda-forge` channel has been enabled, `libxgboost, py-xgboost, r-xgboost, xgboost, xgboost-proc` can be installed with:
 
 ```
-conda install libxgboost py-xgboost r-xgboost xgboost
+conda install libxgboost py-xgboost r-xgboost xgboost xgboost-proc
 ```
 
 It is possible to list all of the versions of `libxgboost` available on your platform with:
