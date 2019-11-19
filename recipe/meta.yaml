@@ -18,7 +18,7 @@ source:
 
 build:
   number: 4
-  skip: true  # [win or linux32 or py2k]
+  skip: true  # [linux32 or py2k]
 
 requirements:
   build:
@@ -28,6 +28,7 @@ requirements:
     - cmake
     - make
     - llvm-openmp  # [osx]
+    - ninja  # [win]
   host:
     - llvm-openmp  # [osx]
 
