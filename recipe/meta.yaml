@@ -104,12 +104,14 @@ outputs:
         - lib/R/lib
     requirements:
       build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - git
-        - cmake
-        - make
-        - llvm-openmp  # [osx]
+        - {{ compiler('c') }}    # [not win]
+        - {{ compiler('cxx') }}  # [not win]
+        - llvm-openmp            # [osx]
+        - m2w64-toolchain        # [win]
+        - git                    # [not win]
+        - m2-git                 # [win]
+        - make                   # [not win]
+        - posix                  # [win]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
