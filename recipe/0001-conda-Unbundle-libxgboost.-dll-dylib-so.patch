@@ -33,9 +33,9 @@ index d87922c..8158b5a 100644
                  os.path.join(curr_path, './lib/'),
                  os.path.join(sys.prefix, 'xgboost')]
 +    if sys.platform == 'win32':
-+        dll_path = [os.path.join(sys.prefix, 'Library', 'mingw-w64', 'bin')]
++        dll_path = [os.path.join(os.path.join(curr_path, '../../../..'), 'Library', 'mingw-w64', 'bin')]
 +    else:
-+        dll_path = [os.path.join(sys.prefix, 'lib')]
++        dll_path = [os.path.join(os.path.join(curr_path, '../../../..'), 'lib')]
      if sys.platform == 'win32':
          if platform.architecture()[0] == '64bit':
              dll_path.append(os.path.join(curr_path, '../../windows/x64/Release/'))
