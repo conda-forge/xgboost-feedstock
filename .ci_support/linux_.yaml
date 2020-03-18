@@ -20,9 +20,9 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- '3.6'
-- '3.7'
-- '3.8'
+- 3.6.* *_cpython
+- 3.7.* *_cpython
+- 3.8.* *_cpython
 r_base:
 - 3.5.1
 - '3.6'
