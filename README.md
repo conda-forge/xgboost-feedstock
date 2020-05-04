@@ -172,4 +172,5 @@ Feedstock Maintainers
 * [@aldanor](https://github.com/aldanor/)
 * [@beckermr](https://github.com/beckermr/)
 * [@jakirkham](https://github.com/jakirkham/)
+* [@ksangeek](https://github.com/ksangeek/)
 
