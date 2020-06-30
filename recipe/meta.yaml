@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "1.0.2" %}
+{% set version = "1.1.1" %}
 
 package:
   name: {{ name|lower }}
@@ -9,7 +9,7 @@ source:
   # we have to use git urls here to get the submodules needed for the
   # build
   git_url: https://github.com/dmlc/xgboost
-  git_tag: 917b0a7b46954e9be36cbc430a1727bb093234bb
+  git_tag: d6d8be6519185d2e78ba7de5c68e6b7c9733b6f2
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
@@ -17,7 +17,7 @@ source:
     - 0003-Fix-R-package-mingw-w64-compiler-flags-remove-m64.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win or linux32 or py2k]
 
 requirements:
