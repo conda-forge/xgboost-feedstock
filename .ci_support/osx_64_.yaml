@@ -14,8 +14,6 @@ cxx_compiler_version:
 - '10'
 macos_machine:
 - x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.9'
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -27,8 +25,12 @@ python:
 - 3.6.* *_cpython
 - 3.7.* *_cpython
 - 3.8.* *_cpython
+- 3.9.* *_cpython
 r_base:
 - '3.6'
 - '4.0'
 target_platform:
 - osx-64
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version

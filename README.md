@@ -5,12 +5,16 @@ Home: https://github.com/dmlc/xgboost
 
 Package license: Apache-2.0
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/xgboost-feedstock/blob/master/LICENSE.txt)
 
 Summary: Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library, for
 Python, R, Java, Scala, C++ and more. Runs on single machine, Hadoop, Spark, Flink
 and DataFlow
 
+
+Development: https://github.com/dmlc/xgboost/
+
+Documentation: https://xgboost.readthedocs.io/
 
 XGBoost is an optimized distributed gradient boosting library designed to be highly efficient,
 flexible and portable. It implements machine learning algorithms under the Gradient Boosting
