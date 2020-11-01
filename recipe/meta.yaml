@@ -16,7 +16,7 @@ source:
     - 0002-Fix-R-package-PKGROOT.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win or linux32 or py2k]
 
 requirements:
