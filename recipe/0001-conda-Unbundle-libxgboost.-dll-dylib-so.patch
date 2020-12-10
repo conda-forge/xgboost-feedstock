@@ -1,11 +1,12 @@
 diff --git a/python-package/xgboost/libpath.py b/python-package/xgboost/libpath.py
-index 65f7403e..4d044cf8 100644
+index 8ca53fac..7122110f 100644
 --- a/python-package/xgboost/libpath.py
 +++ b/python-package/xgboost/libpath.py
-@@ -25,6 +25,10 @@ def find_lib_path():
-         # editable installation, no copying is performed.
-         os.path.join(curr_path, os.path.pardir, os.path.pardir, 'lib'),
+@@ -28,7 +28,10 @@ def find_lib_path():
+         # option.
+         os.path.join(sys.prefix, 'lib'),
      ]
+-
 +    if sys.platform == 'win32':
 +        dll_path = [os.path.join(sys.prefix, 'Library', 'mingw-w64', 'bin')]
 +    else:

@@ -27,7 +27,7 @@ else
 fi
 
 mkdir -p ${LIBDIR} ${INCDIR}/xgboost ${BINDIR} || true
-cp -f ${SRC_DIR}/lib/*.a ${LIBDIR}/
+cp -f ${SRC_DIR}/lib/*.a ${LIBDIR}/  || true
 cp ${SRC_DIR}/xgboost${EXEEXT} ${BINDIR}/
 cp ${SRC_DIR}/lib/${XGBOOSTDSO} ${SODIR}/
 cp -Rf ${SRC_DIR}/include/xgboost ${INCDIR}/
