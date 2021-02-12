@@ -23,7 +23,8 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - git
+    - git                    # [not win]
+    - m2-git                 # [win]
     - cmake
     - make
     - llvm-openmp  # [osx]
