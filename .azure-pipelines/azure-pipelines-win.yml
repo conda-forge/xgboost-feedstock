@@ -77,7 +77,6 @@ jobs:
     # Special cased version setting some more things!
     - script: |
         call activate base
-        conda.exe init bash
         conda.exe build "recipe" -m .ci_support\%CONFIG%.yaml
       displayName: Build recipe (vs2008)
       env:
@@ -87,7 +86,6 @@ jobs:
 
     - script: |
         call activate base
-        conda.exe init bash
         conda.exe build "recipe" -m .ci_support\%CONFIG%.yaml
       displayName: Build recipe
       env:

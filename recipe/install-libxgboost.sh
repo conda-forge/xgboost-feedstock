@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#. activate "${BUILD_PREFIX}"
+. activate "${BUILD_PREFIX}"
 
 echo "here 1"
 if [[ ${OSTYPE} == msys ]]; then
