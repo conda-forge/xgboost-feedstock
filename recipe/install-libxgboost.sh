@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. activate "${BUILD_PREFIX}"
-
 echo "here 1"
 if [[ ${OSTYPE} == msys ]]; then
   # Just for now; should we handle slash fixing in conda-build?
