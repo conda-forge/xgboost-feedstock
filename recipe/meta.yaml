@@ -55,25 +55,26 @@ outputs:
     build:
       string: cpu_0
 
-  # - name: py-xgboost
-  #   script: install-py-xgboost.sh
-  #   requirements:
-  #     host:
-  #       - {{ pin_subpackage('libxgboost', exact=True) }}
-  #       - python
-  #       - setuptools
-  #       - pip
-  #     run:
-  #       - {{ pin_subpackage('libxgboost', exact=True) }}
-  #       - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-  #       - python
-  #       - numpy
-  #       - scipy
-  #       - scikit-learn
-  #   test:
-  #     script: test-py-xgboost.py
-  #     imports:
-  #       - xgboost
+  - name: py-xgboost
+    script: install-py-xgboost.sh  # [not win]
+    script: install-win-wrapper.bat  # [win]
+    requirements:
+      host:
+        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - python
+        - setuptools
+        - pip
+      run:
+        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
+        - python
+        - numpy
+        - scipy
+        - scikit-learn
+    test:
+      script: test-py-xgboost.py
+      imports:
+        - xgboost
 
   # - name: py-xgboost-cpu
   #   requirements:
