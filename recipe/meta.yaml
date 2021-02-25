@@ -50,10 +50,10 @@ outputs:
       run:
         - llvm-openmp  # [osx]
 
-  # - name: _py-xgboost-mutex
-  #   version: 2.0
-  #   build:
-  #     string: cpu_0
+  - name: _py-xgboost-mutex
+    version: 2.0
+    build:
+      string: cpu_0
 
   # - name: py-xgboost
   #   script: install-py-xgboost.sh
