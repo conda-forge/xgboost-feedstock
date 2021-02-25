@@ -76,13 +76,13 @@ outputs:
       imports:
         - xgboost
 
-  # - name: py-xgboost-cpu
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage('py-xgboost', exact=True) }}
+  - name: py-xgboost-cpu
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage('py-xgboost', exact=True) }}
 
   # - name: xgboost
   #   requirements:
