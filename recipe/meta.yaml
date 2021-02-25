@@ -34,7 +34,8 @@ requirements:
 
 outputs:
   - name: libxgboost
-    script: install-libxgboost.sh
+    script: install-libxgboost.sh  # [not win]
+    script: install-libxgboost.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
