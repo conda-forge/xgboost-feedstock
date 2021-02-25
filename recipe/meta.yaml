@@ -34,7 +34,7 @@ requirements:
 outputs:
   - name: libxgboost
     script: install-libxgboost.sh  # [not win]
-    script: install-libxgboost.bat  # [win]
+    script: install-win-wrapper.bat  # [win]
     build:
       activate_in_script: True
     requirements:
