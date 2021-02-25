@@ -90,8 +90,6 @@ jobs:
       displayName: Build recipe
       env:
         PYTHONUNBUFFERED: 1
-        GIT_CURL_VERBOSE: 1
-        GIT_TRACE: 1
       condition: not(contains(variables['CONFIG'], 'vs2008'))
     - script: |
         set "FEEDSTOCK_NAME=%BUILD_REPOSITORY_NAME:*/=%"

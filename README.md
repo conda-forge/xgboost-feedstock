@@ -74,14 +74,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_py--xgboost--mutex-green.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_py-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_py-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_py-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_r--xgboost--mutex-green.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_r-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_r-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_r-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libxgboost-green.svg)](https://anaconda.org/conda-forge/libxgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libxgboost.svg)](https://anaconda.org/conda-forge/libxgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libxgboost.svg)](https://anaconda.org/conda-forge/libxgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libxgboost.svg)](https://anaconda.org/conda-forge/libxgboost) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-py--xgboost-green.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-py--xgboost--cpu-green.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/py-xgboost-cpu.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/py-xgboost-cpu.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/py-xgboost-cpu.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-r--xgboost-green.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-r--xgboost--cpu-green.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/r-xgboost-cpu.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/r-xgboost-cpu.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/r-xgboost-cpu.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-xgboost-green.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) |
 
 Installing xgboost
 ==================
@@ -92,16 +85,16 @@ Installing `xgboost` from the `conda-forge` channel can be achieved by adding `c
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `_py-xgboost-mutex, _r-xgboost-mutex, libxgboost, py-xgboost, py-xgboost-cpu, r-xgboost, r-xgboost-cpu, xgboost` can be installed with:
+Once the `conda-forge` channel has been enabled, `libxgboost` can be installed with:
 
 ```
-conda install _py-xgboost-mutex _r-xgboost-mutex libxgboost py-xgboost py-xgboost-cpu r-xgboost r-xgboost-cpu xgboost
+conda install libxgboost
 ```
 
-It is possible to list all of the versions of `_py-xgboost-mutex` available on your platform with:
+It is possible to list all of the versions of `libxgboost` available on your platform with:
 
 ```
-conda search _py-xgboost-mutex --channel conda-forge
+conda search libxgboost --channel conda-forge
 ```
 
 
@@ -160,9 +153,9 @@ build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string).
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string).
  * If the version of a package **is** being increased, please remember to return
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string)
    back to 0.
 
 Feedstock Maintainers
