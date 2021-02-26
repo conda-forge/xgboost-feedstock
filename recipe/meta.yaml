@@ -141,13 +141,13 @@ outputs:
       commands:
         - Rscript test-r-xgboost.r
 
-  # - name: r-xgboost-cpu
-  #   requirements:
-  #     host:
-  #       - r-base
-  #     run:
-  #       - r-base
-  #       - {{ pin_subpackage('r-xgboost', exact=True) }}
+  - name: r-xgboost-cpu
+    requirements:
+      host:
+        - r-base
+      run:
+        - r-base
+        - {{ pin_subpackage('r-xgboost', exact=True) }}
 
 about:
   home: https://github.com/dmlc/xgboost
