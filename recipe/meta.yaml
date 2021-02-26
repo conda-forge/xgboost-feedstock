@@ -101,7 +101,8 @@ outputs:
       string: cpu_0
 
   - name: r-xgboost
-    script: install-r-xgboost.sh
+    script: install-r-xgboost.sh  # [not win]
+    script: install-win-wrapper.bat  # [win]
     build:
       rpaths:
         - lib/R/lib
