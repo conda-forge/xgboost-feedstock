@@ -84,16 +84,16 @@ outputs:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
 
-  # - name: xgboost
-  #   requirements:
-  #     host:
-  #       - python
-  #       # we install llvm-opnemp here to convince conda to
-  #       # install llvm-openmp in the top-level host env above
-  #       - llvm-openmp  # [osx]
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage('py-xgboost', exact=True) }}
+  - name: xgboost
+    requirements:
+      host:
+        - python
+        # we install llvm-opnemp here to convince conda to
+        # install llvm-openmp in the top-level host env above
+        - llvm-openmp  # [osx]
+      run:
+        - python
+        - {{ pin_subpackage('py-xgboost', exact=True) }}
 
   # - name: _r-xgboost-mutex
   #   version: 2.0
