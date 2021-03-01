@@ -102,7 +102,7 @@ outputs:
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
-    script: install-r-xgboost.bat # [win]
+    script: install-r-xgboost.bat  # [win]
     build:
       rpaths:
         - lib/R/lib
@@ -112,8 +112,7 @@ outputs:
         - {{ compiler('cxx') }}  # [not win]
         - llvm-openmp            # [osx]
         - {{ compiler('r_clang') }}        # [win]
-        - git                    # [not win]
-        - m2-git                 # [win]
+        - git                    
         - make                   # [not win]
         - posix                  # [win]
       host:
