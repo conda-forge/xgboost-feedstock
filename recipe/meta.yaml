@@ -29,8 +29,6 @@ requirements:
     - llvm-openmp  # [osx]
     - ninja  # [win]
   host:
-    - r-base
-    - r-processx
     - llvm-openmp  # [osx]
 
 outputs:
