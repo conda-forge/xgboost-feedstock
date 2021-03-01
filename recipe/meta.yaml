@@ -21,8 +21,6 @@ build:
 
 requirements:
   build:
-    - {{ compiler('m2w64_c') }}          # [win]
-    - {{ compiler('m2w64_cxx') }}        # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - git                    # [not win]
@@ -113,10 +111,11 @@ outputs:
         - lib/R/lib
     requirements:
       build:
-        - {{ compiler('c') }}    # [not win]
-        - {{ compiler('cxx') }}  # [not win]
+        - {{ compiler('m2w64_c') }}          # [win]
+        - {{ compiler('m2w64_cxx') }}        # [win]
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
         - llvm-openmp            # [osx]
-        - {{ compiler('r_clang') }}        # [win]
         - git                    
         - make                   # [not win]
         - posix                  # [win]

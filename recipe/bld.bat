@@ -5,7 +5,7 @@ cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON ^
-    -DR_LIB=ON -DDR_VERSION=4.0.3 ^
+    -DR_LIB=OFF ^
     "%SRC_DIR%"
 if errorlevel 1 exit 1
 
