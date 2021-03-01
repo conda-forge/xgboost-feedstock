@@ -8,6 +8,9 @@ jobs:
     vmImage: vs2017-win2016
   strategy:
     matrix:
+      win_64_r_base3.6:
+        CONFIG: win_64_r_base3.6
+        UPLOAD_PACKAGES: 'True'
       win_64_r_base4.0:
         CONFIG: win_64_r_base4.0
         UPLOAD_PACKAGES: 'True'
