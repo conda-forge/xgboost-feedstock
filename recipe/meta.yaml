@@ -119,6 +119,8 @@ outputs:
         - git                    
         - make                   # [not win]
         - posix                  # [win]
+        - cmake
+        - ninja  # [win]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
