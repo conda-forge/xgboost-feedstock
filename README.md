@@ -171,4 +171,5 @@ Feedstock Maintainers
 * [@aldanor](https://github.com/aldanor/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@ksangeek](https://github.com/ksangeek/)
+* [@xhochy](https://github.com/xhochy/)
 
