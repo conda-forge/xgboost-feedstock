@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "1.3.0" %}
+{% set version = "1.3.3" %}
 
 package:
   name: {{ name|lower }}
@@ -9,14 +9,14 @@ source:
   # we have to use git urls here to get the submodules needed for the
   # build
   git_url: https://github.com/dmlc/xgboost
-  git_tag: 1bf389998383f333490155dba4608bff9ca63b42
+  git_tag: 000292ce6d99ed658f6f9aebabc6e9b330696e7e
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0002-Fix-R-package-PKGROOT.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win or linux32 or py2k]
 
 requirements:
