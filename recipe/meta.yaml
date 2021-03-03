@@ -9,7 +9,7 @@ source:
   # we have to use git urls here to get the submodules needed for the
   # build
   git_url: https://github.com/dmlc/xgboost
-  git_tag: 000292ce6d99ed658f6f9aebabc6e9b330696e7e
+  git_tag: v1.3.3
   patches:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
