@@ -60,6 +60,8 @@ outputs:
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
+    build:
+      skip: true  # [python_impl == "pypy" and (ppc64le or aarch64)]
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -82,12 +84,16 @@ outputs:
         - xgboost
 
   - name: py-xgboost-cpu
+    build:
+      skip: true  # [python_impl == "pypy" and (ppc64le or aarch64)]
     requirements:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
 
   - name: xgboost
+    build:
+      skip: true  # [python_impl == "pypy" and (ppc64le or aarch64)]
     requirements:
       run:
         - python

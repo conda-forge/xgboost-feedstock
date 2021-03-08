@@ -29,6 +29,8 @@ pushd ${SRC_DIR}/R-package
   # It will be replaced with Makevars.in for the CRAN version
   # rm src/Makevars.win
   # shellcheck disable=SC2086
-  ac_cv_lib_execinfo_backtrace=no
+  if [[ "${target_platform}" == "osx-arm64" ]]; then
+    ac_cv_lib_execinfo_backtrace=no
+  fi
   ${R} CMD INSTALL --build . ${R_ARGS}
 popd
