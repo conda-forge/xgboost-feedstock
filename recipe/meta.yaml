@@ -108,6 +108,7 @@ outputs:
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
+      skip: true  # [r_base == "3.6" and (ppc64le or aarch64)]
       rpaths:
         - lib/R/lib
     requirements:
