@@ -1,0 +1,83 @@
+--- R-package/configure.orig	2021-03-08 09:08:54.000000000 +0100
++++ R-package/configure	2021-03-08 10:55:27.000000000 +0100
+@@ -2668,78 +2668,8 @@
+ fi
+ 
+ 
+-### Endian detection
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking endian" >&5
+-$as_echo_n "checking endian... " >&6; }
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
+-$as_echo "" >&6; }
+-if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
+-else
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-#include <stdint.h>
+-int
+-main ()
+-{
+-const uint16_t endianness = 256; return !!(*(const uint8_t *)&endianness);
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-if ac_fn_c_try_run "$LINENO"; then :
+-  ENDIAN_FLAG="-DDMLC_CMAKE_LITTLE_ENDIAN=1"
+-else
+-  ENDIAN_FLAG="-DDMLC_CMAKE_LITTLE_ENDIAN=0"
+-fi
+-rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+-  conftest.$ac_objext conftest.beam conftest.$ac_ext
+-fi
+-
+-
+-OPENMP_CXXFLAGS=""
+-
+-if test `uname -s` = "Linux"
+-then
+-  OPENMP_CXXFLAGS="\$(SHLIB_OPENMP_CXXFLAGS)"
+-fi
+-
+-if test `uname -s` = "Darwin"
+-then
+-  OPENMP_CXXFLAGS='-Xclang -fopenmp'
+-  OPENMP_LIB='-lomp'
+-  ac_pkg_openmp=no
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether OpenMP will work in a package" >&5
+-$as_echo_n "checking whether OpenMP will work in a package... " >&6; }
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-#include <omp.h>
+-int
+-main ()
+-{
+- return (omp_get_max_threads() <= 1);
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-  ${CC} -o conftest conftest.c ${OPENMP_LIB} ${OPENMP_CXXFLAGS} 2>/dev/null && ./conftest && ac_pkg_openmp=yes
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: ${ac_pkg_openmp}" >&5
+-$as_echo "${ac_pkg_openmp}" >&6; }
+-  if test "${ac_pkg_openmp}" = no; then
+-    OPENMP_CXXFLAGS=''
+-    OPENMP_LIB=''
+-    echo '*****************************************************************************************'
+-    echo '         OpenMP is unavailable on this Mac OSX system. Training speed may be suboptimal.'
+-    echo '         To use all CPU cores for training jobs, you should install OpenMP by running\n'
+-    echo '             brew install libomp'
+-    echo '*****************************************************************************************'
+-  fi
+-fi
+-
+-
++ENDIAN_FLAG="-DDMLC_CMAKE_LITTLE_ENDIAN=1"
++OPENMP_CXXFLAGS="-fopenmp"
+ 
+ 
+ 
