@@ -14,6 +14,7 @@ source:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0002-Fix-R-package-PKGROOT.patch
+    - 0003-R-osx-arm64.patch  # [osx and arm64]
 
 build:
   number: 0
@@ -27,7 +28,7 @@ requirements:
     - cmake
     - make
     - llvm-openmp  # [osx]
-    - ninja  # [win]
+    - ninja
   host:
     - llvm-openmp  # [osx]
 
@@ -44,6 +45,7 @@ outputs:
         - git
         - cmake
         - make
+        - ninja
         - llvm-openmp  # [osx]
       host:
         - llvm-openmp  # [osx]
@@ -59,6 +61,9 @@ outputs:
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
@@ -78,20 +83,12 @@ outputs:
 
   - name: py-xgboost-cpu
     requirements:
-      host:
-        - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
 
   - name: xgboost
     requirements:
-      host:
-        - python
-        # we install llvm-opnemp here to convince conda to
-        # install llvm-openmp in the top-level host env above
-        - llvm-openmp  # [osx]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -113,12 +110,16 @@ outputs:
         - {{ compiler('m2w64_cxx') }}        # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - cross-r-base {{ r_base }}  # [build_platform != target_platform]
+        - r-magrittr                  # [build_platform != target_platform]
+        - r-matrix                   # [build_platform != target_platform]
+        - r-data.table               # [build_platform != target_platform]
         - llvm-openmp            # [osx]
-        - git                    
+        - git
         - make                   # [not win]
         - posix                  # [win]
         - cmake
-        - ninja  # [win]
+        - ninja
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
