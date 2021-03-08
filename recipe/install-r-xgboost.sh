@@ -10,7 +10,7 @@
   unset CXXFLAGS
   unset CPPFLAGS
 
-  mkdir build-build
+  mkdir -p build-build
   pushd build-build
   cmake ${CMAKE_ARGS} \
     -GNinja \
