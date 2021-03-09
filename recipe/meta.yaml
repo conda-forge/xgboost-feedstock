@@ -17,7 +17,7 @@ source:
     - 0003-R-osx-arm64.patch  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -26,7 +26,6 @@ requirements:
     - git                    # [not win]
     - m2-git                 # [win]
     - cmake
-    - make
     - llvm-openmp  # [osx]
     - ninja
   host:
