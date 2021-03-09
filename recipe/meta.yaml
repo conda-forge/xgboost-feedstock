@@ -16,7 +16,7 @@ source:
     - 0002-Fix-R-package-PKGROOT.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -58,6 +58,9 @@ outputs:
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
@@ -113,7 +116,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - llvm-openmp            # [osx]
-        - git                    
+        - git
         - make                   # [not win]
         - posix                  # [win]
         - cmake
