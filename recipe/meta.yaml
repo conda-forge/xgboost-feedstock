@@ -16,7 +16,7 @@ source:
     - 0002-Fix-R-package-PKGROOT.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -25,9 +25,8 @@ requirements:
     - git                    # [not win]
     - m2-git                 # [win]
     - cmake
-    - make
     - llvm-openmp  # [osx]
-    - ninja  # [win]
+    - ninja
   host:
     - llvm-openmp  # [osx]
 
@@ -118,7 +117,7 @@ outputs:
         - make                   # [not win]
         - posix                  # [win]
         - cmake
-        - ninja  # [win]
+        - ninja
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
