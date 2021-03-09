@@ -1,27 +1,29 @@
 #!/bin/bash
 
-(
-  export CC=$CC_FOR_BUILD
-  export CXX=$CXX_FOR_BUILD
-  export AR=($CC_FOR_BUILD -print-prog-name=ar)
-  export NM=($CC_FOR_BUILD -print-prog-name=nm)
-  export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
-  unset CFLAGS
-  unset CXXFLAGS
-  unset CPPFLAGS
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
+  (
+    export CC=$CC_FOR_BUILD
+    export CXX=$CXX_FOR_BUILD
+    export AR=($CC_FOR_BUILD -print-prog-name=ar)
+    export NM=($CC_FOR_BUILD -print-prog-name=nm)
+    export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
+    unset CFLAGS
+    unset CXXFLAGS
+    unset CPPFLAGS
 
-  mkdir -p build-build
-  pushd build-build
-  cmake ${CMAKE_ARGS} \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE:STRING="Release" \
-    -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
-    -DCMAKE_INSTALL_PREFIX:PATH="${CONDA_PREFIX}" \
-    -DUSE_OPENMP=OFF \
-    "${SRC_DIR}"
-  ninja install
-  popd
-)
+    mkdir -p build-build
+    pushd build-build
+    cmake ${CMAKE_ARGS} \
+      -GNinja \
+      -DCMAKE_BUILD_TYPE:STRING="Release" \
+      -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
+      -DCMAKE_INSTALL_PREFIX:PATH="${CONDA_PREFIX}" \
+      -DUSE_OPENMP=OFF \
+      "${SRC_DIR}"
+    ninja install
+    popd
+  )
+fi
 
 pushd ${SRC_DIR}/R-package
   # Remove src/Makevars.win because it says:
