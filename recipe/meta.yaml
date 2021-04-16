@@ -138,7 +138,7 @@ outputs:
         - r-matrix
         - r-data.table
         - r-magrittr
-        - r-stringi
+        - r-jsonlite
     test:
       files:
         - test-r-xgboost.r
