@@ -90,6 +90,7 @@ Installing `xgboost` from the `conda-forge` channel can be achieved by adding `c
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `_py-xgboost-mutex, _r-xgboost-mutex, libxgboost, py-xgboost, py-xgboost-cpu, r-xgboost, r-xgboost-cpu, xgboost` can be installed with:
