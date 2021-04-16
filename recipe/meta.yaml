@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "1.3.3" %}
+{% set version = "1.4.0" %}
 
 package:
   name: {{ name|lower }}-split
@@ -16,7 +16,7 @@ source:
     - 0002-Fix-R-package-PKGROOT.patch
 
 build:
-  number: 2
+  number: 0
 
 requirements:
   build:
