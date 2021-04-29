@@ -1,8 +1,8 @@
 diff --git a/python-package/xgboost/libpath.py b/python-package/xgboost/libpath.py
-index 8ca53fac..7122110f 100644
+index f7a7d9cd..70d73626 100644
 --- a/python-package/xgboost/libpath.py
 +++ b/python-package/xgboost/libpath.py
-@@ -28,7 +28,10 @@ def find_lib_path():
+@@ -29,7 +29,10 @@ def find_lib_path() -> List[str]:
          # option.
          os.path.join(sys.prefix, 'lib'),
      ]
