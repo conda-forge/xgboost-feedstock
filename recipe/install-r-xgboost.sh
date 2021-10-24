@@ -5,5 +5,5 @@ pushd ${SRC_DIR}/R-package
   # This file is only used for windows compilation from github
   # It will be replaced with Makevars.in for the CRAN version
   # rm src/Makevars.win
-  ${R} CMD INSTALL --preclean --build .
+  ${R} CMD INSTALL --preclean --build . ${R_ARGS}
 popd
