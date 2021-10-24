@@ -121,6 +121,12 @@ outputs:
         - posix                  # [win]
         - cmake
         - ninja
+        - r-base         # [build_platform != target_platform]
+        - r-matrix       # [build_platform != target_platform]
+        - r-data.table   # [build_platform != target_platform]
+        - r-magrittr     # [build_platform != target_platform]
+        - r-jsonlite     # [build_platform != target_platform]
+        - r-knitr        # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
