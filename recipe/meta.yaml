@@ -17,7 +17,7 @@ source:
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
