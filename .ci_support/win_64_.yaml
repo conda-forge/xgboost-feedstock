@@ -18,6 +18,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
+- 3.10.* *_cpython
 - 3.7.* *_73_pypy
 - 3.7.* *_cpython
 - 3.8.* *_cpython
