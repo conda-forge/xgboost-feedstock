@@ -69,16 +69,12 @@ outputs:
       string: gpu_0  # [cuda_compiler_version != "None"]
 
   - name: py-xgboost
-    build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
@@ -87,9 +83,6 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - cudatoolkit      # [cuda_compiler_version != "None"]
-        - cudnn      # [cuda_compiler_version != "None"]
-        - nccl       # [cuda_compiler_version != "None"]
         - python
         - numpy
         - scipy
