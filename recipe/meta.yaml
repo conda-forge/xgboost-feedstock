@@ -17,18 +17,22 @@ source:
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
     - git                    # [not win]
     - m2-git                 # [win]
     - cmake
     - llvm-openmp  # [osx]
     - ninja
   host:
+    - cudatoolkit      # [cuda_compiler_version != "None"]
+    - cudnn      # [cuda_compiler_version != "None"]
+    - nccl       # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
 
 outputs:
@@ -37,31 +41,42 @@ outputs:
     script: install-win-wrapper.bat  # [win]
     build:
       activate_in_script: True
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
         - git
         - cmake
         - make
         - llvm-openmp  # [osx]
       host:
         - llvm-openmp  # [osx]
+        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - cudnn      # [cuda_compiler_version != "None"]
+        - nccl       # [cuda_compiler_version != "None"]
       run:
         - llvm-openmp  # [osx]
 
   - name: _py-xgboost-mutex
     version: 2.0
     build:
-      string: cpu_0
+      string: cpu_0  # [cuda_compiler_version == "None"]
+      string: gpu_0  # [cuda_compiler_version != "None"]
 
   - name: py-xgboost
+    build:
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
@@ -70,6 +85,9 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
+        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - cudnn      # [cuda_compiler_version != "None"]
+        - nccl       # [cuda_compiler_version != "None"]
         - python
         - numpy
         - scipy
@@ -89,12 +107,18 @@ outputs:
         - {{ pin_subpackage('py-xgboost', exact=True) }}
 
   - name: xgboost
+    build:
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
     requirements:
       host:
         - python
         # we install llvm-opnemp here to convince conda to
         # install llvm-openmp in the top-level host env above
         - llvm-openmp  # [osx]
+        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - cudnn      # [cuda_compiler_version != "None"]
+        - nccl       # [cuda_compiler_version != "None"]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -102,12 +126,15 @@ outputs:
   - name: _r-xgboost-mutex
     version: 2.0
     build:
-      string: cpu_0
+      string: cpu_0  # [cuda_compiler_version == "None"]
+      string: gpu_0  # [cuda_compiler_version != "None"]
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_R }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_{ CONDA_R }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       rpaths:
         - lib/R/lib
     requirements:
@@ -116,6 +143,7 @@ outputs:
         - {{ compiler('m2w64_cxx') }}        # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
         - llvm-openmp            # [osx]
         - git
         - make                   # [not win]
@@ -138,6 +166,9 @@ outputs:
         - r-magrittr
         - r-jsonlite
         - r-knitr
+        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - cudnn      # [cuda_compiler_version != "None"]
+        - nccl       # [cuda_compiler_version != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
