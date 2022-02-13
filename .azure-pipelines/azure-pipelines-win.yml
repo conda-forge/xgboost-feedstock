@@ -8,20 +8,8 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
-      win_64_cuda_compiler_version10.2cudnn7:
-        CONFIG: win_64_cuda_compiler_version10.2cudnn7
-        UPLOAD_PACKAGES: 'True'
-      win_64_cuda_compiler_version11.0cudnn8:
-        CONFIG: win_64_cuda_compiler_version11.0cudnn8
-        UPLOAD_PACKAGES: 'True'
-      win_64_cuda_compiler_version11.1cudnn8:
-        CONFIG: win_64_cuda_compiler_version11.1cudnn8
-        UPLOAD_PACKAGES: 'True'
-      win_64_cuda_compiler_version11.2cudnn8:
-        CONFIG: win_64_cuda_compiler_version11.2cudnn8
-        UPLOAD_PACKAGES: 'True'
-      win_64_cuda_compiler_versionNonecudnnundefined:
-        CONFIG: win_64_cuda_compiler_versionNonecudnnundefined
+      win_64_cuda_compiler_versionNone:
+        CONFIG: win_64_cuda_compiler_versionNone
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:

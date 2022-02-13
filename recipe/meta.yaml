@@ -18,6 +18,7 @@ source:
 
 build:
   number: 1
+  skip: true  # [win and cuda_compiler_version != "None"]
 
 requirements:
   build:
@@ -133,8 +134,8 @@ outputs:
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_R }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_{ CONDA_R }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_rh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       rpaths:
         - lib/R/lib
     requirements:
