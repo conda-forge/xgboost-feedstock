@@ -5,7 +5,7 @@ set -exuo pipefail
 mkdir -p build-target
 
 if [[ ${cuda_compiler_version} != "None" ]]; then
-    export CMAKE_ARGS="-DUSE_CUDA=ON ${CMAKE_ARGS}"
+    export CMAKE_ARGS="-DUSE_CUDA=ON -DUSE_NCCL=ON -DBUILD_WITH_SHARED_NCCL=ON ${CMAKE_ARGS}"
 fi
 
 pushd build-target
