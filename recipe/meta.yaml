@@ -146,8 +146,8 @@ outputs:
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}_r{{ r_base }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_r{{ r_base }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       rpaths:
         - lib/R/lib
     requirements:
