@@ -1,9 +1,5 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
 c_compiler:
-- clang
-c_compiler_version:
-- '11'
+- vs2017
 channel_sources:
 - conda-forge
 channel_targets:
@@ -11,13 +7,11 @@ channel_targets:
 cuda_compiler_version:
 - None
 cxx_compiler:
-- clangxx
-cxx_compiler_version:
-- '11'
-llvm_openmp:
-- '11'
-macos_machine:
-- x86_64-apple-darwin13.4.0
+- vs2017
+m2w64_c_compiler:
+- m2w64-toolchain
+m2w64_cxx_compiler:
+- m2w64-toolchain
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -35,7 +29,4 @@ r_base:
 - '4.0'
 - '4.1'
 target_platform:
-- osx-64
-zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version
+- win-64
