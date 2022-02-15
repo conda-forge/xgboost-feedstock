@@ -156,6 +156,7 @@ outputs:
         - {{ compiler('m2w64_cxx') }}        # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
         - llvm-openmp            # [osx]
         - git
         - make                   # [not win]
@@ -178,6 +179,8 @@ outputs:
         - r-magrittr
         - r-jsonlite
         - r-knitr
+        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - nccl       # [cuda_compiler_version != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
