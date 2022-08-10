@@ -20,6 +20,7 @@ build:
   number: 0
   skip: true  # [win and cuda_compiler_version != "None"]
   skip: true  # [cuda_compiler_version == "10.2"]
+  skip: true  # [python_impl == 'pypy' and py < 38]
 
 requirements:
   build:
