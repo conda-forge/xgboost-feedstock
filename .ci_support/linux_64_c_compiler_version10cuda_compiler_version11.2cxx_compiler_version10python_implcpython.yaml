@@ -1,7 +1,7 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '9'
+- '10'
 cdt_name:
 - cos7
 channel_sources:
@@ -11,13 +11,13 @@ channel_targets:
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
-- '11.1'
+- '11.2'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '9'
+- '10'
 docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.1
+- quay.io/condaforge/linux-anvil-cuda:11.2
 nccl:
 - '2'
 pin_run_as_build:
@@ -28,11 +28,13 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
-- 3.7.* *_73_pypy
 - 3.7.* *_cpython
 - 3.8.* *_cpython
 - 3.9.* *_cpython
+python_impl:
+- cpython
+- cpython
+- cpython
 r_base:
 - '4.0'
 - '4.1'
@@ -44,3 +46,5 @@ zip_keys:
   - cuda_compiler_version
   - cdt_name
   - docker_image
+- - python
+  - python_impl
