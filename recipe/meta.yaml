@@ -20,7 +20,6 @@ build:
   number: 0
   skip: true  # [win and cuda_compiler_version != "None"]
   skip: true  # [cuda_compiler_version == "10.2"]
-  skip: true  # [python_impl == 'pypy' and py < 38]
 
 requirements:
   build:
@@ -72,6 +71,7 @@ outputs:
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
+      skip: true  # [python_impl == 'pypy' and py < 38]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
     requirements:
@@ -99,6 +99,7 @@ outputs:
   - name: py-xgboost-cpu
     build:
       skip: true  # [cuda_compiler_version != "None"]
+      skip: true  # [python_impl == 'pypy' and py < 38]
     requirements:
       host:
         - python
@@ -110,6 +111,7 @@ outputs:
   - name: py-xgboost-gpu
     build:
       skip: true  # [cuda_compiler_version == "None"]
+      skip: true  # [python_impl == 'pypy' and py < 38]
     requirements:
       host:
         - python
@@ -122,6 +124,7 @@ outputs:
 
   - name: xgboost
     build:
+      skip: true  # [python_impl == 'pypy' and py < 38]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
     requirements:
