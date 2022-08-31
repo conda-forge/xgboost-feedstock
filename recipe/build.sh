@@ -20,5 +20,5 @@ cmake ${CMAKE_ARGS} \
       -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
       -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
       "${SRC_DIR}"
-cmake --build . --target install --config Release
+cmake --build . --config Release
 popd
