@@ -10,7 +10,12 @@ fi
 
 # Limit number of threads used to avoid hardware oversubscription
 if [[ "${target_platform}" == "linux-aarch64" ]] || [[ "${target_platform}" == "linux-ppc64le" ]]; then
-    export CMAKE_BUILD_PARALLEL_LEVEL=3
+    # CUDA builds are extra sensitive to oversubscription
+    if [ "${cuda_compiler_version}" != "None" ]; then
+        export CMAKE_BUILD_PARALLEL_LEVEL=2
+    else
+        export CMAKE_BUILD_PARALLEL_LEVEL=3
+    fi
 fi
 
 pushd build-target
