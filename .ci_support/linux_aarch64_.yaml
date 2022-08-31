@@ -32,11 +32,6 @@ python:
 - 3.7.* *_cpython
 - 3.8.* *_cpython
 - 3.9.* *_cpython
-python_impl:
-- cpython
-- cpython
-- cpython
-- cpython
 r_base:
 - '4.0'
 - '4.1'
@@ -48,5 +43,3 @@ zip_keys:
   - cuda_compiler_version
   - cdt_name
   - docker_image
-- - python
-  - python_impl
