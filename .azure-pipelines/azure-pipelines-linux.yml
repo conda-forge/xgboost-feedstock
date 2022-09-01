@@ -24,10 +24,6 @@ jobs:
         CONFIG: linux_64_c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
-      linux_aarch64_:
-        CONFIG: linux_aarch64_
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
   timeoutInMinutes: 360
 
   steps:
