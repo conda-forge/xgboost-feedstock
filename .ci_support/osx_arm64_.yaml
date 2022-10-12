@@ -30,8 +30,8 @@ python:
 - 3.8.* *_cpython
 - 3.9.* *_cpython
 r_base:
-- '4.0'
 - '4.1'
+- '4.2'
 target_platform:
 - osx-arm64
 zip_keys:
