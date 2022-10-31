@@ -1,37 +1,35 @@
 diff --git a/R-package/configure b/R-package/configure
-index c790d3b6..5399d57c 100755
+index 5092cbdf..f1558131 100755
 --- a/R-package/configure
 +++ b/R-package/configure
-@@ -3228,37 +3228,7 @@ fi
+@@ -2669,35 +2669,7 @@ fi
  
  
  ### Endian detection
--{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking endian" >&5
--printf %s "checking endian... " >&6; }
--{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: " >&5
--printf "%s\n" "" >&6; }
--if test "$cross_compiling" = yes
--then :
--  { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
--printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking endian" >&5
+-$as_echo_n "checking endian... " >&6; }
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
+-$as_echo "" >&6; }
+-if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
 -as_fn_error $? "cannot run test program while cross compiling
 -See \`config.log' for more details" "$LINENO" 5; }
--else $as_nop
+-else
 -  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 -/* end confdefs.h.  */
 -#include <stdint.h>
 -int
--main (void)
+-main ()
 -{
 -const uint16_t endianness = 256; return !!(*(const uint8_t *)&endianness);
 -  ;
 -  return 0;
 -}
 -_ACEOF
--if ac_fn_c_try_run "$LINENO"
--then :
+-if ac_fn_c_try_run "$LINENO"; then :
 -  ENDIAN_FLAG="-DDMLC_CMAKE_LITTLE_ENDIAN=1"
--else $as_nop
+-else
 -  ENDIAN_FLAG="-DDMLC_CMAKE_LITTLE_ENDIAN=0"
 -fi
 -rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
