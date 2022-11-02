@@ -1,5 +1,14 @@
+From f8ec7ff592140327a7c822718b0edf027d0c6b3d Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Sun, 24 Oct 2021 20:11:23 +0200
+Subject: [PATCH] Force endian flag in cross-compilation mode
+
+---
+ R-package/configure | 30 +-----------------------------
+ 1 file changed, 1 insertion(+), 29 deletions(-)
+
 diff --git a/R-package/configure b/R-package/configure
-index 5092cbdf..f1558131 100755
+index dd5f200fb..60f7b64cd 100755
 --- a/R-package/configure
 +++ b/R-package/configure
 @@ -2669,35 +2669,7 @@ fi
@@ -39,3 +48,6 @@ index 5092cbdf..f1558131 100755
  
  
  OPENMP_CXXFLAGS=""
+-- 
+2.33.1
+
