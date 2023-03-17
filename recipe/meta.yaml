@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "1.7.1" %}
+{% set version = "1.7.4" %}
 
 package:
   name: {{ name|lower }}-split
