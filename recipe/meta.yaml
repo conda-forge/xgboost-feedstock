@@ -31,7 +31,7 @@ requirements:
     - llvm-openmp  # [osx]
     - ninja
   host:
-    - cudatoolkit      # [cuda_compiler_version != "None"]
+    - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
     - nccl       # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
 
@@ -54,7 +54,7 @@ outputs:
         - llvm-openmp  # [osx]
       host:
         - llvm-openmp  # [osx]
-        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - nccl       # [cuda_compiler_version != "None"]
       run:
         - llvm-openmp  # [osx]
@@ -128,7 +128,7 @@ outputs:
         # we install llvm-opnemp here to convince conda to
         # install llvm-openmp in the top-level host env above
         - llvm-openmp  # [osx]
-        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - nccl       # [cuda_compiler_version != "None"]
       run:
         - python
@@ -178,7 +178,7 @@ outputs:
         - r-magrittr
         - r-jsonlite
         - r-knitr
-        - cudatoolkit      # [cuda_compiler_version != "None"]
+        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - nccl       # [cuda_compiler_version != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
