@@ -8,7 +8,13 @@ conda_forge_output_validation: true
 github:
   branch_name: main
   tooling_branch_name: main
+github_actions:
+  store_build_artifacts: true
+  upload_packages: false
 provider:
-  linux_aarch64: default
-  linux_ppc64le: default
+  linux: github_actions
+  linux_aarch64: github_actions
+  linux_ppc64le: github_actions
+  osx: github_actions
+  win: github_actions
 test_on_native_only: true
