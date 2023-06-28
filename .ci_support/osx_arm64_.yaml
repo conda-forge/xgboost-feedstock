@@ -7,7 +7,7 @@ c_compiler_version:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- rapidsai-nightly main
 cuda_compiler_version:
 - None
 cxx_compiler:
