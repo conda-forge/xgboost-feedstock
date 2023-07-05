@@ -266,5 +266,6 @@ Feedstock Maintainers
 * [@fhoehle](https://github.com/fhoehle/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@ksangeek](https://github.com/ksangeek/)
+* [@mfansler](https://github.com/mfansler/)
 * [@xhochy](https://github.com/xhochy/)
 
