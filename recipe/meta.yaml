@@ -151,28 +151,29 @@ outputs:
         - lib/R/lib
     requirements:
       build:
-        - {{ compiler('m2w64_c') }}          # [win]
-        - {{ compiler('m2w64_cxx') }}        # [win]
+        - libcxx                       # [aarch64 or ppc64le]      
+        - {{ compiler('m2w64_c') }}    # [win]
+        - {{ compiler('m2w64_cxx') }}  # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
-        - llvm-openmp            # [osx]
+        - {{ compiler('cuda') }}       # [cuda_compiler_version != "None"]
         - git
-        - make                   # [not win]
-        - posix                  # [win]
+        - make                         # [not win]
+        - posix                        # [win]
         - cmake
         - ninja
-        - cross-r-base {{ r_base }}  # [build_platform != target_platform]
-        - r-base                     # [build_platform != target_platform]
-        - r-matrix                   # [build_platform != target_platform]
-        - r-data.table               # [build_platform != target_platform]
-        - r-magrittr                 # [build_platform != target_platform]
-        - r-jsonlite                 # [build_platform != target_platform]
-        - r-knitr                    # [build_platform != target_platform]
+        - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+        - r-base                       # [build_platform != target_platform]
+        - r-matrix                     # [build_platform != target_platform]
+        - r-data.table                 # [build_platform != target_platform]
+        - r-magrittr                   # [build_platform != target_platform]
+        - r-jsonlite                   # [build_platform != target_platform]
+        - r-knitr                      # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
         - llvm-openmp  # [osx]
+        - libgomp      # [linux]
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -183,7 +184,6 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
-        - llvm-openmp  # [osx]
         - r-base
         - r-matrix
         - r-data.table
@@ -242,3 +242,4 @@ extra:
     - jakirkham
     - ksangeek
     - xhochy
+    - mfansler
