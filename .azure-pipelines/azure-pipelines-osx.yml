@@ -11,6 +11,9 @@ jobs:
       osx_64_:
         CONFIG: osx_64_
         UPLOAD_PACKAGES: 'True'
+      osx_arm64_:
+        CONFIG: osx_arm64_
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
   steps:
@@ -29,3 +32,5 @@ jobs:
     displayName: Run OSX build
     env:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
+      FEEDSTOCK_TOKEN: $(FEEDSTOCK_TOKEN)
+      STAGING_BINSTAR_TOKEN: $(STAGING_BINSTAR_TOKEN)
