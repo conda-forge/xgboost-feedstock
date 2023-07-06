@@ -3,6 +3,9 @@ About xgboost-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/xgboost-feedstock/blob/main/LICENSE.txt)
 
+About xgboost
+-------------
+
 Home: https://github.com/dmlc/xgboost
 
 Package license: Apache-2.0
@@ -22,6 +25,14 @@ framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) t
 data science problems in a fast and accurate way. The same code runs on major distributed
 environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.
 
+About xgboost-proc
+------------------
+
+Home: https://github.com/conda-forge/xgboost-feedstock
+
+Package license: BSD-3-Clause
+
+Summary: A meta-package to select CPU or GPU xgboost build.
 
 Current build status
 ====================
@@ -137,16 +148,11 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_py--xgboost--mutex-green.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_py-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_py-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_py-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_py-xgboost-mutex) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-_r--xgboost--mutex-green.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/_r-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/_r-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/_r-xgboost-mutex.svg)](https://anaconda.org/conda-forge/_r-xgboost-mutex) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libxgboost-green.svg)](https://anaconda.org/conda-forge/libxgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libxgboost.svg)](https://anaconda.org/conda-forge/libxgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libxgboost.svg)](https://anaconda.org/conda-forge/libxgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libxgboost.svg)](https://anaconda.org/conda-forge/libxgboost) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-py--xgboost-green.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-py--xgboost--cpu-green.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/py-xgboost-cpu.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/py-xgboost-cpu.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/py-xgboost-cpu.svg)](https://anaconda.org/conda-forge/py-xgboost-cpu) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-py--xgboost--gpu-green.svg)](https://anaconda.org/conda-forge/py-xgboost-gpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/py-xgboost-gpu.svg)](https://anaconda.org/conda-forge/py-xgboost-gpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/py-xgboost-gpu.svg)](https://anaconda.org/conda-forge/py-xgboost-gpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/py-xgboost-gpu.svg)](https://anaconda.org/conda-forge/py-xgboost-gpu) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-r--xgboost-green.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/r-xgboost.svg)](https://anaconda.org/conda-forge/r-xgboost) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-r--xgboost--cpu-green.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/r-xgboost-cpu.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/r-xgboost-cpu.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/r-xgboost-cpu.svg)](https://anaconda.org/conda-forge/r-xgboost-cpu) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-r--xgboost--gpu-green.svg)](https://anaconda.org/conda-forge/r-xgboost-gpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/r-xgboost-gpu.svg)](https://anaconda.org/conda-forge/r-xgboost-gpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/r-xgboost-gpu.svg)](https://anaconda.org/conda-forge/r-xgboost-gpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/r-xgboost-gpu.svg)](https://anaconda.org/conda-forge/r-xgboost-gpu) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-xgboost-green.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/xgboost.svg)](https://anaconda.org/conda-forge/xgboost) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-xgboost--proc-green.svg)](https://anaconda.org/conda-forge/xgboost-proc) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/xgboost-proc.svg)](https://anaconda.org/conda-forge/xgboost-proc) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/xgboost-proc.svg)](https://anaconda.org/conda-forge/xgboost-proc) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/xgboost-proc.svg)](https://anaconda.org/conda-forge/xgboost-proc) |
 
 Installing xgboost
 ==================
@@ -158,41 +164,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `_py-xgboost-mutex, _r-xgboost-mutex, libxgboost, py-xgboost, py-xgboost-cpu, py-xgboost-gpu, r-xgboost, r-xgboost-cpu, r-xgboost-gpu, xgboost` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libxgboost, py-xgboost, r-xgboost, xgboost, xgboost-proc` can be installed with `conda`:
 
 ```
-conda install _py-xgboost-mutex _r-xgboost-mutex libxgboost py-xgboost py-xgboost-cpu py-xgboost-gpu r-xgboost r-xgboost-cpu r-xgboost-gpu xgboost
-```
-
-or with `mamba`:
-
-```
-mamba install _py-xgboost-mutex _r-xgboost-mutex libxgboost py-xgboost py-xgboost-cpu py-xgboost-gpu r-xgboost r-xgboost-cpu r-xgboost-gpu xgboost
-```
-
-It is possible to list all of the versions of `_py-xgboost-mutex` available on your platform with `conda`:
-
-```
-conda search _py-xgboost-mutex --channel conda-forge
+conda install libxgboost py-xgboost r-xgboost xgboost xgboost-proc
 ```
 
 or with `mamba`:
 
 ```
-mamba search _py-xgboost-mutex --channel conda-forge
+mamba install libxgboost py-xgboost r-xgboost xgboost xgboost-proc
+```
+
+It is possible to list all of the versions of `libxgboost` available on your platform with `conda`:
+
+```
+conda search libxgboost --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search libxgboost --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search _py-xgboost-mutex --channel conda-forge
+mamba repoquery search libxgboost --channel conda-forge
 
-# List packages depending on `_py-xgboost-mutex`:
-mamba repoquery whoneeds _py-xgboost-mutex --channel conda-forge
+# List packages depending on `libxgboost`:
+mamba repoquery whoneeds libxgboost --channel conda-forge
 
-# List dependencies of `_py-xgboost-mutex`:
-mamba repoquery depends _py-xgboost-mutex --channel conda-forge
+# List dependencies of `libxgboost`:
+mamba repoquery depends libxgboost --channel conda-forge
 ```
 
 
