@@ -151,7 +151,6 @@ outputs:
         - lib/R/lib
     requirements:
       build:
-        - libcxx                       # [aarch64 or ppc64le]      
         - {{ compiler('m2w64_c') }}    # [win]
         - {{ compiler('m2w64_cxx') }}  # [win]
         - {{ compiler('c') }}
