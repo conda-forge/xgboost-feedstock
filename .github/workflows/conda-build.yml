@@ -10,6 +10,8 @@ jobs:
     name: ${{ matrix.CONFIG }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
+      # max-parallel to attempt to avoid 429s from many concurrent 'actions/checkout'
+      max-parallel: 10
       fail-fast: false
       matrix:
         include:
@@ -71,6 +73,9 @@ jobs:
             UPLOAD_PACKAGES: False
             os: macos
     steps:
+    - name: Delete huge unnecessary tools folder
+      run: rm -rf /opt/hostedtoolcache
+      if: matrix.os == 'ubuntu'
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -132,7 +137,7 @@ jobs:
         if errorlevel 1 exit 1
         setup_conda_rc .\ ".\recipe" .\.ci_support\%CONFIG%.yaml
         if errorlevel 1 exit 1
-        
+
 
         if EXIST LICENSE.txt (
           copy LICENSE.txt "recipe\\recipe-scripts-license.txt"
