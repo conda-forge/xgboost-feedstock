@@ -6,6 +6,4 @@ c_compiler_version:    # [aarch64 or ppc64le]
   - 12                 # [aarch64 or ppc64le]
 cxx_compiler_version:  # [aarch64 or ppc64le] 
   - 12                 # [aarch64 or ppc64le]
-libcxx:                # [aarch64 or ppc64le] 
-  - 12                 # [aarch64 or ppc64le]
 ###############################################
