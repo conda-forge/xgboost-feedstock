@@ -1,5 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
+{% set build_number = "0" %}
+{% set rapids_version = "23.04.01" %}  # TODO(hcho3): Bump once librmm 23.06 is available on conda-forge
 
 package:
   name: {{ name|lower }}-split
@@ -16,7 +18,7 @@ source:
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
 
 build:
-  number: 2
+  number: {{ build_number }}
   skip: true  # [win and cuda_compiler_version != "None"]
   skip: true  # [cuda_compiler_version == "10.2"]
 
@@ -34,6 +36,7 @@ requirements:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
     - nccl       # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
+    - librmm ={{ rapids_version }}  # [linux]
 
 outputs:
   - name: libxgboost
@@ -56,8 +59,10 @@ outputs:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - nccl       # [cuda_compiler_version != "None"]
+        - librmm ={{ rapids_version }}  # [linux]
       run:
         - llvm-openmp  # [osx]
+        - librmm ={{ rapids_version }}  # [linux]
         - __cuda  # [cuda_compiler_version != "None"]
 
   - name: _py-xgboost-mutex
