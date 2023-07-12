@@ -1,7 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
 {% set build_number = "0" %}
-{% set rapids_version = "23.06.00" %}
+{% set rapids_version = "23.08.00" %}
 
 package:
   name: {{ name|lower }}-split
