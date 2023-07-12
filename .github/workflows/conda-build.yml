@@ -10,8 +10,6 @@ jobs:
     name: ${{ matrix.CONFIG }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
-      # max-parallel to attempt to avoid 429s from many concurrent 'actions/checkout'
-      max-parallel: 10
       fail-fast: false
       matrix:
         include:
@@ -40,23 +38,23 @@ jobs:
             UPLOAD_PACKAGES: False
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
             os: ubuntu
-          - CONFIG: linux_aarch64_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10
-            SHORT_CONFIG: linux_aarch64_c_compiler_version10c_h6023db96ca
+          - CONFIG: linux_aarch64_c_compiler_version10cuda_compilernvcccuda_compiler_version11.2cxx_compiler_version10
+            SHORT_CONFIG: linux_aarch64_c_compiler_version10c_hb0ea797ce5
             UPLOAD_PACKAGES: False
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
             os: ubuntu
-          - CONFIG: linux_aarch64_c_compiler_version12cuda_compiler_versionNonecxx_compiler_version12
-            SHORT_CONFIG: linux_aarch64_c_compiler_version12c_h21a2ab6f58
+          - CONFIG: linux_aarch64_c_compiler_version12cuda_compilerNonecuda_compiler_versionNonecxx_compiler_version12
+            SHORT_CONFIG: linux_aarch64_c_compiler_version12c_h07c7302bdb
             UPLOAD_PACKAGES: False
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
             os: ubuntu
-          - CONFIG: linux_ppc64le_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10
-            SHORT_CONFIG: linux_ppc64le_c_compiler_version10c_h55046153ea
+          - CONFIG: linux_ppc64le_c_compiler_version10cuda_compilernvcccuda_compiler_version11.2cxx_compiler_version10
+            SHORT_CONFIG: linux_ppc64le_c_compiler_version10c_h8250958e79
             UPLOAD_PACKAGES: False
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
             os: ubuntu
-          - CONFIG: linux_ppc64le_c_compiler_version12cuda_compiler_versionNonecxx_compiler_version12
-            SHORT_CONFIG: linux_ppc64le_c_compiler_version12c_h16240addde
+          - CONFIG: linux_ppc64le_c_compiler_version12cuda_compilerNonecuda_compiler_versionNonecxx_compiler_version12
+            SHORT_CONFIG: linux_ppc64le_c_compiler_version12c_h659d87984a
             UPLOAD_PACKAGES: False
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
             os: ubuntu
@@ -73,9 +71,6 @@ jobs:
             UPLOAD_PACKAGES: False
             os: macos
     steps:
-    - name: Delete huge unnecessary tools folder
-      run: rm -rf /opt/hostedtoolcache
-      if: matrix.os == 'ubuntu'
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -137,7 +132,7 @@ jobs:
         if errorlevel 1 exit 1
         setup_conda_rc .\ ".\recipe" .\.ci_support\%CONFIG%.yaml
         if errorlevel 1 exit 1
-
+        
 
         if EXIST LICENSE.txt (
           copy LICENSE.txt "recipe\\recipe-scripts-license.txt"

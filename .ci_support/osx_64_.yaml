@@ -5,7 +5,7 @@ c_compiler:
 c_compiler_version:
 - '15'
 channel_sources:
-- conda-forge
+- rapidsai,rapidsai-nightly,conda-forge,nvidia
 channel_targets:
 - rapidsai-nightly main
 cuda_compiler_version:
