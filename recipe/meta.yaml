@@ -1,7 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
 {% set build_number = "0" %}
-{% set rapids_version = "23.04.01" %}  # TODO(hcho3): Bump once librmm 23.06 is available on conda-forge
+{% set rapids_version = "23.06.00" %}
 
 package:
   name: {{ name|lower }}-split
