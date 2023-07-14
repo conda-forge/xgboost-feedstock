@@ -34,6 +34,7 @@ requirements:
     - ninja
   host:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
+    - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
     # Require NCCL 2.18+ to support CUDA 12
     - nccl >=2.18.1  # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
@@ -59,6 +60,7 @@ outputs:
       host:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
         # Require NCCL 2.18+ to support CUDA 12
         - nccl >=2.18.1  # [cuda_compiler_version != "None"]
         - librmm ={{ rapids_version }}  # [linux]
@@ -136,6 +138,7 @@ outputs:
         # install llvm-openmp in the top-level host env above
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
         # Require NCCL 2.18+ to support CUDA 12
         - nccl >=2.18.1  # [cuda_compiler_version != "None"]
       run:
@@ -187,6 +190,7 @@ outputs:
         - r-jsonlite
         - r-knitr
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
         # Require NCCL 2.18+ to support CUDA 12
         - nccl >=2.18.1  # [cuda_compiler_version != "None"]
       run:
