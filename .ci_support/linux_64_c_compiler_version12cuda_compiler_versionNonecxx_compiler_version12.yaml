@@ -1,25 +1,23 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '10'
+- '12'
 cdt_name:
-- cos7
+- cos6
 channel_sources:
 - rapidsai,rapidsai-nightly,conda-forge,nvidia
 channel_targets:
 - rapidsai-nightly main
 cuda_compiler:
-- nvcc
+- None
 cuda_compiler_version:
-- '11.2'
+- None
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '10'
+- '12'
 docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.2
-nccl:
-- '2'
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 pin_run_as_build:
   python:
     min_pin: x.x

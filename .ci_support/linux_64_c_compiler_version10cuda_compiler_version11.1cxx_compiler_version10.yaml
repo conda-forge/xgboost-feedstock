@@ -11,15 +11,13 @@ channel_targets:
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
-- '11.2'
+- '11.1'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
 - '10'
 docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.2
-nccl:
-- '2'
+- quay.io/condaforge/linux-anvil-cuda:11.1
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -35,7 +33,7 @@ python:
 r_base:
 - '4.2'
 target_platform:
-- linux-ppc64le
+- linux-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
