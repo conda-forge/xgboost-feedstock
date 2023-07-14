@@ -13,11 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - CONFIG: linux_64_c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10
-            SHORT_CONFIG: linux_64_c_compiler_version10cuda_c_ha0a3885354
-            UPLOAD_PACKAGES: False
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
-            os: ubuntu
           - CONFIG: linux_64_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10
             SHORT_CONFIG: linux_64_c_compiler_version10cuda_c_h409a79459c
             UPLOAD_PACKAGES: False
@@ -32,11 +27,6 @@ jobs:
             SHORT_CONFIG: linux_64_c_compiler_version12cuda_c_hb9e6816263
             UPLOAD_PACKAGES: False
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-            os: ubuntu
-          - CONFIG: linux_64_c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9
-            SHORT_CONFIG: linux_64_c_compiler_version9cuda_co_hedd76d6674
-            UPLOAD_PACKAGES: False
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
             os: ubuntu
           - CONFIG: linux_aarch64_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10
             SHORT_CONFIG: linux_aarch64_c_compiler_version10c_h6023db96ca
