@@ -145,6 +145,7 @@ outputs:
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
+      skip: true  # [(aarch64 or ppc64le) and cuda_compiler_version != "None"]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       rpaths:
