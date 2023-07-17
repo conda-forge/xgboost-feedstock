@@ -37,8 +37,7 @@ requirements:
   host:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-    # Require NCCL 2.18+ to support CUDA 12
-    - nccl >=2.18.1  # [cuda_compiler_version != "None"]
+    - nccl             # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
     - librmm ={{ rapids_version }}  # [linux]
 
@@ -63,8 +62,7 @@ outputs:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        # Require NCCL 2.18+ to support CUDA 12
-        - nccl >=2.18.1  # [cuda_compiler_version != "None"]
+        - nccl             # [cuda_compiler_version != "None"]
         - librmm ={{ rapids_version }}  # [linux]
       run:
         - llvm-openmp  # [osx]
@@ -141,8 +139,7 @@ outputs:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        # Require NCCL 2.18+ to support CUDA 12
-        - nccl >=2.18.1  # [cuda_compiler_version != "None"]
+        - nccl             # [cuda_compiler_version != "None"]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -193,8 +190,7 @@ outputs:
         - r-knitr
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        # Require NCCL 2.18+ to support CUDA 12
-        - nccl >=2.18.1  # [cuda_compiler_version != "None"]
+        - nccl             # [cuda_compiler_version != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
