@@ -1,9 +1,0 @@
-###############################################
-## This is a temporary workaround to support 
-## R 4.3 migration. It should be removed when
-## libcxx=10 is dropped.
-c_compiler_version:    # [aarch64 or ppc64le] 
-  - 12                 # [aarch64 or ppc64le]
-cxx_compiler_version:  # [aarch64 or ppc64le] 
-  - 12                 # [aarch64 or ppc64le]
-###############################################
