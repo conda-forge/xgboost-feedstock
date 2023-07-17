@@ -41,6 +41,8 @@ requirements:
     - nccl >=2.18.1  # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
     - librmm ={{ rapids_version }}  # [linux]
+  run:
+    - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
 
 outputs:
   - name: libxgboost
@@ -70,6 +72,7 @@ outputs:
         - llvm-openmp  # [osx]
         - librmm ={{ rapids_version }}  # [linux]
         - __cuda  # [cuda_compiler_version != "None"]
+        - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
 
   - name: _py-xgboost-mutex
     version: 2.0
@@ -147,6 +150,7 @@ outputs:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler_version != "None"]
+        - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
 
   - name: _r-xgboost-mutex
     version: 2.0
@@ -205,6 +209,7 @@ outputs:
         - r-magrittr
         - r-jsonlite
         - __cuda  # [cuda_compiler_version != "None"]
+        - cuda-cudart      # [(cuda_compiler_version or "").startswith("12")]
     test:
       files:
         - test-r-xgboost.r
