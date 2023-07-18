@@ -1,7 +1,7 @@
 c_compiler:
 - vs2019
 channel_sources:
-- rapidsai,rapidsai-nightly,conda-forge,nvidia
+- rapidsai,rapidsai-nightly,conda-forge
 channel_targets:
 - rapidsai-nightly main
 cuda_compiler_version:

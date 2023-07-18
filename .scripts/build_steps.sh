@@ -28,7 +28,6 @@ conda-build:
 pkgs_dirs:
   - ${FEEDSTOCK_ROOT}/build_artifacts/pkg_cache
   - /opt/conda/pkgs
-channel_priority: flexible
 
 CONDARC
 
