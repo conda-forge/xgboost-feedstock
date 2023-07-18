@@ -1,9 +1,4 @@
-# First CUDA 12 build of NCCL was 2.17.1.1
-# xref: https://github.com/conda-forge/nccl-feedstock/pull/85
-nccl:
-  - 2.17.1.1
-
 channel_sources:
-  - rapidsai,rapidsai-nightly,conda-forge,nvidia
+  - rapidsai,rapidsai-nightly,conda-forge
 channel_targets:
   - rapidsai-nightly main
