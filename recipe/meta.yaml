@@ -1,5 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
+{% set build_number = "0" %}
+{% set rapids_version = "23.08.00" %}
 
 package:
   name: {{ name|lower }}-split
@@ -16,9 +18,11 @@ source:
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
 
 build:
-  number: 2
+  number: {{ build_number }}
   skip: true  # [win and cuda_compiler_version != "None"]
   skip: true  # [cuda_compiler_version == "10.2"]
+  skip: true  # [cuda_compiler_version == "11.0"]
+  skip: true  # [cuda_compiler_version == "11.1"]
 
 requirements:
   build:
@@ -32,8 +36,10 @@ requirements:
     - ninja
   host:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-    - nccl       # [cuda_compiler_version != "None"]
+    - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
+    - nccl             # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
+    - librmm ={{ rapids_version }}  # [linux]
 
 outputs:
   - name: libxgboost
@@ -55,9 +61,12 @@ outputs:
       host:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
+        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
+        - nccl             # [cuda_compiler_version != "None"]
+        - librmm ={{ rapids_version }}  # [linux]
       run:
         - llvm-openmp  # [osx]
+        - librmm ={{ rapids_version }}  # [linux]
         - __cuda  # [cuda_compiler_version != "None"]
 
   - name: _py-xgboost-mutex
@@ -129,7 +138,8 @@ outputs:
         # install llvm-openmp in the top-level host env above
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
+        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
+        - nccl             # [cuda_compiler_version != "None"]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -179,7 +189,8 @@ outputs:
         - r-jsonlite
         - r-knitr
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
+        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
+        - nccl             # [cuda_compiler_version != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}

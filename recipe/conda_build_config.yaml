@@ -1,2 +1,4 @@
+channel_sources:
+  - rapidsai,rapidsai-nightly,conda-forge
 channel_targets:
   - rapidsai-nightly main

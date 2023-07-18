@@ -6,6 +6,7 @@ mkdir -p build-target
 
 if [[ ${cuda_compiler_version} != "None" ]]; then
     export CMAKE_ARGS="-DUSE_CUDA=ON -DUSE_NCCL=ON -DBUILD_WITH_SHARED_NCCL=ON ${CMAKE_ARGS}"
+    export CMAKE_ARGS="-DBUILD_WITH_CUDA_CUB=ON -DPLUGIN_RMM=ON ${CMAKE_ARGS}"
 fi
 
 # Limit number of threads used to avoid hardware oversubscription

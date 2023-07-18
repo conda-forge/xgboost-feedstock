@@ -1,6 +1,5 @@
 build_platform:
   linux_aarch64: linux_64
-  linux_ppc64le: linux_64
   osx_arm64: osx_64
 conda_build:
   pkg_format: '2'
@@ -14,7 +13,6 @@ github_actions:
 provider:
   linux: github_actions
   linux_aarch64: github_actions
-  linux_ppc64le: github_actions
   osx: github_actions
   win: github_actions
 test_on_native_only: true
