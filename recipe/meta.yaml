@@ -1,7 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
 {% set build_number = "0" %}
-{% set rapids_version = "23.08.00" %}
+{% set rapids_version = "23.08" %}
 
 package:
   name: {{ name|lower }}-split
@@ -39,7 +39,7 @@ requirements:
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     - nccl             # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
-    - librmm ={{ rapids_version }}  # [linux]
+    - librmm >={{ rapids_version }}  # [linux]
 
 outputs:
   - name: libxgboost
@@ -63,10 +63,10 @@ outputs:
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
         - nccl             # [cuda_compiler_version != "None"]
-        - librmm ={{ rapids_version }}  # [linux]
+        - librmm >={{ rapids_version }}  # [linux]
       run:
         - llvm-openmp  # [osx]
-        - librmm ={{ rapids_version }}  # [linux]
+        - librmm >={{ rapids_version }}  # [linux]
         - __cuda  # [cuda_compiler_version != "None"]
 
   - name: _py-xgboost-mutex
