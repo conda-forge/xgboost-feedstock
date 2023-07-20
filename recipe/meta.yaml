@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
-{% set build_number = "0" %}
+{% set build_number = "1" %}
 {% set rapids_version = "23.08" %}
 
 package:
