@@ -39,7 +39,7 @@ requirements:
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     - nccl             # [cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
-    - librmm >={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
+    - librmm ={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
 
 outputs:
   - name: libxgboost
@@ -63,10 +63,10 @@ outputs:
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
         - nccl             # [cuda_compiler_version != "None"]
-        - librmm >={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
+        - librmm ={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
       run:
         - llvm-openmp  # [osx]
-        - librmm >={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
+        - librmm ={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
         - __cuda  # [cuda_compiler_version != "None"]
 
   - name: _py-xgboost-mutex
