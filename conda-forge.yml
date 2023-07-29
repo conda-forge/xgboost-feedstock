@@ -9,6 +9,7 @@ github:
   branch_name: main
   tooling_branch_name: main
 github_actions:
+  free_disk_space: true
   store_build_artifacts: true
   upload_packages: true
 provider:
