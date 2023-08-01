@@ -136,7 +136,6 @@ outputs:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        - nccl             # [linux and cuda_compiler != "None"]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -187,7 +186,6 @@ outputs:
         - r-knitr
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        - nccl             # [linux and cuda_compiler != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
