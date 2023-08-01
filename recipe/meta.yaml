@@ -131,11 +131,6 @@ outputs:
     requirements:
       host:
         - python
-        # we install llvm-opnemp here to convince conda to
-        # install llvm-openmp in the top-level host env above
-        - llvm-openmp  # [osx]
-        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
