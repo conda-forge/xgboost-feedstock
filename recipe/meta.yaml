@@ -30,12 +30,12 @@ requirements:
     - m2-git                 # [win]
     - cmake
     - llvm-openmp  # [osx]
+    - libgomp      # [linux]
     - ninja
   host:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     - nccl             # [linux and cuda_compiler != "None"]
-    - llvm-openmp  # [osx]
     - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
 
 outputs:
@@ -55,14 +55,13 @@ outputs:
         - cmake
         - make
         - llvm-openmp  # [osx]
+        - libgomp      # [linux]
       host:
-        - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
         - nccl             # [linux and cuda_compiler != "None"]
         - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
       run:
-        - llvm-openmp  # [osx]
         - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
         - __cuda  # [cuda_compiler != "None"]
 
@@ -131,11 +130,6 @@ outputs:
     requirements:
       host:
         - python
-        # we install llvm-opnemp here to convince conda to
-        # install llvm-openmp in the top-level host env above
-        - llvm-openmp  # [osx]
-        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -161,8 +155,8 @@ outputs:
         - {{ compiler('m2w64_cxx') }}        # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
         - llvm-openmp            # [osx]
+        - libgomp                # [linux]
         - git
         - make                   # [not win]
         - posix                  # [win]
@@ -178,18 +172,14 @@ outputs:
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
-        - llvm-openmp  # [osx]
         - r-matrix
         - r-data.table
         - r-magrittr
         - r-jsonlite
         - r-knitr
-        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
-        - llvm-openmp  # [osx]
         - r-base
         - r-matrix
         - r-data.table
