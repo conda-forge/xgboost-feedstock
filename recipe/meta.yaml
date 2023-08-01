@@ -156,7 +156,6 @@ outputs:
         - {{ compiler('m2w64_cxx') }}        # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
         - llvm-openmp            # [osx]
         - git
         - make                   # [not win]
