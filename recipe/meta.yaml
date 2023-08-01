@@ -156,6 +156,8 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}       # [cuda_compiler_version != "None"]
+        - llvm-openmp                  # [osx]
+        - libgomp                      # [linux]
         - git
         - make                         # [not win]
         - posix                        # [win]
@@ -171,8 +173,6 @@ outputs:
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
-        - llvm-openmp  # [osx]
-        - libgomp      # [linux]
         - r-matrix
         - r-data.table
         - r-magrittr
