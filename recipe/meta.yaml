@@ -80,12 +80,14 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
         - setuptools
         - pip
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
         - numpy
         - scipy
@@ -103,7 +105,8 @@ outputs:
         - python
       run:
         - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
+        - {{ pin_subpackage('py-xgboost', max_pin="x.x.x.x.x.x") }}
+        - py-xgboost =*=rapidsai_py{{ CONDA_PY }}h*_{{ PKG_BUILDNUM }}
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
@@ -133,7 +136,8 @@ outputs:
         - r-jsonlite                 # [build_platform != target_platform]
         - r-knitr                    # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
@@ -141,7 +145,8 @@ outputs:
         - r-jsonlite
         - r-knitr
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
