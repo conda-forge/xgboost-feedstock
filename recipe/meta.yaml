@@ -36,8 +36,6 @@ requirements:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     - nccl             # [linux and cuda_compiler != "None"]
-    - llvm-openmp  # [osx]
-    - libgomp      # [linux]
     - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
 
 outputs:
@@ -59,8 +57,6 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
       host:
-        - llvm-openmp  # [osx]
-        - libgomp      # [linux]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
         - nccl             # [linux and cuda_compiler != "None"]
@@ -176,8 +172,6 @@ outputs:
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - r-base
-        - llvm-openmp  # [osx]
-        - libgomp      # [linux]
         - r-matrix
         - r-data.table
         - r-magrittr
