@@ -19,7 +19,7 @@ source:
 
 build:
   number: {{ build_number }}
-  skip: true  # [win and cuda_compiler_version != "None"]
+  skip: true  # [win and cuda_compiler != "None"]
   skip: true  # [cuda_compiler_version == "10.2"]
   skip: true  # [cuda_compiler_version == "11.0"]
   skip: true  # [cuda_compiler_version == "11.1"]
@@ -28,7 +28,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+    - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
     - git                    # [not win]
     - m2-git                 # [win]
     - cmake
@@ -37,9 +37,9 @@ requirements:
   host:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-    - nccl             # [cuda_compiler_version != "None"]
+    - nccl             # [cuda_compiler != "None"]
     - llvm-openmp  # [osx]
-    - librmm ={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
+    - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
 
 outputs:
   - name: libxgboost
@@ -47,13 +47,13 @@ outputs:
     script: install-win-wrapper.bat  # [win]
     build:
       activate_in_script: True
-      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: rapidsai_cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler != "None"]
+      string: rapidsai_cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler == "None"]
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+        - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
         - git
         - cmake
         - make
@@ -62,25 +62,25 @@ outputs:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        - nccl             # [cuda_compiler_version != "None"]
-        - librmm ={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
+        - nccl             # [cuda_compiler != "None"]
+        - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
       run:
         - llvm-openmp  # [osx]
-        - librmm ={{ rapids_version }}  # [linux and cuda_compiler_version != "None"]
-        - __cuda  # [cuda_compiler_version != "None"]
+        - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
+        - __cuda  # [cuda_compiler != "None"]
 
   - name: _py-xgboost-mutex
     version: 2.0
     build:
-      string: rapidsai_cpu_0  # [cuda_compiler_version == "None"]
-      string: rapidsai_gpu_0  # [cuda_compiler_version != "None"]
+      string: rapidsai_cpu_0  # [cuda_compiler == "None"]
+      string: rapidsai_gpu_0  # [cuda_compiler != "None"]
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
-      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: rapidsai_cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler != "None"]
+      string: rapidsai_cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler == "None"]
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -97,7 +97,7 @@ outputs:
         - numpy
         - scipy
         - scikit-learn
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
     test:
       script: test-py-xgboost.py
       imports:
@@ -105,7 +105,7 @@ outputs:
 
   - name: py-xgboost-cpu
     build:
-      skip: true  # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
         - python
@@ -116,7 +116,7 @@ outputs:
 
   - name: py-xgboost-gpu
     build:
-      skip: true  # [cuda_compiler_version == "None"]
+      skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
         - python
@@ -124,13 +124,13 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
 
 
   - name: xgboost
     build:
-      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: rapidsai_cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler != "None"]
+      string: rapidsai_cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler == "None"]
     requirements:
       host:
         - python
@@ -139,24 +139,24 @@ outputs:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        - nccl             # [cuda_compiler_version != "None"]
+        - nccl             # [cuda_compiler != "None"]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
 
   - name: _r-xgboost-mutex
     version: 2.0
     build:
-      string: rapidsai_cpu_0  # [cuda_compiler_version == "None"]
-      string: rapidsai_gpu_0  # [cuda_compiler_version != "None"]
+      string: rapidsai_cpu_0  # [cuda_compiler == "None"]
+      string: rapidsai_gpu_0  # [cuda_compiler != "None"]
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
-      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: rapidsai_cpu_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_cuda{{ cuda_compiler_version | replace('.', '') }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler != "None"]
+      string: rapidsai_cpu_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler == "None"]
       rpaths:
         - lib/R/lib
     requirements:
@@ -165,7 +165,7 @@ outputs:
         - {{ compiler('m2w64_cxx') }}        # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+        - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
         - llvm-openmp            # [osx]
         - git
         - make                   # [not win]
@@ -190,7 +190,7 @@ outputs:
         - r-knitr
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-        - nccl             # [cuda_compiler_version != "None"]
+        - nccl             # [cuda_compiler != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
@@ -200,7 +200,7 @@ outputs:
         - r-data.table
         - r-magrittr
         - r-jsonlite
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
     test:
       files:
         - test-r-xgboost.r
@@ -209,7 +209,7 @@ outputs:
 
   - name: r-xgboost-cpu
     build:
-      skip: true  # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
         - r-base
@@ -219,14 +219,14 @@ outputs:
 
   - name: r-xgboost-gpu
     build:
-      skip: true  # [cuda_compiler_version == "None"]
+      skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
         - r-base
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
 
 about:
   home: https://github.com/dmlc/xgboost
