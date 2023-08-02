@@ -15,7 +15,7 @@ if [[ "${target_platform}" == "linux-aarch64" ]] || [[ "${target_platform}" == "
 fi
 
 pushd build-target
-cmake ${CMAKE_ARGS} \
+cmake ${CMAKE_ARGS} --trace-expand \
       -GNinja \
       -DCMAKE_BUILD_TYPE:STRING="Release" \
       -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
