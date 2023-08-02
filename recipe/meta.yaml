@@ -16,6 +16,7 @@ source:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
+    - 0002-Use-static-cudart.patch
 
 build:
   number: {{ build_number }}

@@ -1,0 +1,21 @@
+diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
+index f28c1f27..57752b03 100644
+--- a/cmake/Utils.cmake
++++ b/cmake/Utils.cmake
+@@ -182,12 +182,14 @@ function(xgboost_set_cuda_flags target)
+     set_target_properties(${target} PROPERTIES
+       CUDA_STANDARD 17
+       CUDA_STANDARD_REQUIRED ON
+-      CUDA_SEPARABLE_COMPILATION OFF)
++      CUDA_SEPARABLE_COMPILATION OFF
++      CUDA_RUNTIME_LIBRARY Static)
+   else ()
+     set_target_properties(${target} PROPERTIES
+       CUDA_STANDARD 14
+       CUDA_STANDARD_REQUIRED ON
+-      CUDA_SEPARABLE_COMPILATION OFF)
++      CUDA_SEPARABLE_COMPILATION OFF
++      CUDA_RUNTIME_LIBRARY Static)
+   endif (PLUGIN_RMM)
+ endfunction(xgboost_set_cuda_flags)
+ 
