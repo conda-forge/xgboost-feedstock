@@ -18,3 +18,5 @@ provider:
   osx: github_actions
   win: github_actions
 test_on_native_only: true
+azure:
+  free_disk_space: true

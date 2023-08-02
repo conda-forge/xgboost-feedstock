@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
-{% set build_number = "3" %}
+{% set build_number = "5" %}
 {% set rapids_version = "23.08" %}
 
 package:
@@ -80,12 +80,14 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
         - setuptools
         - pip
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
         - numpy
         - scipy
@@ -103,7 +105,8 @@ outputs:
         - python
       run:
         - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
+        - {{ pin_subpackage('py-xgboost', max_pin="x.x.x.x.x.x") }}
+        - py-xgboost =*=rapidsai_py{{ CONDA_PY }}h*_{{ PKG_BUILDNUM }}
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
@@ -114,26 +117,27 @@ outputs:
         - lib/R/lib
     requirements:
       build:
-        - {{ compiler('m2w64_c') }}          # [win]
-        - {{ compiler('m2w64_cxx') }}        # [win]
+        - {{ compiler('m2w64_c') }}    # [win]
+        - {{ compiler('m2w64_cxx') }}  # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - llvm-openmp            # [osx]
         - libgomp                # [linux]
         - git
-        - make                   # [not win]
-        - posix                  # [win]
+        - make                         # [not win]
+        - posix                        # [win]
         - cmake
         - ninja
-        - cross-r-base {{ r_base }}  # [build_platform != target_platform]
-        - r-base                     # [build_platform != target_platform]
-        - r-matrix                   # [build_platform != target_platform]
-        - r-data.table               # [build_platform != target_platform]
-        - r-magrittr                 # [build_platform != target_platform]
-        - r-jsonlite                 # [build_platform != target_platform]
-        - r-knitr                    # [build_platform != target_platform]
+        - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+        - r-base                       # [build_platform != target_platform]
+        - r-matrix                     # [build_platform != target_platform]
+        - r-data.table                 # [build_platform != target_platform]
+        - r-magrittr                   # [build_platform != target_platform]
+        - r-jsonlite                   # [build_platform != target_platform]
+        - r-knitr                      # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
@@ -141,7 +145,8 @@ outputs:
         - r-jsonlite
         - r-knitr
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
@@ -178,3 +183,4 @@ extra:
     - jakirkham
     - ksangeek
     - xhochy
+    - mfansler
