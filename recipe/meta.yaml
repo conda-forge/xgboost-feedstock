@@ -49,6 +49,7 @@ outputs:
       string: rapidsai_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     requirements:
       build:
         - {{ compiler('c') }}
