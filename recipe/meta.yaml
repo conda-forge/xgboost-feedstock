@@ -28,10 +28,10 @@ requirements:
     - m2-git                 # [win]
     - cmake
     - llvm-openmp  # [osx]
+    - libgomp      # [linux]
     - ninja
   host:
     - nccl       # [linux and cuda_compiler != "None"]
-    - llvm-openmp  # [osx]
 
 outputs:
   - name: libxgboost
@@ -50,11 +50,10 @@ outputs:
         - cmake
         - make
         - llvm-openmp  # [osx]
+        - libgomp      # [linux]
       host:
-        - llvm-openmp  # [osx]
         - nccl       # [linux and cuda_compiler != "None"]
       run:
-        - llvm-openmp  # [osx]
         - __cuda  # [cuda_compiler != "None"]
 
   - name: _py-xgboost-mutex
