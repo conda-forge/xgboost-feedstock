@@ -1,3 +1,5 @@
+azure:
+  free_disk_space: true
 build_platform:
   linux_aarch64: linux_64
   osx_arm64: osx_64
@@ -18,5 +20,3 @@ provider:
   osx: github_actions
   win: github_actions
 test_on_native_only: true
-azure:
-  free_disk_space: true
