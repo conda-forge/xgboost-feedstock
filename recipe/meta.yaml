@@ -16,24 +16,22 @@ source:
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
 
 build:
-  number: 3
-  skip: true  # [win and cuda_compiler_version != "None"]
-  skip: true  # [cuda_compiler_version == "10.2"]
+  number: 4
+  skip: true  # [win and cuda_compiler != "None"]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
-    - git                    # [not win]
-    - m2-git                 # [win]
+    - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
+    - git                     # [not win]
+    - m2-git                  # [win]
     - cmake
     - llvm-openmp  # [osx]
+    - libgomp      # [linux]
     - ninja
   host:
-    - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-    - nccl       # [cuda_compiler_version != "None"]
-    - llvm-openmp  # [osx]
+    - nccl         # [linux and cuda_compiler != "None"]
 
 outputs:
   - name: libxgboost
@@ -43,28 +41,29 @@ outputs:
       activate_in_script: True
       string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      ignore_run_exports_from:
+        - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
         - git
         - cmake
         - make
         - llvm-openmp  # [osx]
+        - libgomp      # [linux]
       host:
-        - llvm-openmp  # [osx]
-        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
+        - nccl         # [linux and cuda_compiler != "None"]
       run:
-        - llvm-openmp  # [osx]
-        - __cuda  # [cuda_compiler_version != "None"]
+        - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
+        - __cuda                   # [cuda_compiler != "None"]
 
   - name: _py-xgboost-mutex
     version: 2.0
     build:
-      string: cpu_0  # [cuda_compiler_version == "None"]
-      string: gpu_0  # [cuda_compiler_version != "None"]
+      string: cpu_0  # [cuda_compiler == "None"]
+      string: gpu_0  # [cuda_compiler != "None"]
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
@@ -88,7 +87,7 @@ outputs:
         - numpy
         - scipy
         - scikit-learn
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
     test:
       script: test-py-xgboost.py
       imports:
@@ -96,7 +95,7 @@ outputs:
 
   - name: py-xgboost-cpu
     build:
-      skip: true  # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
         - python
@@ -107,7 +106,7 @@ outputs:
 
   - name: py-xgboost-gpu
     build:
-      skip: true  # [cuda_compiler_version == "None"]
+      skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
         - python
@@ -115,7 +114,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
 
 
   - name: xgboost
@@ -125,21 +124,16 @@ outputs:
     requirements:
       host:
         - python
-        # we install llvm-opnemp here to convince conda to
-        # install llvm-openmp in the top-level host env above
-        - llvm-openmp  # [osx]
-        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
 
   - name: _r-xgboost-mutex
     version: 2.0
     build:
-      string: cpu_0  # [cuda_compiler_version == "None"]
-      string: gpu_0  # [cuda_compiler_version != "None"]
+      string: cpu_0  # [cuda_compiler == "None"]
+      string: gpu_0  # [cuda_compiler != "None"]
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
@@ -155,7 +149,6 @@ outputs:
         - {{ compiler('m2w64_cxx') }}  # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}       # [cuda_compiler_version != "None"]
         - llvm-openmp                  # [osx]
         - libgomp                      # [linux]
         - git
@@ -178,8 +171,6 @@ outputs:
         - r-magrittr
         - r-jsonlite
         - r-knitr
-        - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
@@ -188,7 +179,7 @@ outputs:
         - r-data.table
         - r-magrittr
         - r-jsonlite
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
     test:
       files:
         - test-r-xgboost.r
@@ -197,7 +188,7 @@ outputs:
 
   - name: r-xgboost-cpu
     build:
-      skip: true  # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
         - r-base
@@ -207,14 +198,14 @@ outputs:
 
   - name: r-xgboost-gpu
     build:
-      skip: true  # [cuda_compiler_version == "None"]
+      skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
         - r-base
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler_version != "None"]
+        - __cuda  # [cuda_compiler != "None"]
 
 about:
   home: https://github.com/dmlc/xgboost
