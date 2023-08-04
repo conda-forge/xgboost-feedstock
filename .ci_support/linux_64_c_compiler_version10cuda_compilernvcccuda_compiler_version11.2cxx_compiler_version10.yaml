@@ -5,9 +5,9 @@ c_compiler_version:
 cdt_name:
 - cos7
 channel_sources:
-- conda-forge
+- rapidsai,rapidsai-nightly,conda-forge
 channel_targets:
-- conda-forge main
+- rapidsai-nightly main
 cuda_compiler:
 - nvcc
 cuda_compiler_version:

@@ -1,0 +1,39 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8a8c2e78..14dc8075 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -239,6 +239,13 @@ add_subdirectory(${xgboost_SOURCE_DIR}/plugin)
+ 
+ if (PLUGIN_RMM)
+   find_package(rmm REQUIRED)
++
++  # Patch the rmm targets so they reference the static cudart
++  get_target_property(rmm_link_libs rmm::rmm INTERFACE_LINK_LIBRARIES)
++  list(REMOVE_ITEM rmm_link_libs CUDA::cudart)
++  list(APPEND rmm_link_libs CUDA::cudart_static)
++  set_target_properties(rmm::rmm PROPERTIES INTERFACE_LINK_LIBRARIES "${rmm_link_libs}")
++  get_target_property(rmm_link_libs rmm::rmm INTERFACE_LINK_LIBRARIES)
+ endif (PLUGIN_RMM)
+ 
+ #-- library
+diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
+index f28c1f27..57752b03 100644
+--- a/cmake/Utils.cmake
++++ b/cmake/Utils.cmake
+@@ -182,12 +182,14 @@ function(xgboost_set_cuda_flags target)
+     set_target_properties(${target} PROPERTIES
+       CUDA_STANDARD 17
+       CUDA_STANDARD_REQUIRED ON
+-      CUDA_SEPARABLE_COMPILATION OFF)
++      CUDA_SEPARABLE_COMPILATION OFF
++      CUDA_RUNTIME_LIBRARY Static)
+   else ()
+     set_target_properties(${target} PROPERTIES
+       CUDA_STANDARD 14
+       CUDA_STANDARD_REQUIRED ON
+-      CUDA_SEPARABLE_COMPILATION OFF)
++      CUDA_SEPARABLE_COMPILATION OFF
++      CUDA_RUNTIME_LIBRARY Static)
+   endif (PLUGIN_RMM)
+ endfunction(xgboost_set_cuda_flags)
+ 
