@@ -41,6 +41,8 @@ outputs:
       activate_in_script: True
       string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      ignore_run_exports_from:
+        - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -54,6 +56,7 @@ outputs:
       host:
         - nccl       # [linux and cuda_compiler != "None"]
       run:
+        - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
         - __cuda  # [cuda_compiler != "None"]
 
   - name: _py-xgboost-mutex
