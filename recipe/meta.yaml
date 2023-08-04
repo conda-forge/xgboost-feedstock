@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.4" %}
-{% set build_number = "4" %}
+{% set build_number = "5" %}
 {% set rapids_version = "23.08" %}
 
 package:
@@ -16,6 +16,7 @@ source:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
+    - 0002-Use-static-cudart.patch
 
 build:
   number: {{ build_number }}
@@ -48,7 +49,7 @@ outputs:
       string: rapidsai_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
-        - nccl                    # [linux and cuda_compiler != "None"]
+        - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -68,7 +69,6 @@ outputs:
         - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
       run_constrained:
         - librmm ={{ rapids_version }}               # [linux and cuda_compiler != "None"]
-        - {{ pin_compatible("nccl", max_pin="x") }}  # [linux and cuda_compiler != "None"]
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
