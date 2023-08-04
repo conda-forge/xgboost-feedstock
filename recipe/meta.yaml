@@ -23,15 +23,15 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
-    - git                    # [not win]
-    - m2-git                 # [win]
+    - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
+    - git                     # [not win]
+    - m2-git                  # [win]
     - cmake
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - ninja
   host:
-    - nccl       # [linux and cuda_compiler != "None"]
+    - nccl         # [linux and cuda_compiler != "None"]
 
 outputs:
   - name: libxgboost
@@ -47,17 +47,17 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
+        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
         - git
         - cmake
         - make
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
       host:
-        - nccl       # [linux and cuda_compiler != "None"]
+        - nccl         # [linux and cuda_compiler != "None"]
       run:
         - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
-        - __cuda  # [cuda_compiler != "None"]
+        - __cuda                   # [cuda_compiler != "None"]
 
   - name: _py-xgboost-mutex
     version: 2.0
