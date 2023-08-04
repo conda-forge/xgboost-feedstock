@@ -31,7 +31,7 @@ requirements:
     - ninja
   host:
     - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-    - nccl       # [cuda_compiler_version != "None"]
+    - nccl       # [linux and cuda_compiler_version != "None"]
     - llvm-openmp  # [osx]
 
 outputs:
@@ -54,7 +54,7 @@ outputs:
       host:
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
+        - nccl       # [linux and cuda_compiler_version != "None"]
       run:
         - llvm-openmp  # [osx]
         - __cuda  # [cuda_compiler_version != "None"]
@@ -128,7 +128,7 @@ outputs:
         # install llvm-openmp in the top-level host env above
         - llvm-openmp  # [osx]
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
+        - nccl       # [linux and cuda_compiler_version != "None"]
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -178,7 +178,7 @@ outputs:
         - r-jsonlite
         - r-knitr
         - cudatoolkit      # [(cuda_compiler_version or "").startswith("11")]
-        - nccl       # [cuda_compiler_version != "None"]
+        - nccl       # [linux and cuda_compiler_version != "None"]
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
