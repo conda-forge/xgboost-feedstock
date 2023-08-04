@@ -27,15 +27,15 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
-    - git                    # [not win]
-    - m2-git                 # [win]
+    - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
+    - git                     # [not win]
+    - m2-git                  # [win]
     - cmake
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - ninja
   host:
-    - nccl             # [linux and cuda_compiler != "None"]
+    - nccl                          # [linux and cuda_compiler != "None"]
     - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
 
 outputs:
@@ -51,19 +51,19 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}                 # [cuda_compiler != "None"]
+        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
         - git
         - cmake
         - make
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
       host:
-        - nccl             # [linux and cuda_compiler != "None"]
+        - nccl                          # [linux and cuda_compiler != "None"]
         - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
       run:
         - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
       run_constrained:
-        - librmm ={{ rapids_version }}               # [linux and cuda_compiler != "None"]
+        - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
@@ -116,8 +116,8 @@ outputs:
         - {{ compiler('m2w64_cxx') }}  # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - llvm-openmp            # [osx]
-        - libgomp                # [linux]
+        - llvm-openmp                  # [osx]
+        - libgomp                      # [linux]
         - git
         - make                         # [not win]
         - posix                        # [win]
