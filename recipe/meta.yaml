@@ -1,8 +1,8 @@
 {% set name = "xgboost" %}
-{% set version = "1.7.4" %}
+{% set version = "1.7.6" %}
 
 package:
-  name: {{ name|lower }}-split
+  name: xgboost-split
   version: {{ version }}
 
 source:
@@ -16,7 +16,7 @@ source:
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
 
 build:
-  number: 4
+  number: 0
   skip: true  # [win and cuda_compiler != "None"]
 
 requirements:
