@@ -4,7 +4,7 @@
 {% set rapids_version = "23.08" %}
 
 package:
-  name: {{ name|lower }}-split
+  name: xgboost-split
   version: {{ version }}
 
 source:
