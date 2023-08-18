@@ -45,6 +45,8 @@ outputs:
     build:
       activate_in_script: True
       string: rapidsai_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      force_use_keys:
+        - librmm  # [linux and cuda_compiler != "None"]
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
     requirements:
