@@ -1,3 +1,6 @@
+librmm:
+  - 23.10
+
 channel_sources:
   - rapidsai,rapidsai-nightly,conda-forge
 channel_targets:
