@@ -1,7 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
 {% set build_number = "0" %}
-{% set rapids_version = "23.10" %}
 
 package:
   name: xgboost-split
@@ -35,8 +34,8 @@ requirements:
     - libgomp      # [linux]
     - ninja
   host:
-    - nccl                          # [linux and cuda_compiler != "None"]
-    - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
+    - nccl         # [linux and cuda_compiler != "None"]
+    - librmm       # [linux and cuda_compiler != "None"]
 
 outputs:
   - name: libxgboost
@@ -58,12 +57,12 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
       host:
-        - nccl                          # [linux and cuda_compiler != "None"]
-        - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
+        - nccl         # [linux and cuda_compiler != "None"]
+        - librmm       # [linux and cuda_compiler != "None"]
       run:
         - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
       run_constrained:
-        - librmm ={{ rapids_version }}  # [linux and cuda_compiler != "None"]
+        - {{ pin_compatible('librmm', max_pin='x.x.x') }}  # [linux and cuda_compiler != "None"]
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
