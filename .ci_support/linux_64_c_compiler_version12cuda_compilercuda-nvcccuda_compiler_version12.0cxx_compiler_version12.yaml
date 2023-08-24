@@ -18,6 +18,8 @@ cxx_compiler_version:
 - '12'
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
+librmm:
+- '23.10'
 nccl:
 - '2'
 pin_run_as_build:
