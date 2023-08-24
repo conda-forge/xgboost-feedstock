@@ -21,8 +21,6 @@ build:
   number: {{ build_number }}
   skip: true  # [win and cuda_compiler != "None"]
   skip: true  # [linux and cuda_compiler == "None"]
-  # Skip Linux CUDA 12 ARM until RMM is available
-  skip: true  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
 
 requirements:
   build:
