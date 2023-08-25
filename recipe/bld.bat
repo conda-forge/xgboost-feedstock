@@ -1,6 +1,10 @@
 mkdir "%SRC_DIR%"\build
 pushd "%SRC_DIR%"\build
 
+if NOT "%cuda_compiler_version%"=="None" (
+    set CMAKE_ARGS="%CMAKE_ARGS% -DUSE_CUDA=ON"
+)
+
 cmake -G "Ninja" ^
     %CMAKE_ARGS% ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
