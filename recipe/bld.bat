@@ -2,6 +2,7 @@ mkdir "%SRC_DIR%"\build
 pushd "%SRC_DIR%"\build
 
 cmake -G "Ninja" ^
+    %CMAKE_ARGS% ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON ^
