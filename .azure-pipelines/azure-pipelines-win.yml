@@ -11,6 +11,9 @@ jobs:
       win_64_cuda_compilerNone:
         CONFIG: win_64_cuda_compilerNone
         UPLOAD_PACKAGES: 'True'
+      win_64_cuda_compilernvcc:
+        CONFIG: win_64_cuda_compilernvcc
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
