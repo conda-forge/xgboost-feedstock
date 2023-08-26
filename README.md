@@ -118,17 +118,17 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compilerNonecuda_compiler_versionNone</td>
+              <td>win_64_cuda_compilerNone</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compilerNonecuda_compiler_versionNone" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compilerNone" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compilernvcccuda_compiler_version11.2</td>
+              <td>win_64_cuda_compilernvcc</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compilernvcccuda_compiler_version11.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compilernvcc" alt="variant">
                 </a>
               </td>
             </tr>
