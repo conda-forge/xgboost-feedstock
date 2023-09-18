@@ -4,7 +4,7 @@ index f7a7d9cd..70d73626 100644
 +++ b/python-package/xgboost/libpath.py
 @@ -29,7 +29,10 @@ def find_lib_path() -> List[str]:
          # option.
-         os.path.join(sys.prefix, 'lib'),
+         os.path.join(sys.base_prefix, 'lib'),
      ]
 -
 +    if sys.platform == 'win32':
