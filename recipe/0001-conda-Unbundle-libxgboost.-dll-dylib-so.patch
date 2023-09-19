@@ -1,16 +1,16 @@
 diff --git a/python-package/xgboost/libpath.py b/python-package/xgboost/libpath.py
-index f7a7d9cd..70d73626 100644
+index 0437f3a4..93153e97 100644
 --- a/python-package/xgboost/libpath.py
 +++ b/python-package/xgboost/libpath.py
 @@ -29,7 +29,10 @@ def find_lib_path() -> List[str]:
          # option.
-         os.path.join(sys.base_prefix, 'lib'),
+         os.path.join(sys.base_prefix, "lib"),
      ]
 -
 +    if sys.platform == 'win32':
 +        dll_path = [os.path.join(sys.prefix, 'Library', 'mingw-w64', 'bin')]
 +    else:
 +        dll_path = [os.path.join(sys.prefix, 'lib')]
-     if sys.platform == 'win32':
-         if platform.architecture()[0] == '64bit':
-             dll_path.append(
+     if sys.platform == "win32":
+         if platform.architecture()[0] == "64bit":
+             dll_path.append(os.path.join(curr_path, "../../windows/x64/Release/"))
