@@ -23,7 +23,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cuda:11.2
 librmm:
-- '23.10'
+- '23.12'
 nccl:
 - '2'
 pin_run_as_build:
