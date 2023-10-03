@@ -5,9 +5,9 @@ channel_sources:
 channel_targets:
 - rapidsai-nightly main
 cuda_compiler:
-- None
+- nvcc
 cuda_compiler_version:
-- None
+- '11.2'
 cxx_compiler:
 - vs2019
 m2w64_c_compiler:
