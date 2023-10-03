@@ -15,9 +15,11 @@ source:
     # xgboost patches
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
+    - 0002-Use-static-cudart.patch
 
 build:
   number: {{ build_number }}
+  skip: true  # [(linux or win) and cuda_compiler == "None"]
 
 requirements:
   build:
@@ -32,6 +34,7 @@ requirements:
     - ninja
   host:
     - nccl         # [linux and cuda_compiler != "None"]
+    - librmm       # [linux and cuda_compiler != "None"]
 
 outputs:
   - name: libxgboost
@@ -39,8 +42,7 @@ outputs:
     script: install-win-wrapper.bat  # [win]
     build:
       activate_in_script: True
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
     requirements:
@@ -55,92 +57,55 @@ outputs:
         - libgomp      # [linux]
       host:
         - nccl         # [linux and cuda_compiler != "None"]
+        - librmm       # [linux and cuda_compiler != "None"]
       run:
         - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
-        - __cuda                   # [cuda_compiler != "None"]
-
-  - name: _py-xgboost-mutex
-    version: 2.0
-    build:
-      string: cpu_0  # [cuda_compiler == "None"]
-      string: gpu_0  # [cuda_compiler != "None"]
+      run_constrained:
+        - {{ pin_compatible('librmm', max_pin='x.x.x') }}  # [linux and cuda_compiler != "None"]
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
         - setuptools
         - pip
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
-        - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
         - numpy
         - scipy
         - scikit-learn
-        - __cuda  # [cuda_compiler != "None"]
-    test:
-      script: test-py-xgboost.py
-      imports:
-        - xgboost
-
-  - name: py-xgboost-cpu
-    build:
-      skip: true  # [cuda_compiler != "None"]
-    requirements:
-      host:
-        - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
-      run:
-        - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
-
-  - name: py-xgboost-gpu
-    build:
-      skip: true  # [cuda_compiler == "None"]
-    requirements:
-      host:
-        - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
-      run:
-        - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler != "None"]
-
+      test:
+        script: test-py-xgboost.py
+        imports:
+          - xgboost
 
   - name: xgboost
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       host:
         - python
       run:
         - python
-        - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler != "None"]
-
-  - name: _r-xgboost-mutex
-    version: 2.0
-    build:
-      string: cpu_0  # [cuda_compiler == "None"]
-      string: gpu_0  # [cuda_compiler != "None"]
+        - {{ pin_subpackage('py-xgboost', max_pin="x.x.x.x.x.x") }}
+        - py-xgboost =*=rapidsai_py{{ CONDA_PY }}h*_{{ PKG_BUILDNUM }}
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: rapidsai_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
     requirements:
@@ -164,7 +129,8 @@ outputs:
         - r-jsonlite                   # [build_platform != target_platform]
         - r-knitr                      # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
@@ -172,40 +138,18 @@ outputs:
         - r-jsonlite
         - r-knitr
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
-        - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
         - r-magrittr
         - r-jsonlite
-        - __cuda  # [cuda_compiler != "None"]
-    test:
-      files:
-        - test-r-xgboost.r
-      commands:
-        - Rscript test-r-xgboost.r
-
-  - name: r-xgboost-cpu
-    build:
-      skip: true  # [cuda_compiler != "None"]
-    requirements:
-      host:
-        - r-base
-      run:
-        - r-base
-        - {{ pin_subpackage('r-xgboost', exact=True) }}
-
-  - name: r-xgboost-gpu
-    build:
-      skip: true  # [cuda_compiler == "None"]
-    requirements:
-      host:
-        - r-base
-      run:
-        - r-base
-        - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - __cuda  # [cuda_compiler != "None"]
+      test:
+        files:
+          - test-r-xgboost.r
+        commands:
+          - Rscript test-r-xgboost.r
 
 about:
   home: https://github.com/dmlc/xgboost

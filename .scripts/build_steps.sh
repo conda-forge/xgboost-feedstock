@@ -31,11 +31,10 @@ pkgs_dirs:
 
 CONDARC
 
-
-mamba install --update-specs --yes --quiet --channel conda-forge \
-    conda-build pip boa conda-forge-ci-setup=3
-mamba update --update-specs --yes --quiet --channel conda-forge \
-    conda-build pip boa conda-forge-ci-setup=3
+mamba install --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
+    pip mamba conda-build boa conda-forge-ci-setup=3
+mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
+    pip mamba conda-build boa conda-forge-ci-setup
 
 # set up the condarc
 setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
@@ -70,16 +69,11 @@ else
     conda mambabuild "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml" \
         --suppress-variables ${EXTRA_CB_OPTIONS:-} \
         --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml"
-    ( startgroup "Validating outputs" ) 2> /dev/null
-
-    validate_recipe_outputs "${FEEDSTOCK_NAME}"
-
-    ( endgroup "Validating outputs" ) 2> /dev/null
 
     ( startgroup "Uploading packages" ) 2> /dev/null
 
     if [[ "${UPLOAD_PACKAGES}" != "False" ]] && [[ "${IS_PR_BUILD}" == "False" ]]; then
-        upload_package --validate --feedstock-name="${FEEDSTOCK_NAME}"  "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
+        upload_package  "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
     fi
 
     ( endgroup "Uploading packages" ) 2> /dev/null
