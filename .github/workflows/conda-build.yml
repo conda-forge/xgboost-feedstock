@@ -25,6 +25,10 @@ jobs:
             UPLOAD_PACKAGES: True
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
             os: ubuntu
+          - CONFIG: linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12
+            UPLOAD_PACKAGES: True
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+            os: ubuntu
           - CONFIG: win_64_cuda_compilerNonecuda_compiler_versionNone
             UPLOAD_PACKAGES: True
             os: windows
@@ -109,32 +113,11 @@ jobs:
         miniforge-version: latest
         miniforge-variant: Mambaforge
       if: matrix.os == 'windows'
+
     - name: Build on windows
       shell: cmd
       run: |
-        call activate base
-        mamba.exe install -c conda-forge 'python=3.9' conda-build conda pip boa conda-forge-ci-setup=3
-        if errorlevel 1 exit 1
-        setup_conda_rc .\ ".\recipe" .\.ci_support\%CONFIG%.yaml
-        if errorlevel 1 exit 1
-
-        if EXIST LICENSE.txt (
-          copy LICENSE.txt "recipe\\recipe-scripts-license.txt"
-        )
-        conda.exe mambabuild "recipe" -m .ci_support\%CONFIG%.yaml
-        if errorlevel 1 exit 1
-        set "FEEDSTOCK_NAME=%GITHUB_REPOSITORY:*/=%"
-        set "GIT_BRANCH=%GITHUB_REF:refs/heads/=%"
-        if /i "%GITHUB_EVENT_NAME%" == "pull_request" (
-          set "IS_PR_BUILD=True"
-        ) else (
-          set "IS_PR_BUILD=False"
-        )
-        if /i "%UPLOAD_PACKAGES%" == "true" (
-          if /i "%IS_PR_BUILD%" == "false" (
-            upload_package  .\ ".\recipe" .ci_support\%CONFIG%.yaml
-          )
-        )
+        call ".scripts\run_win_build.bat"
       env:
         PYTHONUNBUFFERED: 1
         CONFIG: ${{ matrix.CONFIG }}
