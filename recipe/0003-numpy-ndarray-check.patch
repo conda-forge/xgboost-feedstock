@@ -1,3 +1,13 @@
+From 2e1d276e925992fd4faf310b20be83680f329bf1 Mon Sep 17 00:00:00 2001
+From: Jiaming Yuan <jm.yuan@outlook.com>
+Date: Fri, 22 Sep 2023 04:39:22 +0800
+Subject: [PATCH 1/2] Use array interface for testing numpy arrays.
+
+---
+ python-package/xgboost/core.py | 3 ++-
+ python-package/xgboost/data.py | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
 diff --git a/python-package/xgboost/core.py b/python-package/xgboost/core.py
 index 8a877ec5a..2ddcc2f03 100644
 --- a/python-package/xgboost/core.py
