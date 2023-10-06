@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
-{% set build_number = 1 %}
+{% set build_number = 2 %}
 
 package:
   name: xgboost-split
@@ -16,6 +16,8 @@ source:
     - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
     - 0002-Use-static-cudart.patch
+    # xref: https://github.com/dmlc/xgboost/pull/9602
+    - 0003-numpy-ndarray-check.patch
 
 build:
   number: {{ build_number }}
