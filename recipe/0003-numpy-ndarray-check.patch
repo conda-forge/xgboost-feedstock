@@ -1,0 +1,72 @@
+diff --git a/python-package/xgboost/core.py b/python-package/xgboost/core.py
+index 8a877ec5a..2ddcc2f03 100644
+--- a/python-package/xgboost/core.py
++++ b/python-package/xgboost/core.py
+@@ -2275,6 +2275,7 @@ class Booster:
+             _array_interface,
+             _is_cudf_df,
+             _is_cupy_array,
++            _is_np_array_like,
+             _is_pandas_df,
+             _transform_pandas_df,
+         )
+@@ -2285,7 +2286,7 @@ class Booster:
+             if validate_features:
+                 self._validate_features(fns)
+
+-        if isinstance(data, np.ndarray):
++        if _is_np_array_like(data):
+             from .data import _ensure_np_dtype
+
+             data, _ = _ensure_np_dtype(data, data.dtype)
+diff --git a/python-package/xgboost/data.py b/python-package/xgboost/data.py
+index 6afc27e15..4dbe48e35 100644
+--- a/python-package/xgboost/data.py
++++ b/python-package/xgboost/data.py
+@@ -160,8 +160,8 @@ def _is_scipy_coo(data: DataType) -> bool:
+     return isinstance(data, scipy.sparse.coo_matrix)
+
+
+-def _is_numpy_array(data: DataType) -> bool:
+-    return isinstance(data, (np.ndarray, np.matrix))
++def _is_np_array_like(data: DataType) -> bool:
++    return hasattr(data, "__array_interface__")
+
+
+ def _ensure_np_dtype(
+@@ -958,7 +958,7 @@ def dispatch_data_backend(
+         return _from_scipy_csr(
+             data.tocsr(), missing, threads, feature_names, feature_types
+         )
+-    if _is_numpy_array(data):
++    if _is_np_array_like(data):
+         return _from_numpy_array(data, missing, threads, feature_names, feature_types)
+     if _is_uri(data):
+         return _from_uri(data, missing, feature_names, feature_types)
+@@ -1123,7 +1123,7 @@ def dispatch_meta_backend(
+     if _is_tuple(data):
+         _meta_from_tuple(data, name, dtype, handle)
+         return
+-    if _is_numpy_array(data):
++    if _is_np_array_like(data):
+         _meta_from_numpy(data, name, dtype, handle)
+         return
+     if _is_pandas_df(data):
+@@ -1206,7 +1206,7 @@ def _proxy_transform(
+         return data, None, feature_names, feature_types
+     if _is_dlpack(data):
+         return _transform_dlpack(data), None, feature_names, feature_types
+-    if _is_numpy_array(data):
++    if _is_np_array_like(data):
+         data, _ = _ensure_np_dtype(data, data.dtype)
+         return data, None, feature_names, feature_types
+     if _is_scipy_csr(data):
+@@ -1252,7 +1252,7 @@ def dispatch_proxy_set_data(
+     if not allow_host:
+         raise err
+
+-    if _is_numpy_array(data):
++    if _is_np_array_like(data):
+         proxy._set_data_from_array(data)  # pylint: disable=W0212
+         return
+     if _is_scipy_csr(data):
