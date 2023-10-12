@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
-{% set build_number = 4 %}
+{% set build_number = 5 %}
 
 package:
   name: xgboost-split
@@ -61,7 +61,7 @@ outputs:
         - nccl         # [linux and cuda_compiler != "None"]
         - librmm       # [linux and cuda_compiler != "None"]
       run:
-        - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-version >={{ cuda_compiler_version }},<12  # [(cuda_compiler_version or "").startswith("11")]
       run_constrained:
         - {{ pin_compatible('librmm', max_pin='x.x.x') }}  # [linux and cuda_compiler != "None"]
 
