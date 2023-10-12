@@ -1,13 +1,5 @@
-BUILD:
-- aarch64-conda_cos7-linux-gnu
 c_compiler:
-- gcc
-c_compiler_version:
-- '10'
-cdt_arch:
-- aarch64
-cdt_name:
-- cos7
+- vs2019
 channel_sources:
 - rapidsai,rapidsai-nightly,conda-forge
 channel_targets:
@@ -15,17 +7,13 @@ channel_targets:
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
-- '11.2'
+- '11.8'
 cxx_compiler:
-- gxx
-cxx_compiler_version:
-- '10'
-docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.2
-librmm:
-- '23.12'
-nccl:
-- '2'
+- vs2019
+m2w64_c_compiler:
+- m2w64-toolchain
+m2w64_cxx_compiler:
+- m2w64-toolchain
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -40,14 +28,9 @@ python:
 - 3.8.* *_cpython
 - 3.9.* *_cpython
 r_base:
-- '4.2'
-- '4.3'
+- '4.1'
 target_platform:
-- linux-aarch64
+- win-64
 zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version
-  - cuda_compiler
+- - cuda_compiler
   - cuda_compiler_version
-  - cdt_name
-  - docker_image
