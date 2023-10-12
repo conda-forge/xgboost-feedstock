@@ -56,7 +56,7 @@ outputs:
       host:
         - nccl         # [linux and cuda_compiler != "None"]
       run:
-        - cuda-version >=11.2,<12  # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-version >={{ cuda_compiler_version }},<12  # [(cuda_compiler_version or "").startswith("11")]
         - __cuda                   # [cuda_compiler != "None"]
 
   - name: _py-xgboost-mutex
