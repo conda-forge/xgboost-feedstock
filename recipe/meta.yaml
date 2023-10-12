@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
-{% set build_number = 4 %}
+{% set build_number = 5 %}
 
 package:
   name: xgboost-split
