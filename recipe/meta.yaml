@@ -89,7 +89,7 @@ outputs:
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - python
-        - setuptools
+        - hatchling >=1.12.1
         - pip
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
