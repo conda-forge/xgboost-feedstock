@@ -69,19 +69,19 @@ outputs:
       string: gpu_0  # [cuda_compiler != "None"]
 
   - name: py-xgboost
-    script_env:
-      # Workaround an upstream conda-build issue w/pip & `outputs` by setting env vars manually.
-      # xref: https://github.com/conda/conda-build/issues/3993
-      - PIP_NO_BUILD_ISOLATION=False
-      - PIP_NO_DEPENDENCIES=True
-      - PIP_IGNORE_INSTALLED=True
-      - PIP_CACHE_DIR="pip_cache"
-      - PIP_NO_INDEX=True
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      script_env:
+        # Workaround an upstream conda-build issue w/pip & `outputs` by setting env vars manually.
+        # xref: https://github.com/conda/conda-build/issues/3993
+        - PIP_NO_BUILD_ISOLATION=False
+        - PIP_NO_DEPENDENCIES=True
+        - PIP_IGNORE_INSTALLED=True
+        - PIP_CACHE_DIR="pip_cache"
+        - PIP_NO_INDEX=True
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
