@@ -229,6 +229,7 @@ about:
 extra:
   feedstock-name: xgboost
   recipe-maintainers:
+    - hcho3
     - aldanor
     - fhoehle
     - jakirkham
