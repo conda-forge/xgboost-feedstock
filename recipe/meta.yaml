@@ -2,6 +2,9 @@
 {% set version = "1.7.6" %}
 {% set build_number = 5 %}
 
+{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
+{% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
+
 package:
   name: xgboost-split
   version: {{ version }}
@@ -39,8 +42,7 @@ outputs:
     script: install-win-wrapper.bat  # [win]
     build:
       activate_in_script: True
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
     requirements:
@@ -64,15 +66,13 @@ outputs:
   - name: _py-xgboost-mutex
     version: 2.0
     build:
-      string: cpu_0  # [cuda_compiler == "None"]
-      string: gpu_0  # [cuda_compiler != "None"]
+      string: {{ "cpu" if cuda_compiler == "None" else "gpu" }}_0
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: {{ string_prefix }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -121,8 +121,7 @@ outputs:
 
   - name: xgboost
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: {{ string_prefix }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       host:
         - python
@@ -134,15 +133,13 @@ outputs:
   - name: _r-xgboost-mutex
     version: 2.0
     build:
-      string: cpu_0  # [cuda_compiler == "None"]
-      string: gpu_0  # [cuda_compiler != "None"]
+      string: {{ "cpu" if cuda_compiler == "None" else "gpu" }}_0
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
     requirements:
