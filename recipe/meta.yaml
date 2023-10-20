@@ -80,7 +80,7 @@ outputs:
         - PIP_NO_BUILD_ISOLATION=False
         - PIP_NO_DEPENDENCIES=True
         - PIP_IGNORE_INSTALLED=True
-        - PIP_CACHE_DIR="pip_cache"
+        - PIP_CACHE_DIR=pip_cache
         - PIP_NO_INDEX=True
     requirements:
       build:
