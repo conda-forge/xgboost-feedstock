@@ -19,6 +19,7 @@ cmake ${CMAKE_ARGS} \
       -DCMAKE_BUILD_TYPE:STRING="Release" \
       -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
       -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+      -DCMAKE_CXX_FLAGS="-D_LIBCPP_DISABLE_AVAILABILITY" \
       "${SRC_DIR}"
 cmake --build . --config Release
 popd
