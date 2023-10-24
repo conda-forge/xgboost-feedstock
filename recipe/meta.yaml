@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
-{% set build_number = 5 %}
+{% set build_number = 6 %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
 {% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
@@ -73,7 +73,8 @@ outputs:
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
-      string: {{ string_prefix }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      noarch: python
+      string: {{ string_prefix }}_py_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -98,6 +99,7 @@ outputs:
 
   - name: py-xgboost-cpu
     build:
+      noarch: python
       skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
@@ -109,6 +111,7 @@ outputs:
 
   - name: py-xgboost-gpu
     build:
+      noarch: python
       skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
@@ -122,7 +125,8 @@ outputs:
 
   - name: xgboost
     build:
-      string: {{ string_prefix }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      noarch: python
+      string: {{ string_prefix }}_py_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       host:
         - python
