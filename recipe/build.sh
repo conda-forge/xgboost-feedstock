@@ -4,6 +4,12 @@ set -exuo pipefail
 
 mkdir -p build-target
 
+if [[ "$target_platform" == osx-* ]]
+then
+    export CMAKE_ARGS="-DOpenMP_C_FLAGS=-fopenmp -DOpenMP_CXX_FLAGS=-fopenmp -DOpenMP_C_LIB_NAMES=libomp -DOpenMP_CXX_LIB_NAMES=libomp -DOpenMP_libomp_LIBRARY=${PREFIX}/lib/libomp.dylib ${CMAKE_ARGS}"
+fi
+
+
 if [[ ${cuda_compiler_version} != "None" ]]; then
     export CMAKE_ARGS="-DUSE_CUDA=ON -DUSE_NCCL=ON -DBUILD_WITH_SHARED_NCCL=ON ${CMAKE_ARGS}"
 fi
