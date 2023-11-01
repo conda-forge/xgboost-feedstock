@@ -6,7 +6,7 @@ mkdir -p build-target
 
 if [[ "$target_platform" == osx-* ]]
 then
-    export CMAKE_ARGS="-DOpenMP_C_FLAGS=-fopenmp -DOpenMP_CXX_FLAGS=-fopenmp -DOpenMP_C_LIB_NAMES=libomp -DOpenMP_CXX_LIB_NAMES=libomp -DOpenMP_libomp_LIBRARY=${PREFIX}/lib/libomp.dylib ${CMAKE_ARGS}"
+    export CMAKE_ARGS="-DOpenMP_C_FLAGS='-Xpreprocessor -fopenmp -I${PREFIX}/include' -DOpenMP_CXX_FLAGS='-Xpreprocessor -fopenmp -I${PREFIX}/include' -DOpenMP_C_LIB_NAMES=libomp -DOpenMP_CXX_LIB_NAMES=libomp -DOpenMP_libomp_LIBRARY=${PREFIX}/lib/libomp.dylib ${CMAKE_ARGS}"
 fi
 
 
