@@ -84,6 +84,8 @@ outputs:
         - python
         - hatchling >=1.12.1
         - pip
+        - numpy
+        - scipy
       run:
         - {{ pin_subpackage('libxgboost', exact=True) }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
