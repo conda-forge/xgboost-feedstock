@@ -29,5 +29,5 @@ cmake ${CMAKE_ARGS[@]+"${CMAKE_ARGS[@]}"} \
       -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
       -DCMAKE_CXX_FLAGS="-D_LIBCPP_DISABLE_AVAILABILITY" \
       "${SRC_DIR}"
-cmake --build . --config Release -- -v
+cmake --build . --config Release
 popd

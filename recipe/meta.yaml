@@ -1,5 +1,5 @@
 {% set name = "xgboost" %}
-{% set version = "2.0.0" %}
+{% set version = "2.0.1" %}
 {% set build_number = 0 %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
@@ -17,7 +17,6 @@ source:
   patches:
     # xgboost patches
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
-    - 0002-libpath.patch
 
 build:
   number: {{ build_number }}
