@@ -7,9 +7,9 @@ if [[ ${OSTYPE} == msys ]]; then
 fi
 
 if [[ ${OSTYPE} == msys ]]; then
-  LIBDIR=${PREFIX}/Library/lib
-  INCDIR=${PREFIX}/Library/include
-  BINDIR=${PREFIX}/Library/bin
+  LIBDIR=${PREFIX}/Library/mingw-w64/lib
+  INCDIR=${PREFIX}/Library/mingw-w64/include
+  BINDIR=${PREFIX}/Library/mingw-w64/bin
   SODIR=${BINDIR}
   XGBOOSTDSO=xgboost.dll
   EXEEXT=.exe
