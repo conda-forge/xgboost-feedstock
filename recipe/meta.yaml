@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
-{% set build_number = 5 %}
+{% set build_number = 6 %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
 {% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
