@@ -2,9 +2,6 @@
 {% set version = "1.7.6" %}
 {% set build_number = 6 %}
 
-{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
-{% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
-
 package:
   name: xgboost-split
   version: {{ version }}
@@ -24,7 +21,8 @@ source:
 
 build:
   number: {{ build_number }}
-  skip: True  # [((linux or win) and cuda_compiler == "None") or cuda_compiler_version == "11.2"]
+  skip: True  # [(linux or win) and cuda_compiler == "None"]
+  skip: True  # [cuda_compiler_version == "11.2"]
 
 requirements:
   build:
@@ -64,7 +62,6 @@ outputs:
         - nccl         # [linux and cuda_compiler != "None"]
         - librmm       # [linux and cuda_compiler != "None"]
       run:
-        - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}
         - cuda-version >={{ 11.2 }},<12
         {% endif %}
