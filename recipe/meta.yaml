@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
-{% set build_number = 5 %}
+{% set build_number = 6 %}
 
 package:
   name: xgboost-split
@@ -21,7 +21,8 @@ source:
 
 build:
   number: {{ build_number }}
-  skip: true  # [(linux or win) and cuda_compiler == "None"]
+  skip: True  # [(linux or win) and cuda_compiler == "None"]
+  skip: True  # [cuda_compiler_version == "11.2"]
 
 requirements:
   build:
@@ -61,7 +62,9 @@ outputs:
         - nccl         # [linux and cuda_compiler != "None"]
         - librmm       # [linux and cuda_compiler != "None"]
       run:
-        - cuda-version >={{ cuda_compiler_version }},<12  # [(cuda_compiler_version or "").startswith("11")]
+        {% if (cuda_compiler_version or "").startswith("11") %}
+        - cuda-version >={{ 11.2 }},<12
+        {% endif %}
       run_constrained:
         - {{ pin_compatible('librmm', max_pin='x.x.x') }}  # [linux and cuda_compiler != "None"]
 
@@ -173,6 +176,7 @@ about:
 extra:
   feedstock-name: xgboost
   recipe-maintainers:
+    - hcho3
     - aldanor
     - fhoehle
     - jakirkham
