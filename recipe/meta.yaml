@@ -74,6 +74,8 @@ outputs:
     script: install-win-wrapper.bat  # [win]
     build:
       string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      force_use_keys:
+        - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -99,6 +101,8 @@ outputs:
   - name: xgboost
     build:
       string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      force_use_keys:
+        - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
       host:
         - python
@@ -114,6 +118,8 @@ outputs:
       string: rapidsai_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
+      force_use_keys:
+        - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
       build:
         - {{ compiler('m2w64_c') }}    # [win]
