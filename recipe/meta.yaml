@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "1.7.6" %}
-{% set build_number = 6 %}
+{% set build_number = 7 %}
 
 package:
   name: xgboost-split
@@ -48,6 +48,7 @@ outputs:
       string: rapidsai_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
+        - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -73,6 +74,8 @@ outputs:
     script: install-win-wrapper.bat  # [win]
     build:
       string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      force_use_keys:
+        - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -98,6 +101,8 @@ outputs:
   - name: xgboost
     build:
       string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      force_use_keys:
+        - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
       host:
         - python
@@ -113,6 +118,8 @@ outputs:
       string: rapidsai_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
+      force_use_keys:
+        - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
       build:
         - {{ compiler('m2w64_c') }}    # [win]
