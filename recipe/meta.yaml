@@ -61,7 +61,6 @@ outputs:
       host:
         - nccl         # [linux and cuda_compiler != "None"]
       run:
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
         - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}
         - cuda-version >=11.2,<12
@@ -101,7 +100,6 @@ outputs:
         - numpy
         - scipy
         - scikit-learn
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
         - __cuda  # [cuda_compiler != "None"]
     test:
       script: test-py-xgboost.py
@@ -118,7 +116,6 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
 
   - name: py-xgboost-gpu
     build:
@@ -130,7 +127,6 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
         - __cuda  # [cuda_compiler != "None"]
 
 
@@ -143,7 +139,6 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
         - __cuda  # [cuda_compiler != "None"]
 
   - name: _r-xgboost-mutex
@@ -194,7 +189,6 @@ outputs:
         - r-data.table
         - r-magrittr
         - r-jsonlite
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
         - __cuda  # [cuda_compiler != "None"]
     test:
       files:
@@ -211,7 +205,6 @@ outputs:
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
 
   - name: r-xgboost-gpu
     build:
@@ -222,7 +215,6 @@ outputs:
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.15") }}  # [osx and x86_64]
         - __cuda  # [cuda_compiler != "None"]
 
 about:
