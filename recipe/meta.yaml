@@ -74,7 +74,7 @@ outputs:
     script: install-win-wrapper.bat  # [win]
     build:
       noarch: python
-      string: {{ string_prefix }}_py_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -126,7 +126,7 @@ outputs:
   - name: xgboost
     build:
       noarch: python
-      string: {{ string_prefix }}_py_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       host:
         - python
