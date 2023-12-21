@@ -86,6 +86,9 @@ outputs:
         - PIP_CACHE_DIR=pip_cache
         - PIP_NO_INDEX=True
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - python
