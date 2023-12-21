@@ -1,0 +1,55 @@
+From 667a855dfa024ea392e60fa7f352a0781cb7f1e0 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <chohyu01@cs.washington.edu>
+Date: Thu, 2 Nov 2023 08:12:43 -0700
+Subject: [PATCH] Undo dmlc/xgboost#9436
+
+---
+ CMakeLists.txt    | 9 ---------
+ cmake/Utils.cmake | 4 +---
+ 2 files changed, 1 insertion(+), 12 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d6b861ab..ca0125cb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -253,15 +253,6 @@ add_subdirectory(${xgboost_SOURCE_DIR}/plugin)
+ 
+ if (PLUGIN_RMM)
+   find_package(rmm REQUIRED)
+-
+-  # Patch the rmm targets so they reference the static cudart
+-  # Remove this patch once RMM stops specifying cudart requirement
+-  # (since RMM is a header-only library, it should not specify cudart in its CMake config)
+-  get_target_property(rmm_link_libs rmm::rmm INTERFACE_LINK_LIBRARIES)
+-  list(REMOVE_ITEM rmm_link_libs CUDA::cudart)
+-  list(APPEND rmm_link_libs CUDA::cudart_static)
+-  set_target_properties(rmm::rmm PROPERTIES INTERFACE_LINK_LIBRARIES "${rmm_link_libs}")
+-  get_target_property(rmm_link_libs rmm::rmm INTERFACE_LINK_LIBRARIES)
+ endif (PLUGIN_RMM)
+ 
+ #-- library
+diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
+index 08050205..98e96e30 100644
+--- a/cmake/Utils.cmake
++++ b/cmake/Utils.cmake
+@@ -177,8 +177,7 @@ function(xgboost_set_cuda_flags target)
+   set_target_properties(${target} PROPERTIES
+     CUDA_STANDARD 17
+     CUDA_STANDARD_REQUIRED ON
+-    CUDA_SEPARABLE_COMPILATION OFF
+-    CUDA_RUNTIME_LIBRARY Static)
++    CUDA_SEPARABLE_COMPILATION OFF)
+ endfunction(xgboost_set_cuda_flags)
+ 
+ macro(xgboost_link_nccl target)
+@@ -280,7 +279,6 @@ macro(xgboost_target_link_libraries target)
+ 
+   if (USE_CUDA)
+     xgboost_set_cuda_flags(${target})
+-    target_link_libraries(${target} PUBLIC CUDA::cudart_static)
+   endif (USE_CUDA)
+ 
+   if (PLUGIN_RMM)
+-- 
+2.25.1
+

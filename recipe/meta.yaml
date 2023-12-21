@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
-{% set version = "1.7.6" %}
-{% set build_number = 7 %}
+{% set version = "2.0.3" %}
+{% set build_number = 1 %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
 {% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
@@ -16,8 +16,10 @@ source:
   git_tag: v{{ version }}
   patches:
     # xgboost patches
-    - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
+    - 0002-Enable-latest-libcxx-on-MacOS.patch  # [osx]
+    - 0003-Use-mingw-w64-path.patch
+    - 0004-Undo-dmlc-xgboost-9436.patch
 
 build:
   number: {{ build_number }}
@@ -61,7 +63,7 @@ outputs:
       run:
         - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}
-        - cuda-version >={{ cuda_compiler_version }},<12
+        - cuda-version >=11.2,<12
         {% endif %}
 
   - name: _py-xgboost-mutex
@@ -75,11 +77,19 @@ outputs:
     build:
       noarch: python
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      script_env:
+        # Workaround an upstream conda-build issue w/pip & `outputs` by setting env vars manually.
+        # xref: https://github.com/conda/conda-build/issues/3993
+        - PIP_NO_BUILD_ISOLATION=False
+        - PIP_NO_DEPENDENCIES=True
+        - PIP_IGNORE_INSTALLED=True
+        - PIP_CACHE_DIR=pip_cache
+        - PIP_NO_INDEX=True
     requirements:
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - python
-        - setuptools
+        - hatchling >=1.12.1
         - pip
       run:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
