@@ -25,8 +25,10 @@ conda activate base
 export CONDA_SOLVER="libmamba"
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
-conda install --update-specs --quiet --yes --channel conda-forge --strict-channel-priority \
-    pip conda conda-libmamba-solver conda-build conda-forge-ci-setup=4
+mamba install --update-specs --quiet --yes --channel conda-forge --strict-channel-priority \
+    pip mamba conda-build conda-forge-ci-setup=4
+mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
+    pip mamba conda-build conda-forge-ci-setup=4
 
 
 
