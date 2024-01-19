@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.0.3" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
 {% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
@@ -75,7 +75,8 @@ outputs:
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
-      string: {{ string_prefix }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      noarch: python
+      string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       script_env:
         # Workaround an upstream conda-build issue w/pip & `outputs` by setting env vars manually.
         # xref: https://github.com/conda/conda-build/issues/3993
@@ -89,12 +90,12 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - python
         - hatchling >=1.12.1
         - pip
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - python
         - numpy
@@ -108,6 +109,7 @@ outputs:
 
   - name: py-xgboost-cpu
     build:
+      noarch: python
       skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
@@ -119,6 +121,7 @@ outputs:
 
   - name: py-xgboost-gpu
     build:
+      noarch: python
       skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
@@ -132,7 +135,8 @@ outputs:
 
   - name: xgboost
     build:
-      string: {{ string_prefix }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      noarch: python
+      string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       host:
         - python
@@ -174,7 +178,7 @@ outputs:
         - r-jsonlite                   # [build_platform != target_platform]
         - r-knitr                      # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - r-base
         - r-matrix
         - r-data.table
@@ -182,7 +186,7 @@ outputs:
         - r-jsonlite
         - r-knitr
       run:
-        - {{ pin_subpackage('libxgboost', exact=True) }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - r-base
         - r-matrix
