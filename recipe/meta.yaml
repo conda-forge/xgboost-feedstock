@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
-{% set version = "1.7.6" %}
-{% set build_number = 8 %}
+{% set version = "2.0.3" %}
+{% set build_number = 1 %}
 
 package:
   name: xgboost-split
@@ -13,11 +13,9 @@ source:
   git_tag: v{{ version }}
   patches:
     # xgboost patches
-    - 0001-conda-Unbundle-libxgboost.-dll-dylib-so.patch
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
-    - 0002-Use-static-cudart.patch
-    # xref: https://github.com/dmlc/xgboost/pull/9602
-    - 0003-numpy-ndarray-check.patch
+    - 0002-Enable-latest-libcxx-on-MacOS.patch  # [osx]
+    - 0003-Use-mingw-w64-path.patch
 
 build:
   number: {{ build_number }}
@@ -64,7 +62,7 @@ outputs:
         - librmm       # [linux and cuda_compiler != "None"]
       run:
         {% if (cuda_compiler_version or "").startswith("11") %}
-        - cuda-version >={{ 11.2 }},<12
+        - cuda-version >=11.2,<12
         {% endif %}
       run_constrained:
         - {{ pin_compatible('librmm', max_pin='x.x') }}  # [linux and cuda_compiler != "None"]
@@ -73,21 +71,30 @@ outputs:
     script: install-py-xgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
-      string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      noarch: python
+      string: rapidsai_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       force_use_keys:
         - librmm                  # [linux and cuda_compiler != "None"]
+      script_env:
+        # Workaround an upstream conda-build issue w/pip & `outputs` by setting env vars manually.
+        # xref: https://github.com/conda/conda-build/issues/3993
+        - PIP_NO_BUILD_ISOLATION=False
+        - PIP_NO_DEPENDENCIES=True
+        - PIP_IGNORE_INSTALLED=True
+        - PIP_CACHE_DIR=pip_cache
+        - PIP_NO_INDEX=True
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
-        - setuptools
+        - hatchling >=1.12.1
         - pip
       run:
-        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - python
         - numpy
@@ -100,7 +107,7 @@ outputs:
 
   - name: xgboost
     build:
-      string: rapidsai_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      string: rapidsai_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       force_use_keys:
         - librmm                  # [linux and cuda_compiler != "None"]
     requirements:
@@ -141,7 +148,7 @@ outputs:
         - r-jsonlite                   # [build_platform != target_platform]
         - r-knitr                      # [build_platform != target_platform]
       host:
-        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
@@ -150,7 +157,7 @@ outputs:
         - r-jsonlite
         - r-knitr
       run:
-        - {{ pin_subpackage('libxgboost', max_pin="x.x.x.x.x.x") }}
+        - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libxgboost =*=rapidsai_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
