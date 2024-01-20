@@ -47,6 +47,10 @@ outputs:
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
         - librmm                  # [linux and cuda_compiler != "None"]
+      missing_dso_whitelist:
+        # Conda-build raises the missing `R.dll` linkage erroneously.
+        # xref: https://github.com/conda/conda-build/pull/4786
+        - '*/R.dll'  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
