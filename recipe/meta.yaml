@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.0.3" %}
-{% set build_number = 1 %}
+{% set build_number = 2 %}
 
 package:
   name: xgboost-split
@@ -120,7 +120,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('py-xgboost', max_pin="x.x.x.x.x.x") }}
-        - py-xgboost =*=rapidsai_py{{ CONDA_PY }}h*_{{ PKG_BUILDNUM }}
+        - py-xgboost =*=rapidsai_pyh*_{{ PKG_BUILDNUM }}
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
