@@ -24,3 +24,4 @@ provider:
   osx: github_actions
   win: github_actions
 test_on_native_only: true
+upload_on_branch: main
