@@ -30,8 +30,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [cuda_compiler != "None" and cuda_compiler_version != "None"]
-    - git                     # [not win]
-    - m2-git                  # [win]
     - cmake
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
