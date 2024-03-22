@@ -18,10 +18,14 @@ github_actions:
   artifact_retention_days: 7
   free_disk_space: true
   upload_packages: true
+os_version:
+  linux_64: cos7
+  linux_aarch64: cos7
+  linux_ppc64le: cos7
 provider:
   linux: github_actions
   linux_aarch64: github_actions
   osx: github_actions
   win: github_actions
-test_on_native_only: true
+test: native_and_emulated
 upload_on_branch: main
