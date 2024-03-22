@@ -43,14 +43,6 @@ jobs:
             os: ubuntu
             runs_on: ['ubuntu-latest']
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-          - CONFIG: win_64_cuda_compilercuda-nvcccuda_compiler_version12.0
-            UPLOAD_PACKAGES: True
-            os: windows
-            runs_on: ['windows-latest']
-          - CONFIG: win_64_cuda_compilernvcccuda_compiler_version11.8
-            UPLOAD_PACKAGES: True
-            os: windows
-            runs_on: ['windows-latest']
           - CONFIG: osx_64_
             UPLOAD_PACKAGES: True
             os: macos
@@ -59,6 +51,14 @@ jobs:
             UPLOAD_PACKAGES: True
             os: macos
             runs_on: ['macos-latest']
+          - CONFIG: win_64_cuda_compilercuda-nvcccuda_compiler_version12.0
+            UPLOAD_PACKAGES: True
+            os: windows
+            runs_on: ['windows-latest']
+          - CONFIG: win_64_cuda_compilernvcccuda_compiler_version11.8
+            UPLOAD_PACKAGES: True
+            os: windows
+            runs_on: ['windows-latest']
     steps:
 
     - name: Manage disk space
@@ -82,11 +82,10 @@ jobs:
                                  microsoft-edge-stable
         sudo apt-get autoremove -y >& /dev/null
         sudo apt-get autoclean -y >& /dev/null
-        sudo docker image prune --all --force
         df -h
 
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Build on Linux
       if: matrix.os == 'ubuntu'
