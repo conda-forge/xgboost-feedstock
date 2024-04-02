@@ -4,6 +4,10 @@ c_compiler:
 - clang
 c_compiler_version:
 - '16'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -16,10 +20,18 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '16'
+libabseil:
+- '20230802'
+libgrpc:
+- '1.60'
+libprotobuf:
+- 4.25.1
 llvm_openmp:
 - '16'
 macos_machine:
 - arm64-apple-darwin20.0.0
+openssl:
+- '3'
 pin_run_as_build:
   r-base:
     min_pin: x.x
