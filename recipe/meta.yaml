@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.0.3" %}
-{% set build_number = 2 %}
+{% set build_number = 3 %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
 {% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
@@ -35,8 +35,15 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - ninja
+    - libgrpc
+    - libprotobuf
+    - libabseil
   host:
     - nccl         # [linux and cuda_compiler != "None"]
+    - openssl
+    - libgrpc
+    - libprotobuf
+    - libabseil
 
 outputs:
   - name: libxgboost
@@ -62,8 +69,15 @@ outputs:
         - make
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
+        - openssl      # [build_platform != target_platform]
+        - libgrpc
+        - libprotobuf
       host:
         - nccl         # [linux and cuda_compiler != "None"]
+        - openssl
+        - libgrpc
+        - libprotobuf
+        - libabseil
       run:
         - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}

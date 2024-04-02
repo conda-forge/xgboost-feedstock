@@ -16,6 +16,9 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
     XGB_CMAKE_ARGS=(-DUSE_CUDA=ON -DUSE_NCCL=ON -DBUILD_WITH_SHARED_NCCL=ON ${XGB_CMAKE_ARGS[@]+"${XGB_CMAKE_ARGS[@]}"} )
 fi
 
+# Federated learning support
+XGB_CMAKE_ARGS=(-DPLUGIN_FEDERATED=ON ${XGB_CMAKE_ARGS[@]+"${XGB_CMAKE_ARGS[@]}"} )
+
 # Limit number of threads used to avoid hardware oversubscription
 if [[ "${target_platform}" == "linux-aarch64" ]] || [[ "${target_platform}" == "linux-ppc64le" ]]; then
     export CMAKE_BUILD_PARALLEL_LEVEL=6
