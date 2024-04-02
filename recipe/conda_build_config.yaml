@@ -1,3 +1,6 @@
+# abseil now only support MacOS >=10.13, see
+# https://github.com/abseil/abseil-cpp#support and
+# https://github.com/abseil/abseil-cpp/issues/1513
 MACOSX_DEPLOYMENT_TARGET:  # [osx]
   - "10.15"                # [osx]
 MACOSX_SDK_VERSION:        # [osx]
