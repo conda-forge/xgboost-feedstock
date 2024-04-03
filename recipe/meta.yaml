@@ -99,7 +99,7 @@ outputs:
         {% if (cuda_compiler_version or "").startswith("11") %}
         - cuda-version >=11.2,<12
         {% endif %}
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.13") }}  # [osx]
+        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.13") }}  # [osx and x86_64]
 
   - name: _py-xgboost-mutex
     version: 2.0
