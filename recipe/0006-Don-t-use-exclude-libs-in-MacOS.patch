@@ -1,0 +1,23 @@
+From 4cc8ee35e3346ed9c6249f7c7a01d88287662032 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <chohyu01@cs.washington.edu>
+Date: Tue, 2 Apr 2024 20:27:20 -0700
+Subject: [PATCH] Don't use --exclude-libs in MacOS
+
+---
+ plugin/federated/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/plugin/federated/CMakeLists.txt b/plugin/federated/CMakeLists.txt
+index be854d755..707a51307 100644
+--- a/plugin/federated/CMakeLists.txt
++++ b/plugin/federated/CMakeLists.txt
+@@ -29,5 +29,5 @@ target_link_libraries(federated_client INTERFACE federated_proto)
+ 
+ # Rabit engine for Federated Learning.
+ target_sources(objxgboost PRIVATE federated_server.cc)
+-target_link_libraries(objxgboost PRIVATE federated_client "-Wl,--exclude-libs,ALL")
++target_link_libraries(objxgboost PRIVATE federated_client)
+ target_compile_definitions(objxgboost PUBLIC -DXGBOOST_USE_FEDERATED=1)
+-- 
+2.43.0
+
