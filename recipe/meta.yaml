@@ -21,7 +21,7 @@ source:
     - 0003-Use-mingw-w64-path.patch
     - 0004-Undo-dmlc-xgboost-9436.patch
     - 0005-Enable-federated-learning-build-for-Win32-and-ARM.patch
-    - 0006-Don-t-use-exclude-libs-in-MacOS.patch # [osx]
+    - 0006-Don-t-use-exclude-libs-in-MacOS.patch  # [osx]
 
 build:
   number: {{ build_number }}
