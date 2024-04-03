@@ -19,6 +19,12 @@ fi
 # Federated learning support
 XGB_CMAKE_ARGS=(-DPLUGIN_FEDERATED=ON ${XGB_CMAKE_ARGS[@]+"${XGB_CMAKE_ARGS[@]}"} )
 
+# point to a usable protoc/grpc_cpp_plugin if we're cross-compiling
+if [[ "${build_platform}" != "${target_platform}" ]]; then
+    XGB_CMAKE_ARGS=(-DProtobuf_PROTOC_EXECUTABLE=$BUILD_PREFIX/bin/protoc ${XGB_CMAKE_ARGS[@]+"${XGB_CMAKE_ARGS[@]}"} )
+    sed -ie "s;protoc-gen-grpc.*$;protoc-gen-grpc=${BUILD_PREFIX}/bin/grpc_cpp_plugin\";g" plugin/federated/CMakeLists.txt
+fi
+
 # Limit number of threads used to avoid hardware oversubscription
 if [[ "${target_platform}" == "linux-aarch64" ]] || [[ "${target_platform}" == "linux-ppc64le" ]]; then
     export CMAKE_BUILD_PARALLEL_LEVEL=6
