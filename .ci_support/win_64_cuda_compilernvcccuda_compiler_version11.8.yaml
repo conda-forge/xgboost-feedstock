@@ -1,3 +1,5 @@
+c_ares:
+- '1'
 c_compiler:
 - vs2019
 c_stdlib:
@@ -35,3 +37,5 @@ target_platform:
 zip_keys:
 - - cuda_compiler
   - cuda_compiler_version
+zlib:
+- '1.2'
