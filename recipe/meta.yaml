@@ -36,15 +36,24 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - ninja
-    - libgrpc
-    - libprotobuf
-    - libabseil
+    # During cross-compilation, we need to build the grpc_cpp_plugin for the
+    # architecture of the build agent (where it will be executed afterwards),
+    # thus we need the respective host dependencies also in the build env.
+    - libgrpc      # [build_platform != target_platform]
+    - c-ares       # [build_platform != target_platform]
+    - libabseil    # [build_platform != target_platform]
+    - libprotobuf  # [build_platform != target_platform]
+    - openssl      # [build_platform != target_platform]
+    - re2          # [build_platform != target_platform]
+    - zlib         # [build_platform != target_platform]
   host:
     - nccl         # [linux and cuda_compiler != "None"]
-    - openssl
     - libgrpc
-    - libprotobuf
+    - c-ares
     - libabseil
+    - libprotobuf
+    - openssl
+    - zlib
 
 outputs:
   - name: libxgboost
@@ -70,14 +79,21 @@ outputs:
         - make
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
-        - libgrpc
-        - libprotobuf
+        - libgrpc      # [build_platform != target_platform]
+        - c-ares       # [build_platform != target_platform]
+        - libabseil    # [build_platform != target_platform]
+        - libprotobuf  # [build_platform != target_platform]
+        - openssl      # [build_platform != target_platform]
+        - re2          # [build_platform != target_platform]
+        - zlib         # [build_platform != target_platform]
       host:
         - nccl         # [linux and cuda_compiler != "None"]
-        - openssl
         - libgrpc
-        - libprotobuf
+        - c-ares
         - libabseil
+        - libprotobuf
+        - openssl
+        - zlib
       run:
         - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}
