@@ -55,6 +55,7 @@ requirements:
     - libprotobuf
     - openssl
     - zlib
+    - m2-zlib=1.2  # [win]
 
 outputs:
   - name: libxgboost
@@ -95,6 +96,7 @@ outputs:
         - libprotobuf
         - openssl
         - zlib
+        - m2-zlib=1.2  # [win]
       run:
         - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}
