@@ -54,7 +54,7 @@ requirements:
     - libabseil
     - libprotobuf
     - openssl
-    - zlib
+    - zlib =1.2
 
 outputs:
   - name: libxgboost
@@ -94,7 +94,7 @@ outputs:
         - libabseil
         - libprotobuf
         - openssl
-        - zlib
+        - zlib =1.2
       run:
         - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}
