@@ -30,7 +30,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [cuda_compiler != "None" and cuda_compiler_version != "None"]
-    - sysroot_{{ target_platform }} 2.17  # [linux]
+    - {{ stdlib('c') }}
     - cmake
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
@@ -56,7 +56,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
-        - sysroot_{{ target_platform }} 2.17  # [linux]
+        - {{ stdlib('c') }}
         - git
         - cmake
         - make
@@ -167,7 +167,7 @@ outputs:
         - {{ compiler('m2w64_cxx') }}  # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - sysroot_{{ target_platform }} 2.17  # [linux]
+        - {{ stdlib('c') }}
         - llvm-openmp                  # [osx]
         - libgomp                      # [linux]
         - git
