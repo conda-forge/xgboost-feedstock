@@ -1,8 +1,15 @@
 name: Upload conda packages
+on:
+  workflow_run:
+    workflows:
+      - Build conda package
+    types:
+      - completed
 
 jobs:
   on-success:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == "success" }}
     steps:
       - run: |
           echo "Build passing"
@@ -10,6 +17,7 @@ jobs:
 
   on-failure:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == "failure" }}
     steps:
       - run: |
           echo "Build failing"
