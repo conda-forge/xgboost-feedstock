@@ -1,0 +1,16 @@
+name: Upload conda packages
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Build passing"
+          exit 0
+
+  on-failure:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Build failing"
+          exit 1
