@@ -1,4 +1,6 @@
 name: Upload conda packages
+on:
+  push
 
 jobs:
   on-success:
