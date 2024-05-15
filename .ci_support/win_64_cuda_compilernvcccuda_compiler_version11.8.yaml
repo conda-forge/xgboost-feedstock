@@ -1,3 +1,5 @@
+c_ares:
+- '1'
 c_compiler:
 - vs2019
 c_stdlib:
@@ -12,10 +14,18 @@ cuda_compiler_version:
 - '11.8'
 cxx_compiler:
 - vs2019
+libabseil:
+- '20230802'
+libgrpc:
+- '1.60'
+libprotobuf:
+- 4.25.1
 m2w64_c_compiler:
 - m2w64-toolchain
 m2w64_cxx_compiler:
 - m2w64-toolchain
+openssl:
+- '3'
 pin_run_as_build:
   r-base:
     min_pin: x.x

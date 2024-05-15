@@ -1,5 +1,7 @@
 BUILD:
 - aarch64-conda_cos7-linux-gnu
+c_ares:
+- '1'
 c_compiler:
 - gcc
 c_compiler_version:
@@ -26,8 +28,16 @@ cxx_compiler_version:
 - '12'
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
+libabseil:
+- '20230802'
+libgrpc:
+- '1.60'
+libprotobuf:
+- 4.25.1
 nccl:
 - '2'
+openssl:
+- '3'
 pin_run_as_build:
   r-base:
     min_pin: x.x

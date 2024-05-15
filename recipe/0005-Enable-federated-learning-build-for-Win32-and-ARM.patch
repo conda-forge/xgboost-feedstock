@@ -1,0 +1,35 @@
+From 9e8e342c55c6d1e1ee924b1ccd4460e604f9736f Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <chohyu01@cs.washington.edu>
+Date: Tue, 2 Apr 2024 16:17:49 -0700
+Subject: [PATCH] Enable federated learning build for Win32 and ARM
+
+---
+ CMakeLists.txt | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c838ff9ef..f65b25087 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -133,18 +133,12 @@ if (BUILD_STATIC_LIB AND (R_LIB OR JVM_BINDINGS))
+   message(SEND_ERROR "Cannot build a static library libxgboost.a when R or JVM packages are enabled.")
+ endif (BUILD_STATIC_LIB AND (R_LIB OR JVM_BINDINGS))
+ if (PLUGIN_FEDERATED)
+-  if (CMAKE_CROSSCOMPILING)
+-    message(SEND_ERROR "Cannot cross compile with federated learning support")
+-  endif ()
+   if (BUILD_STATIC_LIB)
+     message(SEND_ERROR "Cannot build static lib with federated learning support")
+   endif ()
+   if (R_LIB OR JVM_BINDINGS)
+     message(SEND_ERROR "Cannot enable federated learning support when R or JVM packages are enabled.")
+   endif ()
+-  if (WIN32)
+-    message(SEND_ERROR "Federated learning not supported for Windows platform")
+-  endif ()
+ endif ()
+ 
+ #-- Sanitizer
+-- 
+2.34.1
+

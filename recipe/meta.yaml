@@ -20,6 +20,8 @@ source:
     - 0002-Enable-latest-libcxx-on-MacOS.patch  # [osx]
     - 0003-Use-mingw-w64-path.patch
     - 0004-Undo-dmlc-xgboost-9436.patch
+    - 0005-Enable-federated-learning-build-for-Win32-and-ARM.patch
+    - 0006-Don-t-use-exclude-libs-in-MacOS.patch  # [osx]
 
 build:
   number: {{ build_number }}
@@ -35,8 +37,24 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - ninja
+    # During cross-compilation, we need to build the grpc_cpp_plugin for the
+    # architecture of the build agent (where it will be executed afterwards),
+    # thus we need the respective host dependencies also in the build env.
+    - libgrpc      # [build_platform != target_platform]
+    - c-ares       # [build_platform != target_platform]
+    - libabseil    # [build_platform != target_platform]
+    - libprotobuf  # [build_platform != target_platform]
+    - openssl      # [build_platform != target_platform]
+    - re2          # [build_platform != target_platform]
+    - zlib         # [build_platform != target_platform]
   host:
     - nccl         # [linux and cuda_compiler != "None"]
+    - libgrpc
+    - c-ares
+    - libabseil
+    - libprotobuf
+    - openssl
+    - zlib =1.2
 
 outputs:
   - name: libxgboost
@@ -62,13 +80,27 @@ outputs:
         - make
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
+        - libgrpc      # [build_platform != target_platform]
+        - c-ares       # [build_platform != target_platform]
+        - libabseil    # [build_platform != target_platform]
+        - libprotobuf  # [build_platform != target_platform]
+        - openssl      # [build_platform != target_platform]
+        - re2          # [build_platform != target_platform]
+        - zlib         # [build_platform != target_platform]
       host:
         - nccl         # [linux and cuda_compiler != "None"]
+        - libgrpc
+        - c-ares
+        - libabseil
+        - libprotobuf
+        - openssl
+        - zlib =1.2
       run:
         - __cuda                   # [cuda_compiler != "None"]
         {% if (cuda_compiler_version or "").startswith("11") %}
         - cuda-version >=11.2,<12
         {% endif %}
+        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.13") }}  # [osx and x86_64]
 
   - name: _py-xgboost-mutex
     version: 2.0
