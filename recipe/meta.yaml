@@ -176,7 +176,7 @@ outputs:
         - cmake
         - ninja
         - cross-r-base {{ r_base }}    # [build_platform != target_platform]
-        - r-base                       # [build_platform != target_platform]
+        - r-base >=4.3                 # [build_platform != target_platform]
         - r-matrix                     # [build_platform != target_platform]
         - r-data.table                 # [build_platform != target_platform]
         - r-magrittr                   # [build_platform != target_platform]
@@ -184,7 +184,7 @@ outputs:
         - r-knitr                      # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - r-base
+        - r-base >=4.3
         - r-matrix
         - r-data.table
         - r-magrittr
@@ -193,7 +193,7 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
-        - r-base
+        - r-base >=4.3
         - r-matrix
         - r-data.table
         - r-magrittr
