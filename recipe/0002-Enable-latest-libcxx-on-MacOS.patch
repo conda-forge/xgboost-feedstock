@@ -1,25 +1,26 @@
-From 59ac1090da5ba692238f4baf87d46a4c81b9282c Mon Sep 17 00:00:00 2001
-From: Hyunsu Cho <chohyu01@cs.washington.edu>
-Date: Wed, 1 Nov 2023 01:01:34 -0700
+From 7bb7bd609859057f80576fc156f4b3e19218a671 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <phcho@nvidia.com>
+Date: Fri, 28 Jun 2024 17:40:28 -0700
 Subject: [PATCH] Enable latest libcxx on MacOS
 
 ---
- R-package/src/Makevars.in | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ R-package/src/Makevars.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/R-package/src/Makevars.in b/R-package/src/Makevars.in
-index 9e7cbfed..8b3af0ae 100644
+index 93cfb8e5b..e24cfed93 100644
 --- a/R-package/src/Makevars.in
 +++ b/R-package/src/Makevars.in
-@@ -7,7 +7,7 @@ CXX_STD = CXX17
- 
- XGB_RFLAGS = -DXGBOOST_STRICT_R_MODE=1 -DDMLC_LOG_BEFORE_THROW=0\
-            -DDMLC_ENABLE_STD_THREAD=$(ENABLE_STD_THREAD) -DDMLC_DISABLE_STDIN=1\
--           -DDMLC_LOG_CUSTOMIZE=1
-+           -DDMLC_LOG_CUSTOMIZE=1 -D_LIBCPP_DISABLE_AVAILABILITY
+@@ -10,7 +10,8 @@ XGB_RFLAGS = \
+     -DDMLC_LOG_BEFORE_THROW=0 \
+     -DDMLC_ENABLE_STD_THREAD=$(ENABLE_STD_THREAD) \
+     -DDMLC_DISABLE_STDIN=1 \
+-    -DDMLC_LOG_CUSTOMIZE=1
++    -DDMLC_LOG_CUSTOMIZE=1 \
++    -D_LIBCPP_DISABLE_AVAILABILITY
  
  # disable the use of thread_local for 32 bit windows:
  ifeq ($(R_OSTYPE)$(WIN),windows)
 -- 
-2.25.1
+2.34.1
 
