@@ -26,9 +26,7 @@ else
   EXEEXT=
 fi
 
-ls ${SRC_DIR}
 mkdir -p ${LIBDIR} ${INCDIR}/xgboost ${BINDIR} || true
-cp ${SRC_DIR}/xgboost${EXEEXT} ${BINDIR}/
 cp ${SRC_DIR}/lib/${XGBOOSTDSO} ${SODIR}/
 cp -Rf ${SRC_DIR}/include/xgboost ${INCDIR}/
 cp -f ${SRC_DIR}/src/c_api/*.h ${INCDIR}/xgboost/
