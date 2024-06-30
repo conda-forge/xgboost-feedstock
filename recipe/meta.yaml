@@ -24,6 +24,7 @@ source:
 build:
   number: {{ build_number }}
   skip: True  # [cuda_compiler_version == "11.2"]
+  skip: True  # [r_base != "4.3"]
 
 requirements:
   build:
