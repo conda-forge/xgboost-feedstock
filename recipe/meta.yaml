@@ -175,7 +175,7 @@ outputs:
         - posix                        # [win]
         - cmake
         - ninja
-        - cross-r-base {{ r_base }} >= 4.3    # [build_platform != target_platform]
+        - cross-r-base {{ r_base }}    # [build_platform != target_platform]
         - r-base >=4.3                 # [build_platform != target_platform]
         - r-matrix                     # [build_platform != target_platform]
         - r-data.table                 # [build_platform != target_platform]
@@ -210,9 +210,9 @@ outputs:
       skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
-        - r-base
+        - r-base >=4.3
       run:
-        - r-base
+        - r-base >=4.3
         - {{ pin_subpackage('r-xgboost', exact=True) }}
 
   - name: r-xgboost-gpu
@@ -220,9 +220,9 @@ outputs:
       skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
-        - r-base
+        - r-base >=4.3
       run:
-        - r-base
+        - r-base >=4.3
         - {{ pin_subpackage('r-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
 
