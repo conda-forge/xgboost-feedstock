@@ -175,7 +175,7 @@ outputs:
         - posix                        # [win]
         - cmake
         - ninja
-        - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+        - cross-r-base {{ r_base }} >= 4.3    # [build_platform != target_platform]
         - r-base >=4.3                 # [build_platform != target_platform]
         - r-matrix                     # [build_platform != target_platform]
         - r-data.table                 # [build_platform != target_platform]
