@@ -7,10 +7,7 @@ build_platform:
 conda_build:
   error_overlinking: true
   pkg_format: '2'
-conda_build_tool: conda-build
 conda_forge_output_validation: true
-conda_install_tool: mamba
-conda_solver: libmamba
 github:
   branch_name: main
   tooling_branch_name: main
