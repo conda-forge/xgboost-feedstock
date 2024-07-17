@@ -163,7 +163,7 @@ outputs:
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
-      skip: true  # [r_base in ("3.4", "4.0", "4.1", "4.2")]
+      skip: true  # [r_base in ("4.1", "4.2") or win]
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
@@ -215,7 +215,7 @@ outputs:
   - name: r-xgboost-cpu
     build:
       skip: true  # [cuda_compiler != "None"]
-      skip: true  # [r_base in ("3.4", "4.0", "4.1", "4.2")]
+      skip: true  # [r_base in ("4.1", "4.2") or win]
     requirements:
       host:
         - r-base
@@ -227,7 +227,7 @@ outputs:
   - name: r-xgboost-gpu
     build:
       skip: true  # [cuda_compiler == "None"]
-      skip: true  # [r_base in ("3.4", "4.0", "4.1", "4.2")]
+      skip: true  # [r_base in ("4.1", "4.2") or win]
     requirements:
       host:
         - r-base
