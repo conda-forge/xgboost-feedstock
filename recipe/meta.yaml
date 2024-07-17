@@ -96,6 +96,7 @@ outputs:
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
+        - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - python
         - hatchling >=1.12.1
         - pip
@@ -144,6 +145,7 @@ outputs:
     requirements:
       host:
         - python
+        - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -184,6 +186,7 @@ outputs:
         - r-knitr                      # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
+        - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - r-base
         - r-matrix
         - r-data.table
@@ -211,6 +214,7 @@ outputs:
     requirements:
       host:
         - r-base
+        - {{ pin_subpackage('r-xgboost', exact=True) }}
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
@@ -221,6 +225,7 @@ outputs:
     requirements:
       host:
         - r-base
+        - {{ pin_subpackage('r-xgboost', exact=True) }}
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
