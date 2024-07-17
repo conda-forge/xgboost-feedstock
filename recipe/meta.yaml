@@ -28,7 +28,9 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}  # [cuda_compiler != "None" and cuda_compiler_version != "None"]
+    - {{ compiler('m2w64_c') }}    # [win]
+    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('cuda') }}       # [cuda_compiler != "None" and cuda_compiler_version != "None"]
     - {{ stdlib('c') }}
     - cmake
     - llvm-openmp  # [osx]
