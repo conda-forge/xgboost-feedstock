@@ -121,7 +121,7 @@ outputs:
         - python
       imports:
         - xgboost
-      script: test-py-xgboost.py  # [build_platform == target_platform]
+      script: test-py-xgboost.py
 
   - name: py-xgboost-cpu
     build:
