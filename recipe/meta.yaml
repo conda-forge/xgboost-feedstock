@@ -129,6 +129,9 @@ outputs:
       noarch: python
       skip: True  # [cuda_compiler != "None"]
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -144,6 +147,9 @@ outputs:
       noarch: python
       skip: True  # [cuda_compiler == "None"]
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -160,6 +166,9 @@ outputs:
       noarch: python
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
