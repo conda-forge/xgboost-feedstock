@@ -74,6 +74,11 @@ outputs:
         {% if (cuda_compiler_version or "").startswith("11") %}
         - cuda-version >=11.2,<12
         {% endif %}
+    test:
+      commands:
+        - test -f "${PREFIX}/lib/libxgboost${SHLIB_EXT}"  # [unix]
+        - if not exist %LIBRARY_BIN%/xgboost.dll exit 1   # [win]
+        - if not exist %LIBRARY_LIB%/xgboost.lib exit 1   # [win]
 
   - name: _py-xgboost-mutex
     version: 2.0
