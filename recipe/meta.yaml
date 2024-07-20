@@ -23,6 +23,7 @@ source:
 
 build:
   number: {{ build_number }}
+  noarch: python
 
 requirements:
   build:
