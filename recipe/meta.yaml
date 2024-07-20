@@ -108,13 +108,13 @@ outputs:
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - python
+        - python >=3.8
         - hatchling >=1.12.1
         - pip
       run:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
-        - python
+        - python >=3.8
         - numpy
         - scipy
         - scikit-learn
@@ -133,10 +133,10 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - python
+        - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
-        - python
+        - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
     test:
       imports:
@@ -151,10 +151,10 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - python
+        - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
-        - python
+        - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
     test:
@@ -170,10 +170,10 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - python
+        - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
-        - python
+        - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
     test:
