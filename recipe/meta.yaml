@@ -84,6 +84,9 @@ outputs:
     version: 2.0
     build:
       string: {{ "cpu" if cuda_compiler == "None" else "gpu" }}_0
+    test:
+      commands:
+        - exit 0
 
   - name: py-xgboost
     script: install-py-xgboost.sh  # [not win]
@@ -167,6 +170,9 @@ outputs:
     version: 2.0
     build:
       string: {{ "cpu" if cuda_compiler == "None" else "gpu" }}_0
+    test:
+      commands:
+        - exit 0
 
   - name: r-xgboost
     script: install-r-xgboost.sh  # [not win]
