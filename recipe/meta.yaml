@@ -159,6 +159,9 @@ outputs:
         - python
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
+    test:
+      imports:
+        - xgboost
 
   - name: _r-xgboost-mutex
     version: 2.0
