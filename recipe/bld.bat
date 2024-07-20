@@ -1,3 +1,5 @@
+@echo on
+
 mkdir "%SRC_DIR%"\build
 pushd "%SRC_DIR%"\build
 
