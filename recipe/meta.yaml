@@ -23,7 +23,7 @@ source:
 
 build:
   number: {{ build_number }}
-  skip: True  # [cuda_compiler_version == "11.8" and win]
+  # skip: True  # [cuda_compiler_version == "11.8" and win]
 
 requirements:
   build:
