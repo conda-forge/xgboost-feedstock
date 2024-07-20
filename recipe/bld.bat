@@ -1,7 +1,7 @@
 mkdir "%SRC_DIR%"\build
 pushd "%SRC_DIR%"\build
 
-if NOT "%cuda_compiler_version%"=="None" (
+if not "%cuda_compiler_version%"=="None" (
     set "CMAKE_ARGS=-DUSE_CUDA=ON %CMAKE_ARGS%"
 )
 
