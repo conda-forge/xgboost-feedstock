@@ -6,7 +6,7 @@ if not "%cuda_compiler_version%" == "None" (
 
     :: Workaround CUB build errors on CUDA 11.8
     if not "%cuda_compiler_version%" == "11.8" (
-        set "NVCC_APPEND_FLAGS=%NVCC_APPEND_FLAGS% /DWIN32_LEAN_AND_MEAN"
+        set "NVCC_APPEND_FLAGS=%NVCC_APPEND_FLAGS% -DWIN32_LEAN_AND_MEAN"
     )
 )
 
