@@ -102,9 +102,6 @@ outputs:
         - PIP_CACHE_DIR=pip_cache
         - PIP_NO_INDEX=True
     requirements:
-      build:
-        - python                                 # [build_platform != target_platform]
-        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
@@ -129,9 +126,6 @@ outputs:
       noarch: python
       skip: True  # [cuda_compiler != "None"]
     requirements:
-      build:
-        - python                                 # [build_platform != target_platform]
-        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -147,9 +141,6 @@ outputs:
       noarch: python
       skip: True  # [cuda_compiler == "None"]
     requirements:
-      build:
-        - python                                 # [build_platform != target_platform]
-        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
@@ -166,9 +157,6 @@ outputs:
       noarch: python
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
-      build:
-        - python                                 # [build_platform != target_platform]
-        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
