@@ -120,9 +120,9 @@ outputs:
         - scikit-learn
         - __cuda  # [cuda_compiler != "None"]
     test:
-      script: test-py-xgboost.py
       imports:
         - xgboost
+      script: test-py-xgboost.py
 
   - name: py-xgboost-cpu
     build:
