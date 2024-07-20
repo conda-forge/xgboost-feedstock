@@ -248,6 +248,10 @@ outputs:
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
+    test:
+      commands:
+        - $R -e "library('xgboost')"           # [unix]
+        - "\"%R%\" -e \"library('xgboost')\""  # [win]
 
   - name: r-xgboost-gpu
     build:
@@ -261,6 +265,10 @@ outputs:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
+    test:
+      commands:
+        - $R -e "library('xgboost')"           # [unix]
+        - "\"%R%\" -e \"library('xgboost')\""  # [win]
 
 about:
   home: https://github.com/dmlc/xgboost
