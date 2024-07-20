@@ -117,6 +117,8 @@ outputs:
         - scikit-learn
         - __cuda  # [cuda_compiler != "None"]
     test:
+      requires:
+        - python
       imports:
         - xgboost
       script: test-py-xgboost.py
@@ -133,6 +135,8 @@ outputs:
         - python >=3.8
         - {{ pin_subpackage('py-xgboost', exact=True) }}
     test:
+      requires:
+        - python
       imports:
         - xgboost
 
@@ -149,6 +153,8 @@ outputs:
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
     test:
+      requires:
+        - python
       imports:
         - xgboost
 
@@ -165,6 +171,8 @@ outputs:
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
     test:
+      requires:
+        - python
       imports:
         - xgboost
 
@@ -228,6 +236,8 @@ outputs:
         - r-jsonlite
         - __cuda  # [cuda_compiler != "None"]
     test:
+      requires:
+        - r-base
       files:
         - test-r-xgboost.r
       commands:
@@ -245,6 +255,8 @@ outputs:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
     test:
+      requires:
+        - r-base
       commands:
         - $R -e "library('xgboost')"           # [unix]
         - "\"%R%\" -e \"library('xgboost')\""  # [win]
@@ -262,6 +274,8 @@ outputs:
         - {{ pin_subpackage('r-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
     test:
+      requires:
+        - r-base
       commands:
         - $R -e "library('xgboost')"           # [unix]
         - "\"%R%\" -e \"library('xgboost')\""  # [win]
