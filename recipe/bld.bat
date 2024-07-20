@@ -3,7 +3,6 @@ pushd "%SRC_DIR%"\build
 
 if NOT "%cuda_compiler_version%"=="None" (
     set "CMAKE_ARGS=-DUSE_CUDA=ON %CMAKE_ARGS%"
-    set "NVCC_APPEND_FLAGS=%NVCC_APPEND_FLAGS% --use-local-env"
 )
 
 cmake -G "Ninja" ^
