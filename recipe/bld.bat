@@ -3,6 +3,11 @@ pushd "%SRC_DIR%"\build
 
 if not "%cuda_compiler_version%" == "None" (
     set "CMAKE_ARGS=-DUSE_CUDA=ON %CMAKE_ARGS%"
+
+    :: Workaround CUB build errors on CUDA 11.8
+    if not "%cuda_compiler_version%" == "11.8" (
+        set "CXXFLAGS=%CXXFLAGS% -DWIN32_LEAN_AND_MEAN"
+    )
 )
 
 cmake -G "Ninja" ^
