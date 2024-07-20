@@ -68,6 +68,7 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
       host:
+        - cccl         # [cuda_compiler != "None"]
         - nccl         # [linux and cuda_compiler != "None"]
       run:
         - __cuda                   # [cuda_compiler != "None"]
