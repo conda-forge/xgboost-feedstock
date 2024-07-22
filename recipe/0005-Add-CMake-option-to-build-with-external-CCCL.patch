@@ -4,9 +4,9 @@ Date: Mon, 22 Jul 2024 12:20:10 -0700
 Subject: [PATCH] [CMake] Explicitly link with CCCL (standalone or CTK)
 
 ---
- CMakeLists.txt    | 9 +++++++++
+ CMakeLists.txt    | 6 ++++++
  cmake/Utils.cmake | 1 +
- 2 files changed, 10 insertions(+)
+ 2 files changed, 7 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index dc0f7e654..8371a45c0 100644
