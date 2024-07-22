@@ -10,10 +10,8 @@ package:
   version: {{ version }}
 
 source:
-  # we have to use git urls here to get the submodules needed for the
-  # build
-  git_url: https://github.com/dmlc/xgboost
-  git_tag: v{{ version }}
+  url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-{{ version }}.tar.gz
+  sha256: 28bec8e821b1fefcea722d96add66024adba399063f723bc5c815f7af4a5f5e4
   patches:
     # xgboost patches
     - 0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
