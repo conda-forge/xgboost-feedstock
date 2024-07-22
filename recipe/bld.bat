@@ -4,7 +4,7 @@ mkdir %SRC_DIR%\build
 pushd %SRC_DIR%\build
 
 if not "%cuda_compiler_version%" == "None" (
-    set "CMAKE_ARGS=-DUSE_CUDA=ON %CMAKE_ARGS%"
+    set "CMAKE_ARGS=-DUSE_CUDA=ON -DBUILD_WITH_EXTERNAL_CCCL=ON %CMAKE_ARGS%"
 )
 
 cmake -G "Ninja" ^

@@ -1,0 +1,62 @@
+From 6115225b8a7aa6b507169aa774e3edf8284ceeb6 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <chohyu01@cs.washington.edu>
+Date: Mon, 22 Jul 2024 12:20:10 -0700
+Subject: [PATCH] Add CMake option to build with external CCCL
+
+---
+ CMakeLists.txt    | 8 ++++++++
+ cmake/Utils.cmake | 5 +++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index dc0f7e654..fa48ecec9 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -78,6 +78,7 @@ option(USE_NCCL  "Build with NCCL to enable distributed GPU support." OFF)
+ # This is specifically designed for PyPI binary release and should be disabled for most of the cases.
+ option(USE_DLOPEN_NCCL "Whether to load nccl dynamically." OFF)
+ option(BUILD_WITH_SHARED_NCCL "Build with shared NCCL library." OFF)
++option(BUILD_WITH_EXTERNAL_CCCL "Build with external CCCL instead of one from CTK" OFF)
+ 
+ if(USE_CUDA)
+   if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES AND NOT DEFINED ENV{CUDAARCHS})
+@@ -224,6 +225,10 @@ if(USE_CUDA)
+   add_subdirectory(${PROJECT_SOURCE_DIR}/gputreeshap)
+ 
+   find_package(CUDAToolkit REQUIRED)
++
++  if(BUILD_WITH_EXTERNAL_CCCL)
++    find_package(CCCL REQUIRED CONFIG COMPONENTS cub)
++  endif()
+ endif()
+ 
+ if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
+@@ -422,6 +427,9 @@ else()
+     set(INSTALL_TARGETS xgboost)
+   endif()
+ endif()
++if(BUILD_WITH_EXTERNAL_CCCL)
++  list(APPEND INSTALL_TARGETS _CUB_CUB _CUB_libcudacxx)
++endif()
+ 
+ install(TARGETS ${INSTALL_TARGETS}
+   EXPORT XGBoostTargets
+diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
+index 8659df7c3..e8832923b 100644
+--- a/cmake/Utils.cmake
++++ b/cmake/Utils.cmake
+@@ -108,6 +108,11 @@ function(xgboost_set_cuda_flags target)
+     target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_NVTX=1)
+   endif()
+ 
++  if(BUILD_WITH_EXTERNAL_CCCL)
++    target_compile_definitions(${target} PRIVATE -DTHRUST_IGNORE_CUB_VERSION_CHECK=1)
++    target_link_libraries(${target} PRIVATE CCCL::CUB)
++  endif()
++
+   target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_CUDA=1)
+   target_include_directories(
+     ${target} PRIVATE
+-- 
+2.45.2
+
