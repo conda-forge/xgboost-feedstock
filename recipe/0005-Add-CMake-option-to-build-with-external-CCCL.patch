@@ -9,10 +9,10 @@ Subject: [PATCH] [CMake] Explicitly link with CCCL (standalone or CTK)
  2 files changed, 7 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index dc0f7e654..8371a45c0 100644
+index 034d52164..311a2bc31 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -224,6 +224,12 @@ if(USE_CUDA)
+@@ -221,6 +221,12 @@ if(USE_CUDA)
    add_subdirectory(${PROJECT_SOURCE_DIR}/gputreeshap)
  
    find_package(CUDAToolkit REQUIRED)
@@ -25,13 +25,6 @@ index dc0f7e654..8371a45c0 100644
  endif()
  
  if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
-@@ -422,6 +428,9 @@ else()
-     set(INSTALL_TARGETS xgboost)
-   endif()
- endif()
- 
- install(TARGETS ${INSTALL_TARGETS}
-   EXPORT XGBoostTargets
 diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
 index 8659df7c3..01dca611c 100644
 --- a/cmake/Utils.cmake
