@@ -33,13 +33,13 @@ requirements:
     - {{ compiler('m2w64_c') }}    # [win]
     - {{ compiler('m2w64_cxx') }}  # [win]
     - {{ compiler('cuda') }}       # [cuda_compiler != "None" and cuda_compiler_version != "None"]
-    - cccl         # [cuda_compiler != "None"]
     - {{ stdlib('c') }}
     - cmake
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - ninja
   host:
+    - cccl         # [cuda_compiler != "None"]
     - nccl         # [linux and cuda_compiler != "None"]
 
 outputs:
