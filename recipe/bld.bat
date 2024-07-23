@@ -17,7 +17,7 @@ cmake -G "Ninja" ^
 if errorlevel 1 exit 1
 
 cmake --build . --target install --config Release ^
-    -- /m "/consoleloggerparameters:ShowCommandLine;Verbosity=minimal"
+    -- "/consoleloggerparameters:ShowCommandLine;Verbosity=minimal"
 if errorlevel 1 exit 1
 
 popd
