@@ -16,8 +16,7 @@ cmake -G "Ninja" ^
     "%SRC_DIR%"
 if errorlevel 1 exit 1
 
-cmake --build . --target install --config Release ^
-    -- "/consoleloggerparameters:ShowCommandLine;Verbosity=minimal"
+cmake --build . --target install --config Release -- -v
 if errorlevel 1 exit 1
 
 popd
