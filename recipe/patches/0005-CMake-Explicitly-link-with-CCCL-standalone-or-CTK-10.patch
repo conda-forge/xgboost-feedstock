@@ -6,8 +6,8 @@ Subject: [PATCH] [CMake] Explicitly link with CCCL (standalone or CTK)
 
 ---
  CMakeLists.txt    | 18 ++++++++++++++++++
- cmake/Utils.cmake |  5 ++---
- 2 files changed, 20 insertions(+), 3 deletions(-)
+ cmake/Utils.cmake |  6 +++---
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index dc0f7e6..aa07840 100644
@@ -39,14 +39,15 @@ index dc0f7e6..aa07840 100644
  
  if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
 diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
-index 8659df7..546359c 100644
+index 8659df7..ec69278 100644
 --- a/cmake/Utils.cmake
 +++ b/cmake/Utils.cmake
-@@ -108,12 +108,11 @@ function(xgboost_set_cuda_flags target)
+@@ -108,12 +108,12 @@ function(xgboost_set_cuda_flags target)
      target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_NVTX=1)
    endif()
  
-+  target_link_libraries(${target} INTERFACE CCCL::CCCL CUDA::toolkit)
++  target_link_libraries(${target} INTERFACE CCCL::CCCL)
++  target_link_libraries(${target} PUBLIC CUDA::cudart_static)
    target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_CUDA=1)
    target_include_directories(
      ${target} PRIVATE
