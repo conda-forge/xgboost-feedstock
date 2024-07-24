@@ -18,7 +18,7 @@ source:
     - 0002-Enable-latest-libcxx-on-MacOS.patch  # [osx]
     - 0003-Use-mingw-w64-path.patch
     - 0004-Undo-dmlc-xgboost-9436.patch
-    - 0005-Add-CMake-option-to-build-with-external-CCCL.patch
+    - 0005-CMake-Explicitly-link-with-CCCL-standalone-or-CTK-10.patch
 
 build:
   number: {{ build_number }}
