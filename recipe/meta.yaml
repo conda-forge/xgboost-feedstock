@@ -1,6 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.0" %}
 {% set build_number = 0 %}
+{% set min_python = "3.8" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
 {% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
@@ -22,7 +23,9 @@ source:
 
 build:
   number: {{ build_number }}
-  noarch: python
+  {% if python is defined %}
+  skip: {{ python.split(".")[:2] != min_python.split(".")[:2] }}
+  {% endif %}
 
 requirements:
   build:
@@ -108,13 +111,13 @@ outputs:
       host:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - python >=3.8
+        - python >={{ min_python }}
         - hatchling >=1.12.1
         - pip
       run:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - python >=3.8
+        - python >={{ min_python }}
         - numpy
         - scipy
         - scikit-learn
@@ -132,10 +135,10 @@ outputs:
       skip: True  # [cuda_compiler != "None"]
     requirements:
       host:
-        - python >=3.8
+        - python >={{ min_python }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
-        - python >=3.8
+        - python >={{ min_python }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
     test:
       requires:
@@ -149,10 +152,10 @@ outputs:
       skip: True  # [cuda_compiler == "None"]
     requirements:
       host:
-        - python >=3.8
+        - python >={{ min_python }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
-        - python >=3.8
+        - python >={{ min_python }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
     test:
@@ -167,10 +170,10 @@ outputs:
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       host:
-        - python >=3.8
+        - python >={{ min_python }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
       run:
-        - python >=3.8
+        - python >={{ min_python }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - __cuda  # [cuda_compiler != "None"]
     test:
