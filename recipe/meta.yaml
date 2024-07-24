@@ -20,6 +20,7 @@ source:
     - patches/0003-Use-mingw-w64-path.patch
     - patches/0004-Undo-dmlc-xgboost-9436.patch
     - patches/0005-CMake-Explicitly-link-with-CCCL-standalone-or-CTK.patch
+    - patches/0006-Partial-fix-for-CTK-12.5-10574.patch
 
 build:
   number: {{ build_number }}

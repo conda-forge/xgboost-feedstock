@@ -1,16 +1,15 @@
-From 7210f056f80c09c003056fb7ef0864ab859104c8 Mon Sep 17 00:00:00 2001
+From 6e58a81cf201d27c3acb304cdcd991cd46aa421f Mon Sep 17 00:00:00 2001
 From: Hyunsu Cho <phcho@nvidia.com>
-Date: Wed, 24 Jul 2024 11:00:56 -0700
+Date: Wed, 24 Jul 2024 12:25:04 -0700
 Subject: [PATCH] [CMake] Explicitly link with CCCL (standalone or CTK)
 
 Also allow building with CCCL that's newer than CTK
 
 Co-authored-by: jakirkham <jakirkham@gmail.com>
 ---
- CMakeLists.txt        | 18 ++++++++++++++++++
- cmake/Utils.cmake     |  7 ++++---
- src/common/quantile.h |  8 ++++++++
- 3 files changed, 30 insertions(+), 3 deletions(-)
+ CMakeLists.txt    | 18 ++++++++++++++++++
+ cmake/Utils.cmake |  6 +++---
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index dc0f7e654..aa078405f 100644
@@ -42,16 +41,15 @@ index dc0f7e654..aa078405f 100644
  
  if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
 diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
-index 8659df7c3..982d4068b 100644
+index 8659df7c3..c1f19fdbb 100644
 --- a/cmake/Utils.cmake
 +++ b/cmake/Utils.cmake
-@@ -108,12 +108,13 @@ function(xgboost_set_cuda_flags target)
+@@ -108,12 +108,12 @@ function(xgboost_set_cuda_flags target)
      target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_NVTX=1)
    endif()
  
 +  target_link_libraries(${target}
-+    INTERFACE CCCL::CCCL
-+    PUBLIC CUDA::cudart_static)
++    PRIVATE CCCL::CCCL CUDA::cudart_static)
    target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_CUDA=1)
    target_include_directories(
      ${target} PRIVATE
@@ -62,25 +60,6 @@ index 8659df7c3..982d4068b 100644
  
    if(MSVC)
      target_compile_options(${target} PRIVATE
-diff --git a/src/common/quantile.h b/src/common/quantile.h
-index 59bc3a4f7..ff3530ab2 100644
---- a/src/common/quantile.h
-+++ b/src/common/quantile.h
-@@ -71,6 +71,14 @@ struct WQSummary {
-          << "value: " << e.value;
-       return os;
-     }
-+
-+    XGBOOST_DEVICE inline bool operator==(Entry const& rhs) const {
-+      return (rmin == rhs.rmin) && (rmax == rhs.rmax)
-+             && (wmin == rhs.wmin) && (value == rhs.value);
-+    }
-+    XGBOOST_DEVICE inline bool operator!=(Entry const& rhs) const {
-+      return !operator==(rhs);
-+    }
-   };
-   /*! \brief input data queue before entering the summary */
-   struct Queue {
 -- 
 2.34.1
 
