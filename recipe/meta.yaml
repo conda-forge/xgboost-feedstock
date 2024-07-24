@@ -40,8 +40,8 @@ requirements:
     - libgomp      # [linux]
     - ninja
   host:
-    - cccl         # [cuda_compiler != "None"]
-    - nccl         # [linux and cuda_compiler != "None"]
+    - cccl !=2.4.0,!=2.5.0  # [cuda_compiler != "None"]
+    - nccl                  # [linux and cuda_compiler != "None"]
 
 outputs:
   - name: libxgboost
