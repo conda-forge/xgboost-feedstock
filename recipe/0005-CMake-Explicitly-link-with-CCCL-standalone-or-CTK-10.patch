@@ -6,11 +6,11 @@ Subject: [PATCH] [CMake] Explicitly link with CCCL (standalone or CTK)
 
 ---
  CMakeLists.txt    | 18 ++++++++++++++++++
- cmake/Utils.cmake |  6 ++++--
- 2 files changed, 22 insertions(+), 2 deletions(-)
+ cmake/Utils.cmake |  5 ++---
+ 2 files changed, 20 insertions(+), 3 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index dc0f7e654..aa078405f 100644
+index dc0f7e6..aa07840 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -224,6 +224,24 @@ if(USE_CUDA)
@@ -39,25 +39,21 @@ index dc0f7e654..aa078405f 100644
  
  if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
 diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
-index 8659df7c3..443b77c7b 100644
+index 8659df7..546359c 100644
 --- a/cmake/Utils.cmake
 +++ b/cmake/Utils.cmake
-@@ -108,11 +108,13 @@ function(xgboost_set_cuda_flags target)
+@@ -108,12 +108,11 @@ function(xgboost_set_cuda_flags target)
      target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_NVTX=1)
    endif()
  
-+  target_link_libraries(${target} PRIVATE CCCL::CCCL)
++  target_link_libraries(${target} INTERFACE CCCL::CCCL CUDA::toolkit)
    target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_CUDA=1)
    target_include_directories(
      ${target} PRIVATE
 -    ${xgboost_SOURCE_DIR}/gputreeshap
 -    ${xgboost_SOURCE_DIR}/rabit/include
+-    ${CUDAToolkit_INCLUDE_DIRS})
 +    ${xgboost_SOURCE_DIR}/gputreeshap)
-+  target_include_directories(
-+    ${target} AFTER PRIVATE
-     ${CUDAToolkit_INCLUDE_DIRS})
  
    if(MSVC)
--- 
-2.34.1
-
+     target_compile_options(${target} PRIVATE
