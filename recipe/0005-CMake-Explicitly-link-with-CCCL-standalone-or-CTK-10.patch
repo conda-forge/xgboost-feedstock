@@ -54,7 +54,7 @@ index 8659df7c3..443b77c7b 100644
 -    ${xgboost_SOURCE_DIR}/rabit/include
 +    ${xgboost_SOURCE_DIR}/gputreeshap)
 +  target_include_directories(
-+    ${target} SYSTEM PRIVATE
++    ${target} AFTER PRIVATE
      ${CUDAToolkit_INCLUDE_DIRS})
  
    if(MSVC)
