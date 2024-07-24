@@ -1,4 +1,4 @@
-From 67f98c3ee7361a2b39c0b5ea05419f68ed7be00c Mon Sep 17 00:00:00 2001
+From 15b7012f54793f3cf807501453a61b6a6c1fb3c3 Mon Sep 17 00:00:00 2001
 From: Philip Hyunsu Cho <chohyu01@cs.washington.edu>
 Date: Tue, 23 Jul 2024 18:42:54 -0700
 Subject: [PATCH] [CMake] Explicitly link with CCCL (standalone or CTK)
@@ -6,8 +6,8 @@ Subject: [PATCH] [CMake] Explicitly link with CCCL (standalone or CTK)
 
 ---
  CMakeLists.txt    | 18 ++++++++++++++++++
- cmake/Utils.cmake |  5 ++---
- 2 files changed, 20 insertions(+), 3 deletions(-)
+ cmake/Utils.cmake |  6 ++++--
+ 2 files changed, 22 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index dc0f7e654..aa078405f 100644
@@ -39,10 +39,10 @@ index dc0f7e654..aa078405f 100644
  
  if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
 diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
-index 8659df7c3..b4cfb66ac 100644
+index 8659df7c3..443b77c7b 100644
 --- a/cmake/Utils.cmake
 +++ b/cmake/Utils.cmake
-@@ -108,12 +108,11 @@ function(xgboost_set_cuda_flags target)
+@@ -108,11 +108,13 @@ function(xgboost_set_cuda_flags target)
      target_compile_definitions(${target} PRIVATE -DXGBOOST_USE_NVTX=1)
    endif()
  
@@ -52,11 +52,12 @@ index 8659df7c3..b4cfb66ac 100644
      ${target} PRIVATE
 -    ${xgboost_SOURCE_DIR}/gputreeshap
 -    ${xgboost_SOURCE_DIR}/rabit/include
--    ${CUDAToolkit_INCLUDE_DIRS})
 +    ${xgboost_SOURCE_DIR}/gputreeshap)
++  target_include_directories(
++    ${target} SYSTEM PRIVATE
+     ${CUDAToolkit_INCLUDE_DIRS})
  
    if(MSVC)
-     target_compile_options(${target} PRIVATE
 -- 
 2.34.1
 
