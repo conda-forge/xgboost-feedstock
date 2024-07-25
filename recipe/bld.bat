@@ -17,6 +17,7 @@ pushd %SRC_DIR%\build
 :: https://github.com/NVIDIA/cutlass/issues/1403#issuecomment-2130383392
 :: https://gitlab.kitware.com/cmake/cmake/-/issues/18837
 set "CXXFLAGS=%CXXFLAGS% /Zc:__cplusplus"
+set "CUDAFLAGS=%CUDAFLAGS% -Xcompiler /Zc:__cplusplus"
 
 if not "%cuda_compiler_version%" == "None" (
     set "CMAKE_ARGS=-DUSE_CUDA=ON %CMAKE_ARGS%"
