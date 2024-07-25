@@ -1,4 +1,0 @@
-c_compiler:                    # [win]
-- vs2017                       # [win]
-cxx_compiler:                  # [win]
-- vs2017                       # [win]
