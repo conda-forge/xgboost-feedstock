@@ -18,9 +18,7 @@ source:
     - patches/0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
     - patches/0002-Enable-latest-libcxx-on-MacOS.patch  # [osx]
     - patches/0003-Use-mingw-w64-path.patch
-    - patches/0004-Undo-dmlc-xgboost-9436.patch
-    - patches/0005-CMake-Explicitly-link-with-CCCL-standalone-or-CTK.patch
-    - patches/0006-Partial-fix-for-CTK-12.5-10574.patch
+    - patches/0004-Backport-fixes.patch
 
 build:
   number: {{ build_number }}
