@@ -24,6 +24,9 @@ source:
 
 build:
   number: {{ build_number }}
+  # Windows CUDA 11.8 fails due to a compilation error
+  # xref: https://github.com/conda-forge/xgboost-feedstock/issues/173
+  skip: True  # [win and cuda_compiler_version == "11.8"]
   {% if python is defined %}
   skip: {{ python.split(".")[:2] != min_python.split(".")[:2] }}
   {% endif %}
