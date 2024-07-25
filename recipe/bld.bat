@@ -10,6 +10,7 @@ pushd %SRC_DIR%\build
 :: To make sure `__cplusplus` matches, we pass an additional flag to VC.
 :: Ideally other tooling would do this for us, for now we do it ourselves.
 ::
+:: https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
 :: https://learn.microsoft.com/en-us/cpp/build/reference/zc-cplusplus?view=msvc-160
 :: https://learn.microsoft.com/en-us/cpp/build/reference/zc-cplusplus?view=msvc-170
 :: https://github.com/NVIDIA/cccl/blob/82a3ed0282893d6316abde04394f59a9a37a3747/libcudacxx/include/nv/target#L27-L30
