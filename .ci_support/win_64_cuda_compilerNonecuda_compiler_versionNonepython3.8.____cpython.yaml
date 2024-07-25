@@ -1,5 +1,5 @@
 c_compiler:
-- vs2017
+- vs2019
 c_stdlib:
 - vs
 channel_sources:
@@ -11,7 +11,7 @@ cuda_compiler:
 cuda_compiler_version:
 - None
 cxx_compiler:
-- vs2017
+- vs2019
 m2w64_c_compiler:
 - m2w64-toolchain
 m2w64_cxx_compiler:
