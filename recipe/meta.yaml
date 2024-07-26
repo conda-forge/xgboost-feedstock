@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.0" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set min_python = "3.8" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
@@ -22,10 +22,18 @@ source:
 
 build:
   number: {{ build_number }}
-  noarch: python
+  # Make sure only one Python is built for as packages are `noarch: python`.
+  # However using `noarch: python` upsets the linter.
+  # So skip all Python's except the minimum Python version upstream supports
+  # xref: https://github.com/conda-forge/conda-smithy/issues/1887#issuecomment-2244323850
   # Windows CUDA 11.8 fails due to a compilation error
   # xref: https://github.com/conda-forge/xgboost-feedstock/issues/173
-  skip: True  # [win and cuda_compiler_version == "11.8"]
+  {% if python is defined and cuda_compiler_version is defined %}
+  skip: {{ (
+      python.split(".")[:2] != min_python.split(".")[:2] or
+      (win and cuda_compiler_version == "11.8")
+  ) }}
+  {% endif %}
 
 requirements:
   build:
