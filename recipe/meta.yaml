@@ -16,7 +16,6 @@ source:
   patches:
     # xgboost patches
     - patches/0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
-    - patches/0002-Enable-latest-libcxx-on-MacOS.patch  # [osx]
     - patches/0003-Use-mingw-w64-path.patch
     - patches/0004-Backport-fixes.patch
 
