@@ -13,6 +13,9 @@ package:
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-{{ version }}.tar.gz
   sha256: a47ca87f3345d2a866cd7ec40933564aa2b7250592d0e9bf613951630fc1fa6f
+  patches:
+    # xgboost patches
+    - patches/0001-Enable-latest-libcxx-on-MacOS.patch  # [osx]
 
 build:
   number: {{ build_number }}
