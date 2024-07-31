@@ -210,9 +210,9 @@ outputs:
         - {{ compiler('m2w64_c') }}    # [win]
         - {{ compiler('m2w64_cxx') }}  # [win]
         - {{ stdlib('m2w64_c') }}      # [win]
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ stdlib('c') }}
+        - {{ compiler('c') }}          # [unix]
+        - {{ compiler('cxx') }}        # [unix]
+        - {{ stdlib('c') }}            # [unix]
         - llvm-openmp                  # [osx]
         - libgomp                      # [linux]
         - m2-bash                      # [win]
