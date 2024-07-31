@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
-{% set version = "2.1.0" %}
-{% set build_number = 2 %}
+{% set version = "2.1.1" %}
+{% set build_number = 0 %}
 {% set min_python = "3.8" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
@@ -12,13 +12,10 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-{{ version }}.tar.gz
-  sha256: 28bec8e821b1fefcea722d96add66024adba399063f723bc5c815f7af4a5f5e4
+  sha256: a47ca87f3345d2a866cd7ec40933564aa2b7250592d0e9bf613951630fc1fa6f
   patches:
     # xgboost patches
-    - patches/0001-Force-endian-flag-in-cross-compilation-mode.patch  # [arm64 or aarch64 or ppc64le]
-    - patches/0002-Enable-latest-libcxx-on-MacOS.patch  # [osx]
-    - patches/0003-Use-mingw-w64-path.patch
-    - patches/0004-Backport-fixes.patch
+    - patches/0001-Enable-latest-libcxx-on-MacOS.patch  # [osx]
 
 build:
   number: {{ build_number }}
