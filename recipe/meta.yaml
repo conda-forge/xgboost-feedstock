@@ -215,6 +215,7 @@ outputs:
         - {{ stdlib('c') }}
         - llvm-openmp                  # [osx]
         - libgomp                      # [linux]
+        - m2-bash                      # [win]
         - git
         - make                         # [not win]
         - cmake
