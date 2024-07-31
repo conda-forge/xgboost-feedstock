@@ -215,7 +215,6 @@ outputs:
         - libgomp                      # [linux]
         - git
         - make                         # [not win]
-        - posix                        # [win]
         - cmake
         - ninja
         - cross-r-base {{ r_base }}    # [build_platform != target_platform]
