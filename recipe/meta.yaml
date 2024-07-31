@@ -1,11 +1,9 @@
-{% set string_prefix = "cpu" %}
 {% set name = "xgboost" %}
 {% set version = "2.1.1" %}
 {% set build_number = 0 %}
 {% set min_python = "3.8" %}
 
-{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
-{% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
+{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if cuda_compiler_version != "None" else "cpu" %}
 
 package:
   name: xgboost-split
