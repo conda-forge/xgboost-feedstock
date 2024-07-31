@@ -199,6 +199,8 @@ outputs:
     build:
       skip: true  # [r_base in ("4.1", "4.2")]
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      ignore_run_exports_from:             # [win]
+        - {{ compiler('m2w64_fortran') }}  # [win]
       rpaths:
         - lib/R/lib
       missing_dso_whitelist:
@@ -207,26 +209,27 @@ outputs:
         - $RPATH/ld64.so.2  # [ppc64le]
     requirements:
       build:
-        - {{ compiler('m2w64_c') }}    # [win]
-        - {{ compiler('m2w64_cxx') }}  # [win]
-        - {{ stdlib('m2w64_c') }}      # [win]
-        - {{ compiler('c') }}          # [unix]
-        - {{ compiler('cxx') }}        # [unix]
-        - {{ stdlib('c') }}            # [unix]
-        - llvm-openmp                  # [osx]
-        - libgomp                      # [linux]
-        - m2-bash                      # [win]
+        - {{ compiler('m2w64_c') }}        # [win]
+        - {{ compiler('m2w64_cxx') }}      # [win]
+        - {{ compiler('m2w64_fortran') }}  # [win]
+        - {{ stdlib('m2w64_c') }}          # [win]
+        - {{ compiler('c') }}              # [unix]
+        - {{ compiler('cxx') }}            # [unix]
+        - {{ stdlib('c') }}                # [unix]
+        - llvm-openmp                      # [osx]
+        - libgomp                          # [linux]
+        - m2-bash                          # [win]
         - git
-        - make                         # [not win]
+        - make                             # [not win]
         - cmake
         - ninja
-        - cross-r-base {{ r_base }}    # [build_platform != target_platform]
-        - r-base                       # [build_platform != target_platform]
-        - r-matrix                     # [build_platform != target_platform]
-        - r-data.table                 # [build_platform != target_platform]
-        - r-magrittr                   # [build_platform != target_platform]
-        - r-jsonlite                   # [build_platform != target_platform]
-        - r-knitr                      # [build_platform != target_platform]
+        - cross-r-base {{ r_base }}        # [build_platform != target_platform]
+        - r-base                           # [build_platform != target_platform]
+        - r-matrix                         # [build_platform != target_platform]
+        - r-data.table                     # [build_platform != target_platform]
+        - r-magrittr                       # [build_platform != target_platform]
+        - r-jsonlite                       # [build_platform != target_platform]
+        - r-knitr                          # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
