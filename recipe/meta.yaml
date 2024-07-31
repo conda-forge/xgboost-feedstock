@@ -3,7 +3,7 @@
 {% set build_number = 0 %}
 {% set min_python = "3.8" %}
 
-{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if cuda_compiler_version != "None" else "cpu" %}
+{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
 
 package:
   name: xgboost-split
