@@ -35,6 +35,7 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ compiler('m2w64_c') }}    # [win]
     - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ stdlib('m2w64_c') }}      # [win]
     - {{ compiler('cuda') }}       # [cuda_compiler != "None" and cuda_compiler_version != "None"]
     - {{ stdlib('c') }}
     - cmake
@@ -208,6 +209,7 @@ outputs:
       build:
         - {{ compiler('m2w64_c') }}    # [win]
         - {{ compiler('m2w64_cxx') }}  # [win]
+        - {{ stdlib('m2w64_c') }}      # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
