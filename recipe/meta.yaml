@@ -3,8 +3,7 @@
 {% set build_number = 0 %}
 {% set min_python = "3.8" %}
 
-{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) %}  # [cuda_compiler_version != "None"]
-{% set string_prefix = "cpu" %}  # [cuda_compiler_version == "None"]
+{% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
 
 package:
   name: xgboost-split
@@ -27,10 +26,7 @@ build:
   # xref: https://github.com/conda-forge/xgboost-feedstock/issues/173
   {% if python is defined and cuda_compiler_version is defined %}
   skip: >-
-    {{ (
-    python.split(".")[:2] != min_python.split(".")[:2] or
-    (win and cuda_compiler_version == "11.8")
-    ) }}
+    {{ ( python.split(".")[:2] != min_python.split(".")[:2] or (win and cuda_compiler_version == "11.8") ) }}
   {% endif %}
 
 requirements:
@@ -54,7 +50,7 @@ outputs:
     script: install-libxgboost.sh  # [not win]
     script: install-win-wrapper.bat  # [win]
     build:
-      activate_in_script: True
+      activate_in_script: true
       string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
@@ -138,7 +134,7 @@ outputs:
   - name: py-xgboost-cpu
     build:
       noarch: python
-      skip: True  # [cuda_compiler != "None"]
+      skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
         - python >={{ min_python }}
@@ -155,7 +151,7 @@ outputs:
   - name: py-xgboost-gpu
     build:
       noarch: python
-      skip: True  # [cuda_compiler == "None"]
+      skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
         - python >={{ min_python }}
@@ -200,7 +196,7 @@ outputs:
     script: install-r-xgboost.sh  # [not win]
     script: install-r-xgboost.bat  # [win]
     build:
-      skip: True  # [r_base in ("4.1", "4.2") or win]
+      skip: true  # [r_base in ("4.1", "4.2") or win]
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
@@ -257,8 +253,8 @@ outputs:
 
   - name: r-xgboost-cpu
     build:
-      skip: True  # [cuda_compiler != "None"]
-      skip: True  # [r_base in ("4.1", "4.2") or win]
+      skip: true  # [cuda_compiler != "None"]
+      skip: true  # [r_base in ("4.1", "4.2") or win]
     requirements:
       host:
         - r-base
@@ -275,8 +271,8 @@ outputs:
 
   - name: r-xgboost-gpu
     build:
-      skip: True  # [cuda_compiler == "None"]
-      skip: True  # [r_base in ("4.1", "4.2") or win]
+      skip: true  # [cuda_compiler == "None"]
+      skip: true  # [r_base in ("4.1", "4.2") or win]
     requirements:
       host:
         - r-base
