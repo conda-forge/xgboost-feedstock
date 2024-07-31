@@ -33,10 +33,11 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('m2w64_c') }}    # [win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
-    - {{ stdlib('m2w64_c') }}      # [win]
-    - {{ compiler('cuda') }}       # [cuda_compiler != "None" and cuda_compiler_version != "None"]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ stdlib('m2w64_c') }}          # [win]
+    - {{ compiler('cuda') }}           # [cuda_compiler != "None" and cuda_compiler_version != "None"]
     - {{ stdlib('c') }}
     - cmake
     - llvm-openmp  # [osx]
