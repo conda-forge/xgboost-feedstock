@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.1" %}
-{% set build_number = 1 %}
+{% set build_number = 2 %}
 {% set min_python = "3.8" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
@@ -131,6 +131,8 @@ outputs:
         - python
       imports:
         - xgboost
+      commands:
+        - pip check
       script: test-py-xgboost.py
 
   - name: py-xgboost-cpu
