@@ -1,0 +1,50 @@
+From ed4f12fd5f67776f833923bc552f1e2cc4392f26 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <phcho@nvidia.com>
+Date: Mon, 26 Aug 2024 18:23:33 -0700
+Subject: [PATCH] Use correct platform tag from Pip
+
+---
+ python-package/hatch_build.py | 6 +++---
+ python-package/pyproject.toml | 3 ++-
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/python-package/hatch_build.py b/python-package/hatch_build.py
+index 925c917b9..02febb099 100644
+--- a/python-package/hatch_build.py
++++ b/python-package/hatch_build.py
+@@ -3,16 +3,16 @@ Custom hook to customize the behavior of Hatchling.
+ Here, we customize the tag of the generated wheels.
+ """
+ 
+-import sysconfig
+ from typing import Any, Dict
+ 
+ from hatchling.builders.hooks.plugin.interface import BuildHookInterface
++from pip._vendor.packaging.tags import platform_tags
+ 
+ 
+ def get_tag() -> str:
+     """Get appropriate wheel tag according to system"""
+-    tag_platform = sysconfig.get_platform().replace("-", "_").replace(".", "_")
+-    return f"py3-none-{tag_platform}"
++    platform_tag = next(platform_tags())
++    return f"py3-none-{platform_tag}"
+ 
+ 
+ class CustomBuildHook(BuildHookInterface):
+diff --git a/python-package/pyproject.toml b/python-package/pyproject.toml
+index 184a8be6c..7bb5c4654 100644
+--- a/python-package/pyproject.toml
++++ b/python-package/pyproject.toml
+@@ -1,6 +1,7 @@
+ [build-system]
+ requires = [
+-    "hatchling>=1.12.1"
++    "hatchling>=1.12.1",
++    "pip>=22.0"
+ ]
+ backend-path = ["."]
+ build-backend = "packager.pep517"
+-- 
+2.45.2
+
