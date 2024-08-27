@@ -1,6 +1,6 @@
-From ed4f12fd5f67776f833923bc552f1e2cc4392f26 Mon Sep 17 00:00:00 2001
+From d3beed567a0d0a956aafca7b48ce892d01dddcfd Mon Sep 17 00:00:00 2001
 From: Hyunsu Cho <phcho@nvidia.com>
-Date: Mon, 26 Aug 2024 18:23:33 -0700
+Date: Tue, 27 Aug 2024 14:27:45 -0700
 Subject: [PATCH] Use correct platform tag from Pip
 
 ---
@@ -33,7 +33,7 @@ index 925c917b9..02febb099 100644
  
  class CustomBuildHook(BuildHookInterface):
 diff --git a/python-package/pyproject.toml b/python-package/pyproject.toml
-index 184a8be6c..7bb5c4654 100644
+index a470bb21f..e693008da 100644
 --- a/python-package/pyproject.toml
 +++ b/python-package/pyproject.toml
 @@ -1,6 +1,7 @@
@@ -41,10 +41,10 @@ index 184a8be6c..7bb5c4654 100644
  requires = [
 -    "hatchling>=1.12.1"
 +    "hatchling>=1.12.1",
-+    "pip>=22.0"
++    "pip>=22.0",
  ]
  backend-path = ["."]
  build-backend = "packager.pep517"
 -- 
-2.45.2
+2.34.1
 
