@@ -20,7 +20,7 @@ index 925c917b9..02febb099 100644
  from typing import Any, Dict
  
  from hatchling.builders.hooks.plugin.interface import BuildHookInterface
-+from pip._vendor.packaging.tags import platform_tags
++from packaging.tags import platform_tags
  
  
  def get_tag() -> str:
@@ -41,7 +41,7 @@ index a470bb21f..e693008da 100644
  requires = [
 -    "hatchling>=1.12.1"
 +    "hatchling>=1.12.1",
-+    "pip>=22.0",
++    "packaging>=22.0",
  ]
  backend-path = ["."]
  build-backend = "packager.pep517"

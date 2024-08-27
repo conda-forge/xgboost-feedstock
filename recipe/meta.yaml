@@ -118,6 +118,7 @@ outputs:
         - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - python >={{ min_python }}
         - hatchling >=1.12.1
+        - packaging >=21.3
         - pip
       run:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
