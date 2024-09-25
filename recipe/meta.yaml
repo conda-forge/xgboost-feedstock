@@ -1,7 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.1" %}
-{% set build_number = 1 %}
-{% set min_python = "3.8" %}
+{% set build_number = 4 %}
+{% set min_python = "3.9" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
 
@@ -15,6 +15,8 @@ source:
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch  # [osx]
+    - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
+    - patches/0003-Use-correct-platform-tag-from-Pip.patch
 
 build:
   number: {{ build_number }}
@@ -118,6 +120,7 @@ outputs:
         - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - python >={{ min_python }}
         - hatchling >=1.12.1
+        - packaging >=21.3
         - pip
       run:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
@@ -131,8 +134,11 @@ outputs:
     test:
       requires:
         - python
+        - pip
       imports:
         - xgboost
+      commands:
+        - pip check
       script: test-py-xgboost.py
 
   - name: py-xgboost-cpu
