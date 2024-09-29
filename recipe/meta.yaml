@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.1" %}
-{% set build_number = 3 %}
+{% set build_number = 4 %}
 {% set min_python = "3.9" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
@@ -16,7 +16,7 @@ source:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch  # [osx]
     - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
-    - patches/0003-Use-correct-platform-tag-from-Pip.patch
+    - patches/0003-Mark-wheels-as-any-platform-compatible.patch
 
 build:
   number: {{ build_number }}
