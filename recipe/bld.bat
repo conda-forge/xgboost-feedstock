@@ -1,5 +1,7 @@
 @echo on
 
+sed -i.bak "s@\"objdump\"@\"%OBJDUMP%\"@g" ../R-package/inst/make-r-def.R
+
 mkdir %SRC_DIR%\build
 pushd %SRC_DIR%\build
 
