@@ -6,6 +6,7 @@ cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON ^
+    -DDLLTOOL_EXE=%DLLTOOL% ^
     -DR_LIB=ON ^
     "%SRC_DIR%"
 if errorlevel 1 exit 1
