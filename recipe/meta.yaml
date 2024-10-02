@@ -41,6 +41,7 @@ requirements:
     - {{ compiler('m2w64_fortran') }}  # [win]
     - {{ stdlib('c') }}
     - {{ stdlib('m2w64_c') }}          # [win]
+    - m2-sed                           # [win]
     - cmake
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
