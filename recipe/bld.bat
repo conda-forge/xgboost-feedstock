@@ -1,6 +1,7 @@
 @echo on
 
-sed -i.bak "s@\"objdump\"@\"%OBJDUMP%\"@g" ../R-package/inst/make-r-def.R
+sed -i.bak "s@\"objdump\"@\"%OBJDUMP%\"@g" R-package\inst\make-r-def.R
+if errorlevel 1 exit 1
 
 mkdir %SRC_DIR%\build
 pushd %SRC_DIR%\build
