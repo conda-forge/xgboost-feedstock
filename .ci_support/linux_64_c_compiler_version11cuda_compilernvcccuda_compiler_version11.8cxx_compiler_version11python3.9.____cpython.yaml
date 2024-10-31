@@ -37,6 +37,7 @@ python:
 - 3.9.* *_cpython
 r_base:
 - '4.3'
+- '4.4'
 target_platform:
 - linux-64
 zip_keys:
