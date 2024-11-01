@@ -2,7 +2,7 @@
 mkdir "%SRC_DIR%"\build-r
 pushd "%SRC_DIR%"\build-r
 
-sed -i 's/check_call(COMMAND "${LIBR_EXECUTABLE}" -q -e "${XGB_DEPS_SCRIPT}")//' cmake/RPackageInstall.cmake.in
+set PATH=%LIBRARY_PREFIX%\bin;%PATH%
 
 cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
