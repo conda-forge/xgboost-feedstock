@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.2" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set min_python = "3.9" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
