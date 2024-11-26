@@ -54,7 +54,7 @@ outputs:
       activate_in_script: true
       string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
-        - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("11")]
+        - {{ compiler('cuda') }}
       missing_dso_whitelist:
         # Conda-build raises the missing `R.dll` linkage erroneously.
         # xref: https://github.com/conda/conda-build/pull/4786
@@ -74,10 +74,12 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
       host:
-        - nccl         # [linux and cuda_compiler != "None"]
+        - cuda-version {{ cuda_compiler_version }}
+        - nccl                                      # [linux and cuda_compiler != "None"]
       run:
-        - __cuda                       # [cuda_compiler != "None"]
-        - cuda-version >=11.2,<12.0a0  # [(cuda_compiler_version or "").startswith("11")]
+        - __cuda                                    # [cuda_compiler != "None"]
+        - cuda-version >=11.2,<12.0a0               # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-version >=12.0,<13.0a0               # [(cuda_compiler_version or "").startswith("12")]
     test:
       commands:
         - test -f "${PREFIX}/lib/libxgboost${SHLIB_EXT}"                  # [unix]
