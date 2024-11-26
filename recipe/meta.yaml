@@ -76,10 +76,8 @@ outputs:
       host:
         - nccl         # [linux and cuda_compiler != "None"]
       run:
-        - __cuda                   # [cuda_compiler != "None"]
-        {% if (cuda_compiler_version or "").startswith("11") %}
-        - cuda-version >=11.2,<12
-        {% endif %}
+        - __cuda                       # [cuda_compiler != "None"]
+        - cuda-version >=11.2,<12.0a0  # [(cuda_compiler_version or "").startswith("11")]
     test:
       commands:
         - test -f "${PREFIX}/lib/libxgboost${SHLIB_EXT}"                  # [unix]
