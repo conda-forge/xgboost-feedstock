@@ -54,7 +54,7 @@ outputs:
       activate_in_script: true
       string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
       missing_dso_whitelist:
         # Conda-build raises the missing `R.dll` linkage erroneously.
         # xref: https://github.com/conda/conda-build/pull/4786
@@ -74,7 +74,7 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp      # [linux]
       host:
-        - cuda-version {{ cuda_compiler_version }}
+        - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler != "None"]
         - nccl                                      # [linux and cuda_compiler != "None"]
       run:
         - __cuda                                    # [cuda_compiler != "None"]
