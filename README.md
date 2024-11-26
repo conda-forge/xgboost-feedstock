@@ -48,10 +48,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12python3.9.____cpython</td>
+              <td>linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12python3.9.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -69,10 +69,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12python3.9.____cpython</td>
+              <td>linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12python3.9.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -90,10 +90,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12python3.9.____cpython</td>
+              <td>linux_ppc64le_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.4cxx_compiler_version12python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12python3.9.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.4cxx_compiler_version12python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -125,10 +125,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compilercuda-nvcccuda_compiler_version12.0python3.9.____cpython</td>
+              <td>win_64_cuda_compilercuda-nvcccuda_compiler_version12.6python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compilercuda-nvcccuda_compiler_version12.0python3.9.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compilercuda-nvcccuda_compiler_version12.6python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr>
@@ -276,7 +276,4 @@ Feedstock Maintainers
 * [@ksangeek](https://github.com/ksangeek/)
 * [@mfansler](https://github.com/mfansler/)
 * [@xhochy](https://github.com/xhochy/)
-
-
-<!-- dummy commit to enable rerendering -->
 
