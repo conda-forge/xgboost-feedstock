@@ -1,0 +1,24 @@
+From b38f9983fd5edfef8c6604c42779f33f897b1a46 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <phcho@nvidia.com>
+Date: Tue, 27 Aug 2024 14:24:42 -0700
+Subject: [PATCH] Remove nvidia-nccl-cu12 from pyproject.toml
+
+---
+ python-package/pyproject.toml | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/python-package/pyproject.toml b/python-package/pyproject.toml
+index 05bbe998c..a470bb21f 100644
+--- a/python-package/pyproject.toml
++++ b/python-package/pyproject.toml
+@@ -30,7 +30,6 @@ classifiers = [
+ dependencies = [
+     "numpy",
+     "scipy",
+-    "nvidia-nccl-cu12 ; platform_system == 'Linux' and platform_machine != 'aarch64'"
+ ]
+ 
+ [project.urls]
+-- 
+2.34.1
+

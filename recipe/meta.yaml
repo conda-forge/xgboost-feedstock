@@ -14,8 +14,9 @@ source:
   sha256: 90b1b7b770803299b337dd9b9206760d9c16f418403c77acce74b350c6427667
   patches:
     # xgboost patches
-    - patches/0001-Enable-latest-libcxx-on-MacOS.patch  # [osx]
-    - patches/0002-Mark-wheels-as-any-platform-compatible.patch
+    - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
+    - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
+    - patches/0003-Mark-wheels-as-any-platform-compatible.patch
 
 build:
   number: {{ build_number }}
