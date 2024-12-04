@@ -38,7 +38,6 @@ requirements:
     - {{ compiler('cuda') }}           # [cuda_compiler != "None" and cuda_compiler_version != "None"]
     - {{ compiler('m2w64_c') }}        # [win]
     - {{ compiler('m2w64_cxx') }}      # [win]
-    - {{ compiler('m2w64_fortran') }}  # [win]
     - {{ stdlib('c') }}
     - {{ stdlib('m2w64_c') }}          # [win]
     - m2-sed                           # [win]
@@ -215,8 +214,6 @@ outputs:
     build:
       skip: true  # [r_base in ("4.1", "4.2")]
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
-      ignore_run_exports_from:             # [win]
-        - {{ compiler('m2w64_fortran') }}  # [win]
       rpaths:
         - lib/R/lib
       missing_dso_whitelist:
@@ -225,13 +222,12 @@ outputs:
         - $RPATH/ld64.so.2  # [ppc64le]
     requirements:
       build:
-        - {{ compiler('m2w64_c') }}        # [win]
-        - {{ compiler('m2w64_cxx') }}      # [win]
-        - {{ compiler('m2w64_fortran') }}  # [win]
-        - {{ stdlib('m2w64_c') }}          # [win]
         - {{ compiler('c') }}              # [unix]
         - {{ compiler('cxx') }}            # [unix]
+        - {{ compiler('m2w64_c') }}        # [win]
+        - {{ compiler('m2w64_cxx') }}      # [win]
         - {{ stdlib('c') }}                # [unix]
+        - {{ stdlib('m2w64_c') }}          # [win]
         - llvm-openmp                      # [osx]
         - libgomp                          # [not osx]
         - m2-bash                          # [win]

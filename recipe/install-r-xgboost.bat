@@ -2,7 +2,7 @@
 mkdir "%SRC_DIR%"\build-r
 pushd "%SRC_DIR%"\build-r
 
-set PATH=%LIBRARY_PREFIX%\bin;%PATH%
+:: set PATH=%LIBRARY_PREFIX%\bin;%PATH%
 
 cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
