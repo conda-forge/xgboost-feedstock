@@ -213,7 +213,6 @@ outputs:
     script: install-r-xgboost.bat  # [win]
     build:
       skip: true  # [r_base in ("4.1", "4.2")]
-      skip: true  # [win and cuda_compiler != "None"]
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:             # [win]
         - {{ compiler('m2w64_fortran') }}  # [win]
