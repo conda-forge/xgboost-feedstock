@@ -8,17 +8,22 @@ pushd "%SRC_DIR%"\build-r
 :: our r-base distribution.
 set PATH=%LIBRARY_PREFIX%\bin;%PATH%
 
+:: DLLTOOL_EXE must be manually specified because cmake is hard-coded to search
+:: for the executable dlltool.exe, but in conda-forge, this executable also
+:: includes the architecture in the name
+
+
 cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON ^
-    -DLIBR_CORE_LIBRARY=%PREFIX%\lib\R\bin\x64\R.lib ^
+    -DDLLTOOL_EXE=%BUILD_PREFIX%\Library\bin\%DLLTOOL% ^
     -DR_LIB=ON ^
     "%SRC_DIR%"
 if errorlevel 1 exit 1
 
-::    -DDLLTOOL_EXE=%BUILD_PREFIX%\Library\bin\%DLLTOOL% ^
 
+    ::-DLIBR_CORE_LIBRARY=%PREFIX%\lib\R\bin\x64\R.lib ^
 cmake --build . --target install --config Release
 if errorlevel 1 exit 1
 
