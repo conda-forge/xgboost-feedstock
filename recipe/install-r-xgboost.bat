@@ -12,18 +12,20 @@ set PATH=%LIBRARY_PREFIX%\bin;%PATH%
 :: for the executable dlltool.exe, but in conda-forge, this executable also
 :: includes the architecture in the name
 
+:: LIBR_CORE_LIBRARY must be manually specified so that CMake uses the R.lib
+:: provided by r-base.  Otherwise it tries to generate its own R.lib from R.dll
+:: which does export the right symbols and causes the package not to load correctly
 
 cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE:STRING="Release" ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON ^
     -DDLLTOOL_EXE=%BUILD_PREFIX%\Library\bin\%DLLTOOL% ^
+    -DLIBR_CORE_LIBRARY=%PREFIX%\lib\R\bin\x64\R.lib ^
     -DR_LIB=ON ^
     "%SRC_DIR%"
 if errorlevel 1 exit 1
 
-
-    ::-DLIBR_CORE_LIBRARY=%PREFIX%\lib\R\bin\x64\R.lib ^
 cmake --build . --target install --config Release
 if errorlevel 1 exit 1
 
