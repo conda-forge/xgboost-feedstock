@@ -256,6 +256,7 @@ outputs:
       run:
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
+        - libgomp  # [win]
         - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
