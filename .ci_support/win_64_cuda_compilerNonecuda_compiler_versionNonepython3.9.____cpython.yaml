@@ -1,5 +1,5 @@
 ace:
-- 8.0.1
+- 8.0.2
 c_compiler:
 - vs2019
 c_stdlib:
@@ -25,10 +25,6 @@ m2w64_c_stdlib_version:
 m2w64_cxx_compiler:
 - gxx
 m2w64_cxx_compiler_version:
-- '13'
-m2w64_fortran_compiler:
-- gfortran
-m2w64_fortran_compiler_version:
 - '13'
 pin_run_as_build:
   python:
