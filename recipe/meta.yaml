@@ -294,6 +294,7 @@ outputs:
 
   - name: r-xgboost-gpu
     build:
+      skip: true  # [win]
       skip: true  # [cuda_compiler == "None"]
       skip: true  # [r_base in ("4.1", "4.2")]
     requirements:
