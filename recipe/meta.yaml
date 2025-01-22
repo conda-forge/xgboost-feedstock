@@ -1,7 +1,7 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.3" %}
 {% set build_number = 1 %}
-{% set min_python = "3.9" %}
+{% set python_min = "3.9" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
 
@@ -28,7 +28,7 @@ build:
   # xref: https://github.com/conda-forge/xgboost-feedstock/issues/173
   {% if python is defined and cuda_compiler_version is defined %}
   skip: >-
-    {{ python.split(".")[:2] != min_python.split(".")[:2] or (win and cuda_compiler_version == "11.8") }}
+    {{ python.split(".")[:2] != python_min.split(".")[:2] or (win and cuda_compiler_version == "11.8") }}
   {% endif %}
 
 requirements:
