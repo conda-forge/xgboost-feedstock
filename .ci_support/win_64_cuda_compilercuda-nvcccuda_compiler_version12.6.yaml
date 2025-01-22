@@ -27,14 +27,11 @@ m2w64_cxx_compiler:
 m2w64_cxx_compiler_version:
 - '13'
 pin_run_as_build:
-  python:
-    min_pin: x.x
-    max_pin: x.x
   r-base:
     min_pin: x.x
     max_pin: x.x
-python:
-- 3.9.* *_cpython
+python_min:
+- '3.9'
 r_base:
 - '4.3'
 - '4.4'
