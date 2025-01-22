@@ -18,9 +18,11 @@ source:
 
 build:
   number: {{ build_number }}
+  # Skip if `python_min` is undefined. This ensures re-rendering picks it up.
+  #
   # Windows CUDA 11.8 fails due to a compilation error
   # xref: https://github.com/conda-forge/xgboost-feedstock/issues/173
-  skip: true  # [win and cuda_compiler_version == "11.8"]
+  skip: true  # [python_min is undefined or (win and cuda_compiler_version == "11.8")]
 
 requirements:
   build:
