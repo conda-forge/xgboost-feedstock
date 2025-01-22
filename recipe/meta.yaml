@@ -48,8 +48,9 @@ requirements:
 
 outputs:
   - name: libxgboost
-    script: install-libxgboost.sh  # [not win]
-    script: install-win-wrapper.bat  # [win]
+    script:
+      - install-libxgboost.sh  # [not win]
+      - install-win-wrapper.bat  # [win]
     build:
       activate_in_script: true
       string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
@@ -94,8 +95,9 @@ outputs:
         - exit 0
 
   - name: py-xgboost
-    script: install-py-xgboost.sh  # [not win]
-    script: install-win-wrapper.bat  # [win]
+    script:
+      - install-py-xgboost.sh  # [not win]
+      - install-win-wrapper.bat  # [win]
     build:
       noarch: python
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
@@ -206,8 +208,9 @@ outputs:
         - exit 0
 
   - name: r-xgboost
-    script: install-r-xgboost.sh  # [not win]
-    script: install-r-xgboost.bat  # [win]
+    script:
+      - install-r-xgboost.sh   # [not win]
+      - install-r-xgboost.bat  # [win]
     build:
       skip: true  # [r_base in ("4.1", "4.2") or win]
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
@@ -268,8 +271,7 @@ outputs:
 
   - name: r-xgboost-cpu
     build:
-      skip: true  # [cuda_compiler != "None"]
-      skip: true  # [r_base in ("4.1", "4.2") or win]
+      skip: true  # [win or r_base in ("4.1", "4.2") or cuda_compiler != "None"]
     requirements:
       host:
         - r-base
@@ -288,8 +290,7 @@ outputs:
 
   - name: r-xgboost-gpu
     build:
-      skip: true  # [cuda_compiler == "None"]
-      skip: true  # [r_base in ("4.1", "4.2") or win]
+      skip: true  # [win or r_base in ("4.1", "4.2") or cuda_compiler == "None"]
     requirements:
       host:
         - r-base
