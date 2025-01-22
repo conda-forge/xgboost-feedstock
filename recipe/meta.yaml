@@ -108,9 +108,9 @@ outputs:
         - PIP_CACHE_DIR=pip_cache
         - PIP_NO_INDEX=True
     requirements:
-      build:   # [build_platform != target_platform]
-        - python                              # [build_platform != target_platform]
-        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+      build:                                                   # [build_platform != target_platform]
+        - python {{ python_min }}                              # [build_platform != target_platform]
+        - cross-python_{{ target_platform }} {{ python_min }}  # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
