@@ -1,6 +1,6 @@
 {% set name = "xgboost" %}
 {% set version = "2.1.3" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set min_python = "3.9" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
@@ -116,7 +116,7 @@ outputs:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
-        - python >={{ min_python }}
+        - python {{ python_min }}
         - hatchling >=1.12.1
         - packaging >=21.3
         - pip
@@ -124,14 +124,14 @@ outputs:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
-        - python >={{ min_python }}
+        - python >={{ python_min }}
         - numpy
         - scipy
         - scikit-learn
         - __cuda  # [cuda_compiler != "None"]
     test:
       requires:
-        - python
+        - python {{ python_min }}
         - pip
       imports:
         - xgboost
@@ -145,16 +145,16 @@ outputs:
       skip: true  # [cuda_compiler != "None"]
     requirements:
       host:
-        - python >={{ min_python }}
+        - python {{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
       run:
-        - python >={{ min_python }}
+        - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
     test:
       requires:
-        - python
+        - python {{ python_min }}
       imports:
         - xgboost
 
@@ -164,17 +164,17 @@ outputs:
       skip: true  # [cuda_compiler == "None"]
     requirements:
       host:
-        - python >={{ min_python }}
+        - python {{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
       run:
-        - python >={{ min_python }}
+        - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
         - __cuda  # [cuda_compiler != "None"]
     test:
       requires:
-        - python
+        - python {{ python_min }}
       imports:
         - xgboost
 
@@ -184,17 +184,17 @@ outputs:
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
     requirements:
       host:
-        - python >={{ min_python }}
+        - python {{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
       run:
-        - python >={{ min_python }}
+        - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
         - __cuda  # [cuda_compiler != "None"]
     test:
       requires:
-        - python
+        - python {{ python_min }}
       imports:
         - xgboost
 
