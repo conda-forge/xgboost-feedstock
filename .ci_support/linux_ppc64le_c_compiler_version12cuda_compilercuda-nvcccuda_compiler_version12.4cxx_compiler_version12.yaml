@@ -1,5 +1,5 @@
 ace:
-- 8.0.1
+- 8.0.2
 c_compiler:
 - gcc
 c_compiler_version:
@@ -17,7 +17,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.6'
+- '12.4'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -27,18 +27,15 @@ docker_image:
 nccl:
 - '2'
 pin_run_as_build:
-  python:
-    min_pin: x.x
-    max_pin: x.x
   r-base:
     min_pin: x.x
     max_pin: x.x
-python:
-- 3.9.* *_cpython
+python_min:
+- '3.9'
 r_base:
 - '4.3'
 target_platform:
-- linux-aarch64
+- linux-ppc64le
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

@@ -1,5 +1,5 @@
 ace:
-- 8.0.1
+- 8.0.2
 c_compiler:
 - vs2019
 c_stdlib:
@@ -18,12 +18,8 @@ m2w64_c_compiler:
 - m2w64-toolchain
 m2w64_cxx_compiler:
 - m2w64-toolchain
-pin_run_as_build:
-  python:
-    min_pin: x.x
-    max_pin: x.x
-python:
-- 3.9.* *_cpython
+python_min:
+- '3.9'
 target_platform:
 - win-64
 zip_keys:
