@@ -71,6 +71,7 @@ outputs:
         - libgomp      # [linux or win]
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler != "None"]
+        - nccl                                      # [linux and cuda_compiler != "None"]
         - libgomp                                   # [win]
       run:
         - __cuda                                    # [cuda_compiler != "None"]
