@@ -36,7 +36,7 @@ requirements:
     - m2-sed                           # [win]
     - cmake
     - llvm-openmp  # [osx]
-    - libgomp      # [not osx]
+    - libgomp      # [linux or win]
     - ninja
   host:
     - cccl !=2.4.0,!=2.5.0  # [cuda_compiler != "None"]
@@ -68,10 +68,10 @@ outputs:
         - cmake
         - make
         - llvm-openmp  # [osx]
-        - libgomp      # [not osx]
+        - libgomp      # [linux or win]
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler != "None"]
-        - nccl                                      # [linux and cuda_compiler != "None"]
+        - libgomp                                   # [win]
       run:
         - __cuda                                    # [cuda_compiler != "None"]
         - cuda-version >=11.2,<12.0a0               # [(cuda_compiler_version or "").startswith("11")]
@@ -222,7 +222,7 @@ outputs:
         - {{ stdlib('c') }}                # [unix]
         - {{ stdlib('m2w64_c') }}          # [win]
         - llvm-openmp                      # [osx]
-        - libgomp                          # [not osx]
+        - libgomp                          # [linux or win]
         - m2-bash                          # [win]
         - git
         - make
@@ -238,7 +238,7 @@ outputs:
       host:
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libgomp      # [not osx]
+        - libgomp      # [linux or win]
         - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
@@ -263,7 +263,7 @@ outputs:
       files:
         - test-r-xgboost.r
       commands:
-        - Rscript test-r-xgboost.r
+        - Rscript test-r-xgboost.r  # [cuda_compiler == "None" or not win]
 
   - name: r-xgboost-cpu
     build:
@@ -286,7 +286,7 @@ outputs:
 
   - name: r-xgboost-gpu
     build:
-      skip: true  # [win or r_base in ("4.1", "4.2") or cuda_compiler == "None"]
+      skip: true  # [r_base in ("4.1", "4.2") or cuda_compiler == "None"]
     requirements:
       host:
         - r-base
