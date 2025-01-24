@@ -265,7 +265,7 @@ outputs:
       files:
         - test-r-xgboost.r
       commands:
-        - Rscript test-r-xgboost.r  # [cuda_compiler == "None" or not win]
+        - Rscript test-r-xgboost.r  # [not (win and cuda_compiler != "None")]
 
   - name: r-xgboost-cpu
     build:
