@@ -34,6 +34,7 @@ python_min:
 - '3.9'
 r_base:
 - '4.3'
+- '4.4'
 target_platform:
 - linux-aarch64
 zip_keys:
