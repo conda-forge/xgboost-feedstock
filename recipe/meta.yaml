@@ -74,10 +74,10 @@ outputs:
         - nccl                                      # [linux and cuda_compiler != "None"]
         - libgomp                                   # [win]
       run:
-        - __cuda                                    # [cuda_compiler != "None"]
-        - cuda-version >=11.2,<12.0a0               # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-version >=12.0,<13.0a0               # [(cuda_compiler_version or "").startswith("12")]
-        - libgomp                                   # [win]
+        - __cuda                                                    # [cuda_compiler != "None"]
+        - {{ pin_compatible("cuda-version", lower_bound="11.2") }}  # [cuda_compiler == "nvcc"]
+        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler == "cuda-nvcc"]
+        - libgomp                                                   # [win]
     test:
       commands:
         - test -f "${PREFIX}/lib/libxgboost${SHLIB_EXT}"                  # [unix]
