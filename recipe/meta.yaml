@@ -20,9 +20,13 @@ build:
   number: {{ build_number }}
   # Skip if `python_min` is undefined. This ensures re-rendering picks it up.
   #
+  # Skip CUDA 12.6 in favor of 12.8. This package supports CUDA Compatibility.
+  # So packages built with CUDA 12.8 work for all CUDA 12.x versions.
+  # ref: https://docs.nvidia.com/deploy/cuda-compatibility/index.html
+  #
   # Windows CUDA 11.8 fails due to a compilation error
   # xref: https://github.com/conda-forge/xgboost-feedstock/issues/173
-  skip: true  # [(python_min is undefined) or (win and cuda_compiler_version == "11.8")]
+  skip: true  # [(python_min is undefined) or (cuda_compiler_version == "12.6") or (win and cuda_compiler_version == "11.8")]
 
 requirements:
   build:
@@ -106,7 +110,7 @@ outputs:
         - PIP_CACHE_DIR=pip_cache
         - PIP_NO_INDEX=True
     requirements:
-      build:   # [build_platform != target_platform]
+      build:                                                   # [build_platform != target_platform]
         - python {{ python_min }}                              # [build_platform != target_platform]
         - cross-python_{{ target_platform }} {{ python_min }}  # [build_platform != target_platform]
       host:
