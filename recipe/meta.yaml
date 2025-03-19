@@ -116,7 +116,7 @@ outputs:
       host:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - python {{ python_min }}
         - hatchling >=1.12.1
         - packaging >=21.3
@@ -124,7 +124,7 @@ outputs:
       run:
         - {{ pin_subpackage('_py-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - python >={{ python_min }}
         - numpy
         - scipy
@@ -148,11 +148,11 @@ outputs:
       host:
         - python {{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
       run:
         - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
     test:
       requires:
         - python {{ python_min }}
@@ -167,11 +167,11 @@ outputs:
       host:
         - python {{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
       run:
         - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
         - __cuda  # [cuda_compiler != "None"]
     test:
       requires:
@@ -187,11 +187,11 @@ outputs:
       host:
         - python {{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
       run:
         - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
         - __cuda  # [cuda_compiler != "None"]
     test:
       requires:
@@ -245,7 +245,7 @@ outputs:
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libgomp                                                  # [win]
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
@@ -256,7 +256,7 @@ outputs:
         - {{ pin_subpackage('_r-xgboost-mutex', exact=True) }}
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libgomp                                                  # [win]
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
@@ -278,11 +278,11 @@ outputs:
       host:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - r-xgboost =*={{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
+        - r-xgboost * {{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - r-xgboost =*={{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
+        - r-xgboost * {{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
     test:
       requires:
         - r-base
@@ -297,11 +297,11 @@ outputs:
       host:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - r-xgboost =*={{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
+        - r-xgboost * {{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
       run:
         - r-base
         - {{ pin_subpackage('r-xgboost', exact=True) }}
-        - r-xgboost =*={{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
+        - r-xgboost * {{ string_prefix }}_r*h*_{{ PKG_BUILDNUM }}
         - __cuda  # [cuda_compiler != "None"]
     test:
       requires:
