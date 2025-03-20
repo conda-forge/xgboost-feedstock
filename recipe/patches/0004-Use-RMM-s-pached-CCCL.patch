@@ -1,0 +1,75 @@
+From 680878a21a29298f5b0d5ced331598811ec47c87 Mon Sep 17 00:00:00 2001
+From: jakirkham <jakirkham@gmail.com>
+Date: Wed, 19 Mar 2025 19:40:18 -0700
+Subject: [PATCH] Use RMM's pached CCCL
+
+Make sure to search for RMM if it will be used. This should pick up the
+patched CCCL from RMM.
+
+If RMM is not being used and this is a CUDA build, search for CCCL
+explicitly.
+---
+ CMakeLists.txt | 40 ++++++++++++++++++++++------------------
+ 1 file changed, 22 insertions(+), 18 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5fb464b67..177999a50 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -224,24 +224,6 @@ if(USE_CUDA)
+   add_subdirectory(${PROJECT_SOURCE_DIR}/gputreeshap)
+ 
+   find_package(CUDAToolkit REQUIRED)
+-  find_package(CCCL CONFIG)
+-  if(NOT CCCL_FOUND)
+-    message(STATUS "Standalone CCCL not found. Attempting to use CCCL from CUDA Toolkit...")
+-    find_package(CCCL CONFIG
+-      HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+-    if(NOT CCCL_FOUND)
+-      message(STATUS "Could not locate CCCL from CUDA Toolkit. Using Thrust and CUB from CUDA Toolkit...")
+-      find_package(libcudacxx CONFIG REQUIRED
+-        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+-      find_package(CUB CONFIG REQUIRED
+-        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+-      find_package(Thrust CONFIG REQUIRED
+-        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+-      thrust_create_target(Thrust HOST CPP DEVICE CUDA)
+-      add_library(CCCL::CCCL INTERFACE IMPORTED GLOBAL)
+-      target_link_libraries(CCCL::CCCL INTERFACE libcudacxx::libcudacxx CUB::CUB Thrust)
+-    endif()
+-  endif()
+ endif()
+ 
+ if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
+@@ -327,6 +309,28 @@ if(PLUGIN_RMM)
+   list(REMOVE_ITEM rmm_link_libs CUDA::cudart)
+   list(APPEND rmm_link_libs CUDA::cudart_static)
+   set_target_properties(rmm::rmm PROPERTIES INTERFACE_LINK_LIBRARIES "${rmm_link_libs}")
++
++  # Pick up patched CCCL from RMM
++elseif(USE_CUDA)
++  # If using CUDA and not RMM, search for CCCL.
++  find_package(CCCL CONFIG)
++  if(NOT CCCL_FOUND)
++    message(STATUS "Standalone CCCL not found. Attempting to use CCCL from CUDA Toolkit...")
++    find_package(CCCL CONFIG
++      HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
++    if(NOT CCCL_FOUND)
++      message(STATUS "Could not locate CCCL from CUDA Toolkit. Using Thrust and CUB from CUDA Toolkit...")
++      find_package(libcudacxx CONFIG REQUIRED
++        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
++      find_package(CUB CONFIG REQUIRED
++        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
++      find_package(Thrust CONFIG REQUIRED
++        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
++      thrust_create_target(Thrust HOST CPP DEVICE CUDA)
++      add_library(CCCL::CCCL INTERFACE IMPORTED GLOBAL)
++      target_link_libraries(CCCL::CCCL INTERFACE libcudacxx::libcudacxx CUB::CUB Thrust)
++    endif()
++  endif()
+ endif()
+ 
+ if(PLUGIN_SYCL)
+-- 
+2.49.0
+
