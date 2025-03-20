@@ -1,5 +1,5 @@
 {% set version = "2.1.4" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
 
@@ -43,7 +43,12 @@ requirements:
     - libgomp      # [linux or win]
     - ninja
   host:
-    - cccl !=2.4.0,!=2.5.0  # [cuda_compiler != "None"]
+    ############################################################################################
+    # Pin to CCCL 2.7 to avoid build issues in older or newer CCCLs.                           #
+    #                                                                                          #
+    # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
+    ############################################################################################
+    - cccl =2.7             # [cuda_compiler != "None"]
     - nccl                  # [linux and cuda_compiler != "None"]
 
 outputs:
