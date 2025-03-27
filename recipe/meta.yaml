@@ -274,7 +274,9 @@ outputs:
       files:
         - test-r-xgboost.r
       commands:
-        - Rscript test-r-xgboost.r  # [not win]
+        - $R -e "library('xgboost')"           # [unix]
+        - "\"%R%\" -e \"library('xgboost')\""  # [win]
+        - Rscript test-r-xgboost.r             # [unix]
 
   - name: r-xgboost-cpu
     build:
