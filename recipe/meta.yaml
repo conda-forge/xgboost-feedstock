@@ -1,5 +1,6 @@
 {% set version = "3.0.0" %}
 {% set build_number = 0 %}
+{% set python_min = "3.10" %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
 
