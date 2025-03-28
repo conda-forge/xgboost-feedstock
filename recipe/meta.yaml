@@ -125,7 +125,7 @@ outputs:
         - numpy
         - scipy
         - scikit-learn
-        - __cuda  # [cuda_compiler != "None"]
+        - __cuda        # [cuda_compiler != "None"]
     test:
       requires:
         - python {{ python_min }}
