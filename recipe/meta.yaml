@@ -1,6 +1,7 @@
 {% set version = "3.0.0" %}
 {% set build_number = 0 %}
 {% set python_min = "3.10" %}
+{% set posix = 'm2-' if win else '' %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
 
@@ -178,10 +179,9 @@ outputs:
         - {{ stdlib('m2w64_c') }}          # [win]
         - llvm-openmp                      # [osx]
         - libgomp                          # [linux or win]
-        - m2-bash                          # [win]
+        - {{ posix }}bash                  # [win]
         - git
-        - make                             # [not win]
-        - m2-make                          # [win]
+        - {{ posix }}make
         - cmake
         - ninja
         - cross-r-base {{ r_base }}        # [build_platform != target_platform]
