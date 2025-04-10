@@ -276,8 +276,6 @@ Feedstock Maintainers
 * [@jakirkham](https://github.com/jakirkham/)
 * [@ksangeek](https://github.com/ksangeek/)
 * [@mfansler](https://github.com/mfansler/)
+* [@trivialfis](https://github.com/trivialfis/)
 * [@xhochy](https://github.com/xhochy/)
-
-
-<!-- dummy commit to enable rerendering -->
 
