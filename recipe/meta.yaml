@@ -180,7 +180,8 @@ outputs:
         - libgomp                          # [linux or win]
         - m2-bash                          # [win]
         - git
-        - make
+        - make                             # [not win]
+        - m2-make                          # [win]
         - cmake
         - ninja
         - cross-r-base {{ r_base }}        # [build_platform != target_platform]
