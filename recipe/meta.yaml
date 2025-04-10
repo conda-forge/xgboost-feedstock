@@ -180,10 +180,8 @@ outputs:
         - llvm-openmp                      # [osx]
         - libgomp                          # [linux or win]
         - {{ posix }}bash                  # [win]
-        - git
+        - {{ posix }}git
         - {{ posix }}make
-        - cmake
-        - ninja
         - cross-r-base {{ r_base }}        # [build_platform != target_platform]
         - r-base                           # [build_platform != target_platform]
         - r-matrix                         # [build_platform != target_platform]
