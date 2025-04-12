@@ -22,13 +22,13 @@ fi
 mkdir -p build-target
 pushd build-target
 
-cmake ${CMAKE_ARGS} ${XGB_CMAKE_ARGS[@]+"${XGB_CMAKE_ARGS[@]}"} \
-      -GNinja \
-      -DCMAKE_BUILD_TYPE:STRING="Release" \
-      -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
-      -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
-      -DCMAKE_CXX_FLAGS="-D_LIBCPP_DISABLE_AVAILABILITY" \
-      "${SRC_DIR}"
-cmake --build . --config Release
+  cmake ${CMAKE_ARGS} ${XGB_CMAKE_ARGS[@]+"${XGB_CMAKE_ARGS[@]}"} \
+	-GNinja \
+	-DCMAKE_BUILD_TYPE:STRING="Release" \
+	-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
+	-DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+	-DCMAKE_CXX_FLAGS="-D_LIBCPP_DISABLE_AVAILABILITY" \
+	"${SRC_DIR}"
+  cmake --build . --config Release
 
 popd
