@@ -1,9 +1,11 @@
 #!/bin/bash
 
-pushd build-target
 if [[ ${OSTYPE} == msys ]]; then
-  cmake --install . --config Release  --prefix "${PREFIX}/Library/mingw-w64"
+  export INSTALL_PREFIX="${PREFIX}/Library/mingw-w64"
 else
-  cmake --install . --config Release  --prefix "${PREFIX}"
+  export INSTALL_PREFIX="${PREFIX}"
 fi
+
+pushd build-target
+cmake --install . --config Release  --prefix "${INSTALL_PREFIX}"
 popd
