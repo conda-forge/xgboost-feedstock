@@ -75,9 +75,8 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
         - {{ stdlib('c') }}
-        - git
         - cmake
-        - make
+        - ninja
         - llvm-openmp  # [osx]
         - libgomp      # [linux or win]
       host:
