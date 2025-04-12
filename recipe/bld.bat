@@ -3,12 +3,14 @@
 sed -i.bak "s@\"objdump\"@\"%OBJDUMP%\"@g" R-package\inst\make-r-def.R
 if errorlevel 1 exit 1
 
-mkdir %SRC_DIR%\build
-pushd %SRC_DIR%\build
-
 if not "%cuda_compiler_version%" == "None" (
     set "CMAKE_ARGS=-DUSE_CUDA=ON %CMAKE_ARGS%"
 )
+
+mkdir build-target
+if errorlevel 1 exit 1
+pushd build-target
+if errorlevel 1 exit 1
 
 cmake -G "Ninja" ^
     %CMAKE_ARGS% ^
@@ -18,8 +20,8 @@ cmake -G "Ninja" ^
     -DR_LIB:BOOL=OFF ^
     "%SRC_DIR%"
 if errorlevel 1 exit 1
-
 cmake --build . --target install --config Release -- -v
 if errorlevel 1 exit 1
 
 popd
+if errorlevel 1 exit 1
