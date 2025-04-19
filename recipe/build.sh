@@ -39,6 +39,6 @@ pushd build-target
         -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
         -DCMAKE_CXX_FLAGS:STRING="-D_LIBCPP_DISABLE_AVAILABILITY" \
         "${SRC_DIR}"
-  cmake --build . --config Release
+  cmake --build .
 
 popd
