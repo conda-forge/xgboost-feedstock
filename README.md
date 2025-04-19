@@ -252,6 +252,3 @@ Feedstock Maintainers
 * [@trivialfis](https://github.com/trivialfis/)
 * [@xhochy](https://github.com/xhochy/)
 
-
-<!-- dummy commit to enable rerendering -->
-
