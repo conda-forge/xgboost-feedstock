@@ -91,8 +91,10 @@ outputs:
     test:
       commands:
         - test -f "${PREFIX}/lib/libxgboost${SHLIB_EXT}"                  # [unix]
+        - test -d "${PREFIX}/lib/cmake"                                   # [unix]
         - if not exist %LIBRARY_PREFIX%\mingw-w64\lib\xgboost.lib exit 1  # [win]
         - if not exist %LIBRARY_PREFIX%\mingw-w64\bin\xgboost.dll exit 1  # [win]
+        - if not exist %LIBRARY_PREFIX%\mingw-w64\lib\cmake exit 1        # [win]
 
   - name: py-xgboost
     script: >-
