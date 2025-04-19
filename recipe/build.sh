@@ -3,7 +3,6 @@
 set -exuo pipefail
 
 XGB_CMAKE_ARGS=()
-
 if [[ "$target_platform" == osx-* ]]
 then
     XGB_CMAKE_ARGS=(
@@ -15,8 +14,6 @@ then
         ${XGB_CMAKE_ARGS[@]+"${XGB_CMAKE_ARGS[@]}"}
     )
 fi
-
-
 if [[ ${cuda_compiler_version} != "None" ]]; then
     XGB_CMAKE_ARGS=(
         -DUSE_CUDA:BOOL=ON
