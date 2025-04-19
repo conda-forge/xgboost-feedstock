@@ -20,7 +20,7 @@ if errorlevel 1 exit 1
       -DR_LIB:BOOL=OFF ^
       "%SRC_DIR%"
   if errorlevel 1 exit 1
-  cmake --build . --target install --config Release -- -v
+  cmake --build . --config Release -- -v
   if errorlevel 1 exit 1
 
 popd
