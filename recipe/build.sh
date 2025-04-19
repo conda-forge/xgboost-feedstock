@@ -37,7 +37,7 @@ pushd build-target
         -DCMAKE_BUILD_TYPE:STRING="Release" \
         -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
         -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
-        -DCMAKE_CXX_FLAGS="-D_LIBCPP_DISABLE_AVAILABILITY" \
+        -DCMAKE_CXX_FLAGS:STRING="-D_LIBCPP_DISABLE_AVAILABILITY" \
         "${SRC_DIR}"
   cmake --build . --config Release
 
