@@ -7,5 +7,5 @@ else
 fi
 
 pushd build-target
-  cmake --install . --config Release  --prefix "${INSTALL_PREFIX}"
+  cmake --install . --config Release --prefix "${INSTALL_PREFIX}"
 popd
