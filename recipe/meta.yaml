@@ -179,7 +179,6 @@ outputs:
         - llvm-openmp                      # [osx]
         - libgomp                          # [linux or win]
         - {{ posix }}bash                  # [win]
-        - {{ posix }}git
         - {{ posix }}make
         - cross-r-base {{ r_base }}        # [build_platform != target_platform]
         - r-base                           # [build_platform != target_platform]
