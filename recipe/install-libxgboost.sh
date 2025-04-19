@@ -3,6 +3,6 @@
 
 pushd build-target
 
-  cmake --install .
+    cmake --install .
 
 popd
