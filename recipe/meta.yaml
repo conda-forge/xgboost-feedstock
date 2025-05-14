@@ -1,5 +1,5 @@
-{% set version = "3.0.0" %}
-{% set build_number = 1 %}
+{% set version = "3.0.1" %}
+{% set build_number = 0 %}
 {% set python_min = "3.10" %}
 {% set posix = 'm2-' if win else '' %}
 
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-src-{{ version }}.tar.gz
-  sha256: 431222b47085b9c3504d77ef59cfa23ae4fe9d701085313f47217e49e8823326
+  sha256: 46e6815fd24dec7e17ed6e9327cc062da098387ee36358e3e0a43fc43939a8b1
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
