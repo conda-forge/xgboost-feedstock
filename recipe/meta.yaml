@@ -28,7 +28,7 @@ build:
   #
   # XGBoost 3 dropped CUDA 11 support.
   # xref: https://github.com/dmlc/xgboost/issues/10370
-  skip: true  # [(python_min is undefined) or (cuda_compiler_version == "12.6") or (cuda_compiler_version == "11.8")]
+  skip: true  # [(not python_min) or (cuda_compiler_version == "12.6") or (cuda_compiler_version == "11.8")]
 
 requirements:
   build:
