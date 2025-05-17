@@ -36,4 +36,6 @@ pushd build-target
           "${SRC_DIR}"
     cmake --build .
 
+    rm dmlc-core/libdmlc.a
+
 popd
