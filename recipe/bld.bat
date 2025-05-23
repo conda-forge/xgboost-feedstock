@@ -25,8 +25,5 @@ if errorlevel 1 exit 1
     cmake --build .
     if errorlevel 1 exit 1
 
-    del dmlc-core\dmlc.lib
-    if errorlevel 1 exit 1
-
 popd
 if errorlevel 1 exit 1
