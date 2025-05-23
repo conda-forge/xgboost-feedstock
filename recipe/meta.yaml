@@ -95,7 +95,7 @@ outputs:
         - test -d "${PREFIX}/lib/cmake"                                   # [unix]
         - if not exist %LIBRARY_PREFIX%\mingw-w64\lib\xgboost.lib exit 1  # [win]
         - if not exist %LIBRARY_PREFIX%\mingw-w64\bin\xgboost.dll exit 1  # [win]
-        - if exist %LIBRARY_PREFIX%\mingw-w64\lib\mlc.lib exit 1          # [win]
+        - if exist %LIBRARY_PREFIX%\mingw-w64\lib\dmlc.lib exit 1          # [win]
         - if not exist %LIBRARY_PREFIX%\mingw-w64\lib\cmake exit 1        # [win]
 
   - name: py-xgboost

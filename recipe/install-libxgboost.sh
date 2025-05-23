@@ -5,6 +5,7 @@ pushd build-target
 
     cmake --install .
 
-    rm dmlc-core/libdmlc.a
+    rm -fv "${PREFIX}/lib/libdmlc.a"
+    rm -fv "${LIBRARY_PREFIX}/mingw-w64/lib/dmlc.lib"
 
 popd
