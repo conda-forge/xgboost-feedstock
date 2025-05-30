@@ -51,7 +51,7 @@ requirements:
     #                                                                                          #
     # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
     ############################################################################################
-    - cccl =2.7             # [cuda_compiler_version != "None"]
+    - cccl 2.7             # [cuda_compiler_version != "None"]
     - nccl                  # [linux and cuda_compiler_version != "None"]
 
 outputs:
@@ -122,14 +122,14 @@ outputs:
         - cross-python_{{ target_platform }} {{ python_min }}  # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - python {{ python_min }}
         - hatchling >=1.12.1
         - packaging >=21.3
         - pip
       run:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - python >={{ python_min }}
         - numpy
         - scipy
@@ -153,11 +153,11 @@ outputs:
       host:
         - python {{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
       run:
         - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
-        - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
+        - py-xgboost * {{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
         - __cuda  # [cuda_compiler_version != "None"]
     test:
       requires:
@@ -199,7 +199,7 @@ outputs:
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libgomp                                                  # [win]
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
@@ -209,7 +209,7 @@ outputs:
       run:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
         - libgomp                                                  # [win]
-        - libxgboost =*={{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
+        - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
         - r-data.table
