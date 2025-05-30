@@ -86,7 +86,7 @@ outputs:
         - libgomp                                   # [win]
       run:
         - __cuda                                                    # [cuda_compiler_version != "None"]
-        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler_versoin != "None"]
+        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler_version != "None"]
         - libgomp                                                   # [win]
     test:
       commands:
