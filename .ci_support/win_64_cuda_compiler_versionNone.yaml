@@ -1,7 +1,7 @@
 ace:
-- 8.0.2
+- 8.0.4
 c_compiler:
-- vs2019
+- vs2022
 c_stdlib:
 - vs
 channel_sources:
@@ -9,15 +9,15 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- None
+- cuda-nvcc
 cuda_compiler_version:
 - None
 cxx_compiler:
-- vs2019
+- vs2022
 m2w64_c_compiler:
 - gcc
 m2w64_c_compiler_version:
-- '13'
+- '14'
 m2w64_c_stdlib:
 - m2w64-sysroot
 m2w64_c_stdlib_version:
@@ -25,7 +25,7 @@ m2w64_c_stdlib_version:
 m2w64_cxx_compiler:
 - gxx
 m2w64_cxx_compiler_version:
-- '13'
+- '14'
 pin_run_as_build:
   r-base:
     min_pin: x.x
@@ -37,6 +37,3 @@ r_base:
 - '4.4'
 target_platform:
 - win-64
-zip_keys:
-- - cuda_compiler
-  - cuda_compiler_version
