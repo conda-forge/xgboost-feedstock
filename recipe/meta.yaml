@@ -26,10 +26,7 @@ build:
   # Skip CUDA 12.6 in favor of 12.8. This package supports CUDA Compatibility.
   # So packages built with CUDA 12.8 work for all CUDA 12.x versions.
   # ref: https://docs.nvidia.com/deploy/cuda-compatibility/index.html
-  #
-  # XGBoost 3 dropped CUDA 11 support.
-  # xref: https://github.com/dmlc/xgboost/issues/10370
-  skip: true  # [(not python_min) or (cuda_compiler_version == "12.6") or (cuda_compiler_version == "11.8")]
+  skip: true  # [(not python_min) or (cuda_compiler_version == "12.6")]
 
 requirements:
   build:
