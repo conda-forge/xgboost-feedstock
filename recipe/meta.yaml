@@ -32,7 +32,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}           # [cuda_compiler != "None" and cuda_compiler_version != "None"]
+    - {{ compiler('cuda') }}           # [cuda_compiler_version != "None"]
     - {{ compiler('m2w64_c') }}        # [win]
     - {{ compiler('m2w64_cxx') }}      # [win]
     - {{ stdlib('c') }}
@@ -48,8 +48,8 @@ requirements:
     #                                                                                          #
     # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
     ############################################################################################
-    - cccl =2.7             # [cuda_compiler != "None"]
-    - nccl                  # [linux and cuda_compiler != "None"]
+    - cccl =2.7             # [cuda_compiler_version != "None"]
+    - nccl                  # [linux and cuda_compiler_version != "None"]
 
 outputs:
   - name: libxgboost
@@ -59,7 +59,7 @@ outputs:
       activate_in_script: true
       string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
-        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
+        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
       missing_dso_whitelist:
         # Conda-build raises the missing `R.dll` linkage erroneously.
         # xref: https://github.com/conda/conda-build/pull/4786
@@ -71,19 +71,19 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
+        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
         - {{ stdlib('c') }}
         - cmake
         - ninja
         - llvm-openmp  # [osx]
         - libgomp      # [linux or win]
       host:
-        - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler != "None"]
-        - nccl                                      # [linux and cuda_compiler != "None"]
+        - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
+        - nccl                                      # [linux and cuda_compiler_version != "None"]
         - libgomp                                   # [win]
       run:
-        - __cuda                                                    # [cuda_compiler != "None"]
-        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler != "None"]
+        - __cuda                                                    # [cuda_compiler_version != "None"]
+        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler_version != "None"]
         - libgomp                                                   # [win]
     test:
       commands:
@@ -131,7 +131,7 @@ outputs:
         - numpy
         - scipy
         - scikit-learn
-        - __cuda        # [cuda_compiler != "None"]
+        - __cuda        # [cuda_compiler_version != "None"]
     test:
       requires:
         - python {{ python_min }}
@@ -155,7 +155,7 @@ outputs:
         - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
-        - __cuda  # [cuda_compiler != "None"]
+        - __cuda  # [cuda_compiler_version != "None"]
     test:
       requires:
         - python {{ python_min }}
@@ -212,7 +212,7 @@ outputs:
         - r-data.table
         - r-magrittr
         - r-jsonlite
-        - __cuda  # [cuda_compiler != "None"]
+        - __cuda  # [cuda_compiler_version != "None"]
     test:
       requires:
         - r-base
