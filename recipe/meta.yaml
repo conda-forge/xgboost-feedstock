@@ -43,12 +43,7 @@ requirements:
     - libgomp      # [linux or win]
     - ninja
   host:
-    ############################################################################################
-    # Pin to CCCL 2.7 to avoid build issues in older or newer CCCLs.                           #
-    #                                                                                          #
-    # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
-    ############################################################################################
-    - cccl =2.7             # [cuda_compiler_version != "None"]
+    - cccl                  # [cuda_compiler_version != "None"]
     - nccl                  # [linux and cuda_compiler_version != "None"]
 
 outputs:
