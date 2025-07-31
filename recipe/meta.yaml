@@ -24,7 +24,7 @@ build:
   # Skip if `python_min` is undefined. This ensures re-rendering picks it up.
   #
   # Skip CUDA 12.6 in favor of 12.9. This package supports CUDA Compatibility.
-  # So packages built with CUDA 12.0 work for all CUDA 12.x versions.
+  # So packages built with CUDA 12.9 work for all CUDA 12.x versions.
   # ref: https://docs.nvidia.com/deploy/cuda-compatibility/index.html
   skip: true  # [(not python_min) or (cuda_compiler_version == "12.6")]
 
