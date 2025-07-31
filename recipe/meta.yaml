@@ -1,5 +1,5 @@
-{% set version = "3.0.2" %}
-{% set build_number = 1 %}
+{% set version = "3.0.3" %}
+{% set build_number = 0 %}
 {% set python_min = "3.10" %}
 {% set posix = 'm2-' if win else '' %}
 
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-src-{{ version }}.tar.gz
-  sha256: 8f909899f5dc64d4173662a3efa307100713e3c2e2b831177c2e56af0e816caf
+  sha256: 6598adf6a073a55cc87a31e6712fc6dab938a5317aeae7134a07067d51acdf3a
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
@@ -44,11 +44,13 @@ requirements:
     - ninja
   host:
     ############################################################################################
-    # Pin to CCCL 2.7 to avoid build issues in older or newer CCCLs.                           #
+    # On PPC, pin to CCCL 2.7 for compatibility with CUDA 12.4. CCCL 2.8+ doesn't work there.  #
+    # Otherwise use the latest CCCL.                                                           #
     #                                                                                          #
     # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
     ############################################################################################
-    - cccl =2.7             # [cuda_compiler_version != "None"]
+    - cccl =2.7             # [ppc64le and cuda_compiler_version != "None"]
+    - cccl                  # [not ppc64le and cuda_compiler_version != "None"]
     - nccl                  # [linux and cuda_compiler_version != "None"]
 
 outputs:
