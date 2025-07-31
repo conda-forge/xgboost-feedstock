@@ -1,5 +1,5 @@
 {% set version = "3.0.2" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set python_min = "3.10" %}
 {% set posix = 'm2-' if win else '' %}
 
@@ -26,16 +26,13 @@ build:
   # Skip CUDA 12.6 in favor of 12.8. This package supports CUDA Compatibility.
   # So packages built with CUDA 12.8 work for all CUDA 12.x versions.
   # ref: https://docs.nvidia.com/deploy/cuda-compatibility/index.html
-  #
-  # XGBoost 3 dropped CUDA 11 support.
-  # xref: https://github.com/dmlc/xgboost/issues/10370
-  skip: true  # [(not python_min) or (cuda_compiler_version == "12.6") or (cuda_compiler_version == "11.8")]
+  skip: true  # [(not python_min) or (cuda_compiler_version == "12.6")]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}           # [cuda_compiler != "None" and cuda_compiler_version != "None"]
+    - {{ compiler('cuda') }}           # [cuda_compiler_version != "None"]
     - {{ compiler('m2w64_c') }}        # [win]
     - {{ compiler('m2w64_cxx') }}      # [win]
     - {{ stdlib('c') }}
@@ -51,8 +48,8 @@ requirements:
     #                                                                                          #
     # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
     ############################################################################################
-    - cccl =2.7             # [cuda_compiler != "None"]
-    - nccl                  # [linux and cuda_compiler != "None"]
+    - cccl =2.7             # [cuda_compiler_version != "None"]
+    - nccl                  # [linux and cuda_compiler_version != "None"]
 
 outputs:
   - name: libxgboost
@@ -62,7 +59,7 @@ outputs:
       activate_in_script: true
       string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
-        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
+        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
       missing_dso_whitelist:
         # Conda-build raises the missing `R.dll` linkage erroneously.
         # xref: https://github.com/conda/conda-build/pull/4786
@@ -74,20 +71,19 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}  # [cuda_compiler != "None"]
+        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
         - {{ stdlib('c') }}
         - cmake
         - ninja
         - llvm-openmp  # [osx]
         - libgomp      # [linux or win]
       host:
-        - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler != "None"]
-        - nccl                                      # [linux and cuda_compiler != "None"]
+        - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
+        - nccl                                      # [linux and cuda_compiler_version != "None"]
         - libgomp                                   # [win]
       run:
-        - __cuda                                                    # [cuda_compiler != "None"]
-        - {{ pin_compatible("cuda-version", lower_bound="11.2") }}  # [cuda_compiler == "nvcc"]
-        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler == "cuda-nvcc"]
+        - __cuda                                                    # [cuda_compiler_version != "None"]
+        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler_version != "None"]
         - libgomp                                                   # [win]
     test:
       commands:
@@ -135,7 +131,7 @@ outputs:
         - numpy
         - scipy
         - scikit-learn
-        - __cuda        # [cuda_compiler != "None"]
+        - __cuda        # [cuda_compiler_version != "None"]
     test:
       requires:
         - python {{ python_min }}
@@ -159,7 +155,7 @@ outputs:
         - python >={{ python_min }}
         - {{ pin_subpackage('py-xgboost', exact=True) }}
         - py-xgboost =*={{ string_prefix }}_pyh*_{{ PKG_BUILDNUM }}
-        - __cuda  # [cuda_compiler != "None"]
+        - __cuda  # [cuda_compiler_version != "None"]
     test:
       requires:
         - python {{ python_min }}
@@ -216,7 +212,7 @@ outputs:
         - r-data.table
         - r-magrittr
         - r-jsonlite
-        - __cuda  # [cuda_compiler != "None"]
+        - __cuda  # [cuda_compiler_version != "None"]
     test:
       requires:
         - r-base
