@@ -44,12 +44,12 @@ requirements:
     - ninja
   host:
     ############################################################################################
-    # On PPC, pin to CCCL 2 for compatibility with CUDA 12.4.                                  #
+    # On PPC, pin to CCCL 2.7 for compatibility with CUDA 12.4. CCCL 2.8+ doesn't work there.  #
     # Otherwise use the latest CCCL.                                                           #
     #                                                                                          #
     # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
     ############################################################################################
-    - cccl =2               # [ppc64le and cuda_compiler_version != "None"]
+    - cccl =2.7             # [ppc64le and cuda_compiler_version != "None"]
     - cccl                  # [not ppc64le and cuda_compiler_version != "None"]
     - nccl                  # [linux and cuda_compiler_version != "None"]
 
