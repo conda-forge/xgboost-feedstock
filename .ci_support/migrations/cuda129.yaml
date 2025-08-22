@@ -2,8 +2,6 @@ migrator_ts: 1738229377
 __migrator:
   kind:
     version
-  # Use migrator to add CUDA 12 latest.
-  use_local: true
   migration_number:
     1
   build_number:
