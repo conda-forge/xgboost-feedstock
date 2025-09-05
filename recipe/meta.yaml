@@ -18,6 +18,7 @@ source:
     - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
     - patches/0003-Mark-wheels-as-any-platform-compatible.patch
     - patches/0004-Disable-glibc-version-check.patch
+    - patches/0005-Patch-CMake-config-to-support-CUDA-13.0.patch
 
 build:
   number: {{ build_number }}

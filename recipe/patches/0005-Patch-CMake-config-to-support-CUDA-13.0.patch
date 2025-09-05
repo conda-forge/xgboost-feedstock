@@ -1,0 +1,27 @@
+From 85512de5b87cc3de6fa18ed661ab29660e664a91 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <phcho@nvidia.com>
+Date: Fri, 5 Sep 2025 15:16:26 -0700
+Subject: [PATCH] Patch CMake config to support CUDA 13.0
+
+---
+ cmake/Utils.cmake | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/cmake/Utils.cmake b/cmake/Utils.cmake
+index 259562102..9fe2ef044 100644
+--- a/cmake/Utils.cmake
++++ b/cmake/Utils.cmake
+@@ -55,7 +55,9 @@ function(compute_cmake_cuda_archs archs)
+ 
+   # Set up defaults based on CUDA varsion
+   if(NOT CMAKE_CUDA_ARCHITECTURES)
+-    if(CUDA_VERSION VERSION_GREATER_EQUAL "12.8")
++    if(CUDA_VERSION VERSION_GREATER_EQUAL "13.0")
++      set(CMAKE_CUDA_ARCHITECTURES 75 80 90 100 120)
++    elseif(CUDA_VERSION VERSION_GREATER_EQUAL "12.8")
+       set(CMAKE_CUDA_ARCHITECTURES 50 60 70 80 90 100 120)
+     elseif(CUDA_VERSION VERSION_GREATER_EQUAL "11.8")
+       set(CMAKE_CUDA_ARCHITECTURES 50 60 70 80 90)
+-- 
+2.48.1
+
