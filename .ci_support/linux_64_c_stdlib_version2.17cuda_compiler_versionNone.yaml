@@ -1,5 +1,5 @@
 ace:
-- 8.0.4
+- 8.0.5
 c_compiler:
 - gcc
 c_compiler_version:
@@ -17,7 +17,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.9'
+- None
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -36,7 +36,7 @@ r_base:
 - '4.3'
 - '4.4'
 target_platform:
-- linux-aarch64
+- linux-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

@@ -11,7 +11,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- None
+- '13.0'
 cxx_compiler:
 - vs2022
 m2w64_c_compiler:

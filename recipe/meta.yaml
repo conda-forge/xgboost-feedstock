@@ -1,4 +1,4 @@
-{% set version = "3.0.4" %}
+{% set version = "3.0.5" %}
 {% set build_number = 0 %}
 {% set python_min = "3.10" %}
 {% set posix = 'm2-' if win else '' %}
@@ -11,13 +11,14 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-src-{{ version }}.tar.gz
-  sha256: 5388cc28f4f7725edc7d9eed4c4794a818df7c76c2d39652debe6fca7df770cf
+  sha256: 0776b59fad03548c447cb1e188469761241ffb3b36154dc8a59735f11d262dc2
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
     - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
     - patches/0003-Mark-wheels-as-any-platform-compatible.patch
     - patches/0004-Disable-glibc-version-check.patch
+    - patches/0005-Patch-CMake-config-to-support-CUDA-13.0.patch
 
 build:
   number: {{ build_number }}
