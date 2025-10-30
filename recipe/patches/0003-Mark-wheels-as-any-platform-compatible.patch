@@ -1,4 +1,4 @@
-From 3cff598144b2843b21eeccb42075f47c84127bb7 Mon Sep 17 00:00:00 2001
+From 956e84c13477ad3c6141d3481e83fd9a19af37b1 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Sat, 28 Sep 2024 21:12:02 +0200
 Subject: [PATCH] Mark wheels as any platform compatible
@@ -26,3 +26,6 @@ index d81a21cd5..710530ce4 100644
  
  
  class CustomBuildHook(BuildHookInterface):
+-- 
+2.48.1
+
