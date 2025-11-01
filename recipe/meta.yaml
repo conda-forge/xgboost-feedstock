@@ -43,13 +43,6 @@ requirements:
     - libgomp      # [linux or win]
     - ninja
   host:
-    ############################################################################################
-    # On PPC, pin to CCCL 2.7 for compatibility with CUDA 12.4. CCCL 2.8+ doesn't work there.  #
-    # Otherwise use the latest CCCL.                                                           #
-    #                                                                                          #
-    # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
-    ############################################################################################
-    - cccl =2.7             # [ppc64le and cuda_compiler_version != "None"]
     #######################################################
     # Pin to CCCL 3 to workaround a compilation error.    #
     #                                                     #
