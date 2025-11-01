@@ -50,8 +50,13 @@ requirements:
     # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
     ############################################################################################
     - cccl =2.7             # [ppc64le and cuda_compiler_version != "None"]
-    - cccl <3.1.0a0         # [not ppc64le and cuda_compiler_version != "None"]
-    - nccl                  # [linux and cuda_compiler_version != "None"]
+    #######################################################
+    # Pin to CCCL 3 to workaround a compilation error.    #
+    #                                                     #
+    # xref: https://github.com/dmlc/xgboost/issues/11784  #
+    #######################################################
+    - cccl >=3.0.0,<3.1.0a0  # [cuda_compiler_version != "None"]
+    - nccl                   # [linux and cuda_compiler_version != "None"]
 
 outputs:
   - name: libxgboost
