@@ -1,4 +1,4 @@
-From 9565edd748fcc7ad3a9d8f406aa9715bd2bcd011 Mon Sep 17 00:00:00 2001
+From 41b851d086176037355faca6695e1d53f0239e19 Mon Sep 17 00:00:00 2001
 From: Hyunsu Cho <phcho@nvidia.com>
 Date: Sun, 25 May 2025 02:18:12 -0700
 Subject: [PATCH] Disable glibc version check
@@ -8,10 +8,10 @@ Subject: [PATCH] Disable glibc version check
  1 file changed, 24 deletions(-)
 
 diff --git a/python-package/xgboost/core.py b/python-package/xgboost/core.py
-index b6c341433..0bd35ea4e 100644
+index 6caab146e..7356f3357 100644
 --- a/python-package/xgboost/core.py
 +++ b/python-package/xgboost/core.py
-@@ -366,30 +366,6 @@ def build_info() -> dict:
+@@ -379,30 +379,6 @@ def build_info() -> dict:
      return res
  
  
@@ -43,5 +43,5 @@ index b6c341433..0bd35ea4e 100644
      _NUMPY_TO_CTYPES_MAPPING: Dict[Type[np.number], Type[CNumeric]] = {
          np.float32: ctypes.c_float,
 -- 
-2.43.0
+2.48.1
 

@@ -1,5 +1,5 @@
-{% set version = "3.0.5" %}
-{% set build_number = 1 %}
+{% set version = "3.1.1" %}
+{% set build_number = 0 %}
 {% set python_min = "3.10" %}
 {% set posix = 'm2-' if win else '' %}
 
@@ -11,14 +11,13 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-src-{{ version }}.tar.gz
-  sha256: 0776b59fad03548c447cb1e188469761241ffb3b36154dc8a59735f11d262dc2
+  sha256: b2bb9c93f28fe7e401dbe592eb7990f5382baa712b02301eb8fd4cdb6c676731
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
     - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
     - patches/0003-Mark-wheels-as-any-platform-compatible.patch
     - patches/0004-Disable-glibc-version-check.patch
-    - patches/0005-Patch-CMake-config-to-support-CUDA-13.0.patch
 
 build:
   number: {{ build_number }}
@@ -44,15 +43,13 @@ requirements:
     - libgomp      # [linux or win]
     - ninja
   host:
-    ############################################################################################
-    # On PPC, pin to CCCL 2.7 for compatibility with CUDA 12.4. CCCL 2.8+ doesn't work there.  #
-    # Otherwise use the latest CCCL.                                                           #
-    #                                                                                          #
-    # xref: https://github.com/conda-forge/xgboost-feedstock/pull/219#issuecomment-2738813028  #
-    ############################################################################################
-    - cccl =2.7             # [ppc64le and cuda_compiler_version != "None"]
-    - cccl                  # [not ppc64le and cuda_compiler_version != "None"]
-    - nccl                  # [linux and cuda_compiler_version != "None"]
+    #######################################################
+    # Pin to CCCL 3 to workaround a compilation error.    #
+    #                                                     #
+    # xref: https://github.com/dmlc/xgboost/issues/11784  #
+    #######################################################
+    - cccl >=3.0.0,<3.1.0a0  # [cuda_compiler_version != "None"]
+    - nccl                   # [linux and cuda_compiler_version != "None"]
 
 outputs:
   - name: libxgboost
