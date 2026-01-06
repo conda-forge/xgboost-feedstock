@@ -1,11 +1,7 @@
 c_compiler:
-- gcc
-c_compiler_version:
-- '14'
+- vs2022
 c_stdlib:
-- sysroot
-c_stdlib_version:
-- '2.28'
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
@@ -13,15 +9,21 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '13.0'
+- '13.1'
 cxx_compiler:
-- gxx
-cxx_compiler_version:
+- vs2022
+m2w64_c_compiler:
+- gcc
+m2w64_c_compiler_version:
 - '14'
-docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma9
-nccl:
-- '2'
+m2w64_c_stdlib:
+- m2w64-sysroot
+m2w64_c_stdlib_version:
+- '12'
+m2w64_cxx_compiler:
+- gxx
+m2w64_cxx_compiler_version:
+- '14'
 pin_run_as_build:
   r-base:
     min_pin: x.x
@@ -32,9 +34,4 @@ r_base:
 - '4.4'
 - '4.5'
 target_platform:
-- linux-64
-zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version
-  - c_stdlib_version
-  - cuda_compiler_version
+- win-64

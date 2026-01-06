@@ -55,10 +55,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_stdlib_version2.28cuda_compiler_version13.0</td>
+              <td>linux_64_c_stdlib_version2.28cuda_compiler_version13.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.28cuda_compiler_version13.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.28cuda_compiler_version13.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -76,10 +76,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.0</td>
+              <td>linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -111,10 +111,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compiler_version13.0</td>
+              <td>win_64_cuda_compiler_version13.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4403&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version13.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/xgboost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version13.1" alt="variant">
                 </a>
               </td>
             </tr><tr>

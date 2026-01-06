@@ -13,7 +13,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '13.0'
+- '13.1'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -32,7 +32,7 @@ r_base:
 - '4.4'
 - '4.5'
 target_platform:
-- linux-aarch64
+- linux-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
