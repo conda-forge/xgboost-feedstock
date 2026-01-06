@@ -18,6 +18,7 @@ __migrator:
       - None
       - 12.9
       - 13.0
+      - 13.1
       # to allow manual opt-in for CUDA 11.8, see
       # https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/7472
       # must be last due to how cuda_compiler ordering in that migrator works
@@ -47,7 +48,7 @@ __migrator:
     > might be replaced with `# [cuda_compiler_version != "None"]`.
 
 cuda_compiler_version:         # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-  - 13.0                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13.1                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
 
 c_stdlib_version:              # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
   - 2.28                       # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
