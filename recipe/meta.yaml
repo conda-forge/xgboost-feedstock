@@ -64,9 +64,6 @@ outputs:
         # Conda-build raises the missing `R.dll` linkage erroneously.
         # xref: https://github.com/conda/conda-build/pull/4786
         - '*/R.dll'         # [win]
-        # Conda-build raises the missing `ld64.so.2` linkage erroneously.
-        # xref: https://github.com/conda/conda-build/issues/5403
-        - $RPATH/ld64.so.2  # [ppc64le]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -169,10 +166,6 @@ outputs:
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
-      missing_dso_whitelist:
-        # Conda-build raises the missing `ld64.so.2` linkage erroneously.
-        # xref: https://github.com/conda/conda-build/issues/5403
-        - $RPATH/ld64.so.2  # [ppc64le]
     requirements:
       build:
         - {{ compiler('c') }}              # [unix]
