@@ -166,7 +166,6 @@ outputs:
     script: >-
       {{ "install-r-xgboost.sh" if not win else "install-win-wrapper.bat" }}
     build:
-      skip: true  # [r_base in ("4.1", "4.2")]
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       rpaths:
         - lib/R/lib
