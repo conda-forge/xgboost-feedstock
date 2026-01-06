@@ -6,6 +6,7 @@ __migrator:
   build_number:
     1
   paused: true
+  use_local: true
   override_cbc_keys:
     - cuda_compiler_stub
   check_solvable: false
