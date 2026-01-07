@@ -60,10 +60,6 @@ outputs:
       string: {{ string_prefix }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
       ignore_run_exports_from:
         - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
-      missing_dso_whitelist:
-        # Conda-build raises the missing `R.dll` linkage erroneously.
-        # xref: https://github.com/conda/conda-build/pull/4786
-        - '*/R.dll'         # [win]
     requirements:
       build:
         - {{ compiler('c') }}
