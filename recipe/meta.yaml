@@ -160,6 +160,10 @@ outputs:
       {{ "install-r-xgboost.sh" if not win else "install-win-wrapper.bat" }}
     build:
       string: {{ string_prefix }}_r{{ r_base | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+      missing_dso_whitelist:
+        # Conda-build raises the missing `R.dll` linkage erroneously.
+        # xref: https://github.com/conda/conda-build/pull/4786
+        - '*/R.dll'         # [win]
       rpaths:
         - lib/R/lib
     requirements:
