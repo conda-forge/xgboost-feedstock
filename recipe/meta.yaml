@@ -213,7 +213,7 @@ outputs:
       commands:
         - $R -e "library('xgboost')"           # [unix]
         - "\"%R%\" -e \"library('xgboost')\""  # [win]
-        - Rscript test-r-xgboost.r             # [unix]
+        - Rscript test-r-xgboost.r
 
 about:
   home: https://github.com/dmlc/xgboost
