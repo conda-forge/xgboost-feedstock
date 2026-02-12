@@ -39,7 +39,8 @@ requirements:
     - m2-sed                           # [win]
     - cmake
     - llvm-openmp  # [osx]
-    - libgomp      # [linux or win]
+    - libgomp      # [linux]
+    - vcomp14      # [win]
     - ninja
   host:
     #######################################################
@@ -68,15 +69,16 @@ outputs:
         - cmake
         - ninja
         - llvm-openmp  # [osx]
-        - libgomp      # [linux or win]
+        - libgomp      # [linux]
+        - vcomp14      # [win]
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - nccl                                      # [linux and cuda_compiler_version != "None"]
-        - libgomp                                   # [win]
+        - vcomp14                                   # [win]
       run:
         - __cuda                                                    # [cuda_compiler_version != "None"]
         - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler_version != "None"]
-        - libgomp                                                   # [win]
+        - vcomp14                                                   # [win]
     test:
       commands:
         - test -f "${PREFIX}/lib/libxgboost${SHLIB_EXT}"                  # [unix]
@@ -174,7 +176,8 @@ outputs:
         - {{ stdlib('c') }}                # [unix]
         - {{ stdlib('m2w64_c') }}          # [win]
         - llvm-openmp                      # [osx]
-        - libgomp                          # [linux or win]
+        - libgomp                          # [linux]
+        - vcomp14                          # [win]
         - {{ posix }}bash                  # [win]
         - {{ posix }}make
         - cross-r-base {{ r_base }}        # [build_platform != target_platform]
@@ -186,7 +189,7 @@ outputs:
         - r-knitr                          # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libgomp                                                  # [win]
+        - vcomp14                                                 # [win]
         - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
@@ -196,7 +199,7 @@ outputs:
         - r-knitr
       run:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libgomp                                                  # [win]
+        - vcomp14                                                  # [win]
         - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
