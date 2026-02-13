@@ -1,4 +1,4 @@
-{% set version = "3.1.3" %}
+{% set version = "3.2.0" %}
 {% set build_number = 0 %}
 {% set python_min = "3.10" %}
 {% set posix = 'm2-' if win else '' %}
@@ -11,13 +11,12 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-src-{{ version }}.tar.gz
-  sha256: 67800a7c1c0455c22c9be73dbf3c39bfd9ac9627b2cb617eb2795fd675a9d49e
+  sha256: 16a31dfbc0c54544c9c36ab5f696fa7b646c125f161c52c814d757a58241a404
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
     - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
     - patches/0003-Mark-wheels-as-any-platform-compatible.patch
-    - patches/0004-Disable-glibc-version-check.patch
 
 build:
   number: {{ build_number }}
@@ -40,7 +39,8 @@ requirements:
     - m2-sed                           # [win]
     - cmake
     - llvm-openmp  # [osx]
-    - libgomp      # [linux or win]
+    - libgomp      # [linux]
+    - vcomp14      # [win]
     - ninja
   host:
     #######################################################
@@ -69,15 +69,16 @@ outputs:
         - cmake
         - ninja
         - llvm-openmp  # [osx]
-        - libgomp      # [linux or win]
+        - libgomp      # [linux]
+        - vcomp14      # [win]
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - nccl                                      # [linux and cuda_compiler_version != "None"]
-        - libgomp                                   # [win]
+        - vcomp14                                   # [win]
       run:
         - __cuda                                                    # [cuda_compiler_version != "None"]
         - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler_version != "None"]
-        - libgomp                                                   # [win]
+        - vcomp14                                                   # [win]
     test:
       commands:
         - test -f "${PREFIX}/lib/libxgboost${SHLIB_EXT}"                  # [unix]
@@ -187,7 +188,7 @@ outputs:
         - r-knitr                          # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libxgboost', max_pin='x.x.x') }}
-        - libgomp                                                  # [win]
+        - libgomp                                                 # [win]
         - libxgboost * {{ string_prefix }}_h*_{{ PKG_BUILDNUM }}
         - r-base
         - r-matrix
