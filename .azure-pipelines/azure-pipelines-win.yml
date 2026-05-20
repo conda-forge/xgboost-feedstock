@@ -12,8 +12,8 @@ jobs:
         CONFIG: win_64_cuda_compiler_version12.9
         UPLOAD_PACKAGES: 'True'
         store_build_artifacts: false
-      win_64_cuda_compiler_version13.1:
-        CONFIG: win_64_cuda_compiler_version13.1
+      win_64_cuda_compiler_version13.2:
+        CONFIG: win_64_cuda_compiler_version13.2
         UPLOAD_PACKAGES: 'True'
         store_build_artifacts: false
       win_64_cuda_compiler_versionNone:
