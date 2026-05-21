@@ -1,0 +1,435 @@
+From 6ee8126694a87e86c18608ab55e00f4edd8a570d Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <phcho@nvidia.com>
+Date: Wed, 25 Feb 2026 23:44:42 -0800
+Subject: [PATCH] Fix compilation with the latest CCCL
+
+---
+ src/common/hist_util.cu               |  1 +
+ src/common/quantile.cu                |  1 +
+ src/common/ranking_utils.cu           |  5 +--
+ src/data/ellpack_page.cu              |  1 +
+ src/metric/auc.cu                     | 45 ++++++++++++++-------------
+ src/objective/lambdarank_obj.cu       | 37 +++++++++++-----------
+ src/tree/gpu_hist/evaluate_splits.cuh |  3 +-
+ src/tree/gpu_hist/evaluator.cu        | 13 ++++----
+ tests/cpp/common/test_quantile.cu     | 10 +++---
+ 9 files changed, 63 insertions(+), 53 deletions(-)
+
+diff --git a/src/common/hist_util.cu b/src/common/hist_util.cu
+index 395bc3b0d..11da335e1 100644
+--- a/src/common/hist_util.cu
++++ b/src/common/hist_util.cu
+@@ -10,6 +10,7 @@
+ #include <thrust/iterator/transform_iterator.h>
+ #include <thrust/reduce.h>
+ #include <thrust/sort.h>
++#include <thrust/tuple.h>  // for tuple
+ #include <xgboost/logging.h>
+ 
+ #include <cstddef>  // for size_t
+diff --git a/src/common/quantile.cu b/src/common/quantile.cu
+index 535a2a700..e7728ebf9 100644
+--- a/src/common/quantile.cu
++++ b/src/common/quantile.cu
+@@ -6,6 +6,7 @@
+ #include <thrust/iterator/constant_iterator.h>
+ #include <thrust/iterator/discard_iterator.h>
+ #include <thrust/transform_scan.h>
++#include <thrust/tuple.h>  // for make_tuple
+ #include <thrust/unique.h>
+ 
+ #include <limits>       // for numeric_limits
+diff --git a/src/common/ranking_utils.cu b/src/common/ranking_utils.cu
+index 590dd93a3..1be27c4d9 100644
+--- a/src/common/ranking_utils.cu
++++ b/src/common/ranking_utils.cu
+@@ -9,6 +9,7 @@
+ #include <thrust/scan.h>                        // for inclusive_scan
+ 
+ #include <cstddef>                              // for size_t
++#include <cuda/std/utility>  // for pair
+ 
+ #include "algorithm.cuh"                        // for SegmentedArgSort
+ #include "cuda_context.cuh"                     // for CUDAContext
+@@ -30,10 +31,10 @@ void CalcQueriesDCG(Context const* ctx, linalg::VectorView<float const> d_labels
+                     common::Span<bst_group_t const> d_group_ptr, std::size_t k,
+                     linalg::VectorView<double> out_dcg) {
+   CHECK_EQ(d_group_ptr.size() - 1, out_dcg.Size());
+-  using IdxGroup = thrust::pair<std::size_t, std::size_t>;
++  using IdxGroup = cuda::std::pair<std::size_t, std::size_t>;
+   auto group_it = dh::MakeTransformIterator<IdxGroup>(
+       thrust::make_counting_iterator(0ull), [=] XGBOOST_DEVICE(std::size_t idx) {
+-        return thrust::make_pair(idx, dh::SegmentId(d_group_ptr, idx));  // NOLINT
++        return cuda::std::make_pair(idx, dh::SegmentId(d_group_ptr, idx));  // NOLINT
+       });
+   auto value_it = dh::MakeTransformIterator<double>(
+       group_it,
+diff --git a/src/data/ellpack_page.cu b/src/data/ellpack_page.cu
+index f4546add4..6496e9d52 100644
+--- a/src/data/ellpack_page.cu
++++ b/src/data/ellpack_page.cu
+@@ -5,6 +5,7 @@
+ #include <thrust/extrema.h>                             // for max_element
+ #include <thrust/iterator/counting_iterator.h>          // for make_counting_iterator
+ #include <thrust/iterator/transform_output_iterator.h>  // for transform_output_iterator
++#include <thrust/tuple.h>                               // for tuple
+ 
+ #include <algorithm>          // for copy
+ #include <cuda/std/iterator>  // for distance
+diff --git a/src/metric/auc.cu b/src/metric/auc.cu
+index 6dbb6e588..e72eb2c7e 100644
+--- a/src/metric/auc.cu
++++ b/src/metric/auc.cu
+@@ -6,6 +6,7 @@
+ #include <thrust/scan.h>
+ 
+ #include <cassert>
++#include <cuda/std/tuple>    // for tuple, get, tie
+ #include <cuda/std/utility>  // for pair
+ #include <functional>        // for equal_to
+ #include <limits>
+@@ -154,11 +155,11 @@ std::tuple<double, double, double> GPUBinaryAUC(Context const *ctx,
+         double fp_prev, tp_prev;
+         if (i == 0) {
+           // handle the last element
+-          thrust::tie(fp, tp) = d_fptp.back();
+-          thrust::tie(fp_prev, tp_prev) = d_neg_pos[d_unique_idx.back()];
++          cuda::std::tie(fp, tp) = d_fptp.back();
++          cuda::std::tie(fp_prev, tp_prev) = d_neg_pos[d_unique_idx.back()];
+         } else {
+-          thrust::tie(fp, tp) = d_fptp[d_unique_idx[i] - 1];
+-          thrust::tie(fp_prev, tp_prev) = d_neg_pos[d_unique_idx[i - 1]];
++          cuda::std::tie(fp, tp) = d_fptp[d_unique_idx[i] - 1];
++          cuda::std::tie(fp_prev, tp_prev) = d_neg_pos[d_unique_idx[i - 1]];
+         }
+         return area_fn(fp_prev, fp, tp_prev, tp);
+       });
+@@ -222,7 +223,7 @@ double ScaleClasses(Context const *ctx, bool is_column_split, common::Span<doubl
+ 
+   double tp_sum;
+   double auc_sum;
+-  thrust::tie(auc_sum, tp_sum) =
++  cuda::std::tie(auc_sum, tp_sum) =
+       thrust::reduce(ctx->CUDACtx()->CTP(), reduce_in, reduce_in + n_classes, Pair{0.0, 0.0},
+                      PairPlus<double, double>{});
+   if (tp_sum != 0 && !std::isnan(auc_sum)) {
+@@ -239,31 +240,31 @@ double ScaleClasses(Context const *ctx, bool is_column_split, common::Span<doubl
+  */
+ template <typename Fn>
+ void SegmentedFPTP(Context const *ctx, common::Span<Pair> d_fptp, Fn segment_id) {
+-  using Triple = thrust::tuple<uint32_t, double, double>;
++  using Triple = cuda::std::tuple<uint32_t, double, double>;
+   // expand to tuple to include idx
+   auto fptp_it_in = dh::MakeTransformIterator<Triple>(
+       thrust::make_counting_iterator(0), [=] XGBOOST_DEVICE(size_t i) {
+-        return thrust::make_tuple(i, d_fptp[i].first, d_fptp[i].second);
++        return cuda::std::make_tuple(i, d_fptp[i].first, d_fptp[i].second);
+       });
+   // shrink down to pair
+   auto fptp_it_out = thrust::make_transform_output_iterator(
+       dh::TypedDiscard<Triple>{}, [d_fptp] XGBOOST_DEVICE(Triple const &t) {
+-        d_fptp[thrust::get<0>(t)] =
+-            cuda::std::make_pair(thrust::get<1>(t), thrust::get<2>(t));
++        d_fptp[cuda::std::get<0>(t)] =
++            cuda::std::make_pair(cuda::std::get<1>(t), cuda::std::get<2>(t));
+         return t;
+       });
+   common::InclusiveScan(
+       ctx, fptp_it_in, fptp_it_out,
+       [=] XGBOOST_DEVICE(Triple const &l, Triple const &r) {
+-        uint32_t l_gid = segment_id(thrust::get<0>(l));
+-        uint32_t r_gid = segment_id(thrust::get<0>(r));
++        uint32_t l_gid = segment_id(cuda::std::get<0>(l));
++        uint32_t r_gid = segment_id(cuda::std::get<0>(r));
+         if (l_gid != r_gid) {
+           return r;
+         }
+ 
+-        return Triple(thrust::get<0>(r),
+-                      thrust::get<1>(l) + thrust::get<1>(r),   // fp
+-                      thrust::get<2>(l) + thrust::get<2>(r));  // tp
++        return Triple(cuda::std::get<0>(r),
++                      cuda::std::get<1>(l) + cuda::std::get<1>(r),   // fp
++                      cuda::std::get<2>(l) + cuda::std::get<2>(r));  // tp
+       },
+       d_fptp.size());
+ }
+@@ -291,12 +292,12 @@ void SegmentedReduceAUC(Context const *ctx, common::Span<size_t const> d_unique_
+         double fp, tp, fp_prev, tp_prev;
+         if (i == d_unique_class_ptr[class_id]) {
+           // first item is ignored, we use this thread to calculate the last item
+-          thrust::tie(fp, tp) = d_fptp[common::LastOf(class_id, d_class_ptr)];
+-          thrust::tie(fp_prev, tp_prev) =
++          cuda::std::tie(fp, tp) = d_fptp[common::LastOf(class_id, d_class_ptr)];
++          cuda::std::tie(fp_prev, tp_prev) =
+               d_neg_pos[d_unique_idx[common::LastOf(class_id, d_unique_class_ptr)]];
+         } else {
+-          thrust::tie(fp, tp) = d_fptp[d_unique_idx[i] - 1];
+-          thrust::tie(fp_prev, tp_prev) = d_neg_pos[d_unique_idx[i - 1]];
++          cuda::std::tie(fp, tp) = d_fptp[d_unique_idx[i] - 1];
++          cuda::std::tie(fp_prev, tp_prev) = d_neg_pos[d_unique_idx[i - 1]];
+         }
+         double auc = area_fn(fp_prev, fp, tp_prev, tp, class_id);
+         return auc;
+@@ -544,7 +545,7 @@ std::pair<double, std::uint32_t> GPURankingAUC(Context const *ctx, common::Span<
+         }
+ 
+         size_t i, j;
+-        thrust::tie(i, j) = get_i_j(idx, query_group_idx);
++        cuda::std::tie(i, j) = get_i_j(idx, query_group_idx);
+ 
+         float predt = predts[d_sorted_idx[i]] - predts[d_sorted_idx[j]];
+         float w = common::Sqr(d_weights.empty() ? 1.0f : d_weights[query_group_idx]);
+@@ -618,7 +619,7 @@ std::tuple<double, double, double> GPUBinaryPRAUC(Context const *ctx,
+                                  (1.0f - labels(d_sorted_idx[i])) * w);
+       });
+   double total_pos, total_neg;
+-  thrust::tie(total_pos, total_neg) = thrust::reduce(ctx->CUDACtx()->CTP(), it, it + labels.Size(),
++  cuda::std::tie(total_pos, total_neg) = thrust::reduce(ctx->CUDACtx()->CTP(), it, it + labels.Size(),
+                                                      Pair{0.0, 0.0}, PairPlus<double, double>{});
+ 
+   if (total_pos <= 0.0 || total_neg <= 0.0) {
+@@ -786,7 +787,7 @@ std::pair<double, uint32_t> GPURankingPRAUCImpl(Context const *ctx,
+     auto it = dh::MakeTransformIterator<cuda::std::pair<double, uint32_t>>(
+         thrust::make_counting_iterator(0ul), [=] XGBOOST_DEVICE(size_t g) {
+           double fp, tp;
+-          thrust::tie(fp, tp) = d_fptp[common::LastOf(g, d_group_ptr)];
++          cuda::std::tie(fp, tp) = d_fptp[common::LastOf(g, d_group_ptr)];
+           double area = fp * tp;
+           auto n_documents = d_group_ptr[g + 1] - d_group_ptr[g];
+           if (area > 0 && n_documents >= 2) {
+@@ -794,7 +795,7 @@ std::pair<double, uint32_t> GPURankingPRAUCImpl(Context const *ctx,
+           }
+           return cuda::std::make_pair(0.0, static_cast<uint32_t>(1));
+         });
+-    thrust::tie(auc, invalid_groups) =
++    cuda::std::tie(auc, invalid_groups) =
+         thrust::reduce(ctx->CUDACtx()->CTP(), it, it + n_groups,
+                        cuda::std::pair<double, uint32_t>(0.0, 0), PairPlus<double, uint32_t>{});
+   }
+diff --git a/src/objective/lambdarank_obj.cu b/src/objective/lambdarank_obj.cu
+index 64cca2fdf..96b99b1e8 100644
+--- a/src/objective/lambdarank_obj.cu
++++ b/src/objective/lambdarank_obj.cu
+@@ -8,13 +8,14 @@
+ #include <thrust/for_each.h>                    // for for_each_n
+ #include <thrust/iterator/counting_iterator.h>  // for make_counting_iterator
+ #include <thrust/iterator/zip_iterator.h>       // for make_zip_iterator
+-#include <thrust/tuple.h>                       // for make_tuple, tuple, tie, get
++#include <thrust/tuple.h>                       // for make_tuple (zip_iterator)
+ 
+ #include <algorithm>  // for min
+ #include <cassert>    // for assert
+ #include <cmath>      // for abs, log2, isinf
+ #include <cstddef>    // for size_t
+ #include <cstdint>    // for int32_t
++#include <cuda/std/tuple>  // for make_tuple, tuple, get
+ #include <memory>     // for shared_ptr
+ #include <utility>
+ 
+@@ -73,7 +74,7 @@ void MinBias(Context const* ctx, std::shared_ptr<ltr::RankingCache> p_cache,
+ /**
+  * \brief Type for gradient statistic. (Gradient, cost for unbiased LTR, normalization factor)
+  */
+-using GradCostNorm = thrust::tuple<GradientPair, double, double>;
++using GradCostNorm = cuda::std::tuple<GradientPair, double, double>;
+ 
+ /**
+  * \brief Obtain and update the gradient for one pair.
+@@ -101,7 +102,7 @@ struct GetGradOp {
+ 
+     std::size_t rank_high = i, rank_low = j;
+     if (g_label(g_rank[i]) == g_label(g_rank[j])) {
+-      return thrust::make_tuple(GradientPair{}, 0.0, 0.0);
++      return cuda::std::make_tuple(GradientPair{}, 0.0, 0.0);
+     }
+     if (g_label(g_rank[i]) < g_label(g_rank[j])) {
+       thrust::swap(rank_high, rank_low);
+@@ -156,7 +157,7 @@ struct GetGradOp {
+       }
+     }
+ 
+-    return thrust::make_tuple(GradientPair{std::abs(pg.GetGrad()), std::abs(pg.GetHess())},
++    return cuda::std::make_tuple(GradientPair{std::abs(pg.GetGrad()), std::abs(pg.GetHess())},
+                               std::abs(cost), -2.0 * static_cast<double>(pg.GetGrad()));
+   }
+ };
+@@ -212,15 +213,15 @@ void CalcGrad(Context const* ctx, MetaInfo const& info, std::shared_ptr<ltr::Ran
+   auto reduction_op = [] XGBOOST_DEVICE(GradCostNorm const& l,
+                                         GradCostNorm const& r) -> GradCostNorm {
+     // get maximum gradient for each group, along with cost and the normalization term
+-    auto const& lg = thrust::get<0>(l);
+-    auto const& rg = thrust::get<0>(r);
++    auto const& lg = cuda::std::get<0>(l);
++    auto const& rg = cuda::std::get<0>(r);
+     auto grad = std::max(lg.GetGrad(), rg.GetGrad());
+     auto hess = std::max(lg.GetHess(), rg.GetHess());
+-    auto cost = std::max(thrust::get<1>(l), thrust::get<1>(r));
+-    double sum_lambda = thrust::get<2>(l) + thrust::get<2>(r);
+-    return thrust::make_tuple(GradientPair{grad, hess}, cost, sum_lambda);
++    auto cost = std::max(cuda::std::get<1>(l), cuda::std::get<1>(r));
++    double sum_lambda = cuda::std::get<2>(l) + cuda::std::get<2>(r);
++    return cuda::std::make_tuple(GradientPair{grad, hess}, cost, sum_lambda);
+   };
+-  auto init = thrust::make_tuple(GradientPair{0.0f, 0.0f}, 0.0, 0.0);
++  auto init = cuda::std::make_tuple(GradientPair{0.0f, 0.0f}, 0.0, 0.0);
+   common::Span<GradCostNorm> d_max_lambdas = p_cache->MaxLambdas<GradCostNorm>(ctx, n_groups);
+   CHECK_EQ(n_groups * sizeof(GradCostNorm), d_max_lambdas.size_bytes());
+   // Reduce by group.
+@@ -245,14 +246,14 @@ void CalcGrad(Context const* ctx, MetaInfo const& info, std::shared_ptr<ltr::Ran
+   auto d_rounding = p_cache->CUDARounding(ctx);
+   dh::LaunchN(n_groups, ctx->CUDACtx()->Stream(), [=] XGBOOST_DEVICE(std::size_t g) mutable {
+     auto group_size = d_gptr[g + 1] - d_gptr[g];
+-    auto const& max_grad = thrust::get<0>(d_max_lambdas[g]);
++    auto const& max_grad = cuda::std::get<0>(d_max_lambdas[g]);
+     // float group size
+     auto fgs = static_cast<float>(group_size);
+     auto grad = common::CreateRoundingFactor(fgs * max_grad.GetGrad(), group_size);
+     auto hess = common::CreateRoundingFactor(fgs * max_grad.GetHess(), group_size);
+     d_rounding(g) = GradientPair{grad, hess};
+ 
+-    auto cost = thrust::get<1>(d_max_lambdas[g]);
++    auto cost = cuda::std::get<1>(d_max_lambdas[g]);
+     if (unbiased) {
+       cost /= std::min(d_min_bias[0], d_min_bias[1]);
+       d_cost_rounding[0] = common::CreateRoundingFactor(fgs * cost, group_size);
+@@ -281,7 +282,7 @@ void CalcGrad(Context const* ctx, MetaInfo const& info, std::shared_ptr<ltr::Ran
+                          double norm = 1.0;
+                          if (has_truncation) {
+                            // Normalize using gradient for top-k.
+-                           auto sum_lambda = thrust::get<2>(d_max_lambdas[g]);
++                           auto sum_lambda = cuda::std::get<2>(d_max_lambdas[g]);
+                            if (sum_lambda > 0.0) {
+                              norm = std::log2(1.0 + sum_lambda) / sum_lambda;
+                            }
+@@ -527,8 +528,8 @@ namespace {
+ struct ReduceOp {
+   template <typename Tup>
+   Tup XGBOOST_DEVICE operator()(Tup const& l, Tup const& r) {
+-    return thrust::make_tuple(thrust::get<0>(l) + thrust::get<0>(r),
+-                              thrust::get<1>(l) + thrust::get<1>(r));
++    return cuda::std::make_tuple(cuda::std::get<0>(l) + cuda::std::get<0>(r),
++                              cuda::std::get<1>(l) + cuda::std::get<1>(r));
+   }
+ };
+ }  // namespace
+@@ -584,11 +585,11 @@ void LambdaRankUpdatePositionBias(Context const* ctx, linalg::VectorView<double
+   auto key_it = dh::MakeTransformIterator<std::size_t>(
+       thrust::make_counting_iterator(0ul),
+       [=] XGBOOST_DEVICE(std::size_t i) { return i * n_groups; });
+-  auto val_it = thrust::make_zip_iterator(thrust::make_tuple(li_it, lj_it));
++  auto val_it = thrust::make_zip_iterator(cuda::std::make_tuple(li_it, lj_it));
+   auto out_it =
+-      thrust::make_zip_iterator(thrust::make_tuple(li.Values().data(), lj.Values().data()));
++      thrust::make_zip_iterator(cuda::std::make_tuple(li.Values().data(), lj.Values().data()));
+ 
+-  auto init = thrust::make_tuple(0.0, 0.0);
++  auto init = cuda::std::make_tuple(0.0, 0.0);
+   std::size_t bytes;
+   dh::safe_cuda(cub::DeviceSegmentedReduce::Reduce(nullptr, bytes, val_it, out_it, k, key_it,
+                                                    key_it + 1, ReduceOp{}, init,
+diff --git a/src/tree/gpu_hist/evaluate_splits.cuh b/src/tree/gpu_hist/evaluate_splits.cuh
+index 6c830d5ec..ab88d265f 100644
+--- a/src/tree/gpu_hist/evaluate_splits.cuh
++++ b/src/tree/gpu_hist/evaluate_splits.cuh
+@@ -3,6 +3,7 @@
+  */
+ #ifndef EVALUATE_SPLITS_CUH_
+ #define EVALUATE_SPLITS_CUH_
++#include <cuda/std/tuple>  // for tuple
+ #include <xgboost/span.h>
+ 
+ #include "../../common/categorical.h"
+@@ -70,7 +71,7 @@ class GPUHistEvaluator {
+   // storage for sorted index of feature histogram, used for sort based splits.
+   dh::device_vector<bst_feature_t> cat_sorted_idx_;
+   // cached input for sorting the histogram, used for sort based splits.
+-  using SortPair = thrust::tuple<uint32_t, float>;
++  using SortPair = cuda::std::tuple<std::uint32_t, float>;
+   dh::device_vector<SortPair> sort_input_;
+   // cache for feature index
+   dh::device_vector<bst_feature_t> feature_idx_;
+diff --git a/src/tree/gpu_hist/evaluator.cu b/src/tree/gpu_hist/evaluator.cu
+index 36d510f2e..8e48f7588 100644
+--- a/src/tree/gpu_hist/evaluator.cu
++++ b/src/tree/gpu_hist/evaluator.cu
+@@ -6,6 +6,7 @@
+  */
+ #include <thrust/logical.h>  // thrust::any_of
+ #include <thrust/sort.h>     // thrust::stable_sort
++#include <cuda/std/tuple>  // for make_tuple, get
+ 
+ #include "../../common/cuda_context.cuh"  // for CUDAContext
+ #include "../../common/device_helpers.cuh"
+@@ -84,9 +85,9 @@ common::Span<bst_feature_t const> GPUHistEvaluator::SortHistogram(
+                         auto grad =
+                             shared_inputs.rounding.ToFloatingPoint(input.gradient_histogram[j]);
+                         auto lw = evaluator.CalcWeightCat(shared_inputs.param, grad);
+-                        return thrust::make_tuple(i, lw);
++                        return cuda::std::make_tuple(i, lw);
+                       }
+-                      return thrust::make_tuple(i, 0.0f);
++                      return cuda::std::make_tuple(i, 0.0f);
+                     });
+   // Sort an array segmented according to
+   // - nodes
+@@ -95,8 +96,8 @@ common::Span<bst_feature_t const> GPUHistEvaluator::SortHistogram(
+   thrust::stable_sort_by_key(ctx->CUDACtx()->CTP(), dh::tbegin(data), dh::tend(data),
+                              dh::tbegin(sorted_idx),
+                              [=] XGBOOST_DEVICE(SortPair const &l, SortPair const &r) {
+-                               auto li = thrust::get<0>(l);
+-                               auto ri = thrust::get<0>(r);
++                               auto li = cuda::std::get<0>(l);
++                               auto ri = cuda::std::get<0>(r);
+ 
+                                auto l_node = li / total_bins;
+                                auto r_node = ri / total_bins;
+@@ -116,8 +117,8 @@ common::Span<bst_feature_t const> GPUHistEvaluator::SortHistogram(
+                                }
+ 
+                                if (common::IsCat(shared_inputs.feature_types, lfidx)) {
+-                                 auto lw = thrust::get<1>(l);
+-                                 auto rw = thrust::get<1>(r);
++                                 auto lw = cuda::std::get<1>(l);
++                                 auto rw = cuda::std::get<1>(r);
+                                  return lw < rw;
+                                }
+                                return li < ri;
+diff --git a/tests/cpp/common/test_quantile.cu b/tests/cpp/common/test_quantile.cu
+index 7be12ac9c..3862d3b9f 100644
+--- a/tests/cpp/common/test_quantile.cu
++++ b/tests/cpp/common/test_quantile.cu
+@@ -2,6 +2,8 @@
+  * Copyright 2020-2024, XGBoost contributors
+  */
+ #include <gtest/gtest.h>
++#include <thrust/iterator/zip_iterator.h>  // for make_zip_iterator
++#include <cuda/std/tuple>  // for make_tuple, tuple
+ 
+ #include "../../../src/collective/allreduce.h"
+ #include "../../../src/common/hist_util.cuh"
+@@ -266,17 +268,17 @@ void TestMergeDuplicated(int32_t n_bins, size_t cols, size_t rows, float frac) {
+                                     .Seed(seed)
+                                     .GenerateArrayInterface(&storage_1);
+   auto data_1 = storage_1.DeviceSpan();
+-  auto tuple_it = thrust::make_tuple(
++  auto tuple_it = cuda::std::make_tuple(
+       thrust::make_counting_iterator<size_t>(0ul), data_1.data());
+-  using Tuple = thrust::tuple<size_t, float>;
++  using Tuple = cuda::std::tuple<size_t, float>;
+   auto it = thrust::make_zip_iterator(tuple_it);
+   thrust::transform(thrust::device, it, it + data_1.size(), data_1.data(),
+                     [=] XGBOOST_DEVICE(Tuple const& tuple) {
+-                      auto i = thrust::get<0>(tuple);
++                      auto i = cuda::std::get<0>(tuple);
+                       if (i % 2 == 0) {
+                         return 0.0f;
+                       } else {
+-                        return thrust::get<1>(tuple);
++                        return cuda::std::get<1>(tuple);
+                       }
+                     });
+   data::CupyAdapter adapter_1(interface_str_1);
+-- 
+2.43.0
+
