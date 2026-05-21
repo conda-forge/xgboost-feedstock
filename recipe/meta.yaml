@@ -39,12 +39,13 @@ requirements:
     - vcomp14      # [win]
     - ninja
   host:
-    #######################################################
-    # Pin to CCCL 3 to workaround a compilation error.    #
-    #                                                     #
-    # xref: https://github.com/dmlc/xgboost/issues/11784  #
-    #######################################################
-    - cccl >=3.0.0,<3.1.0a0  # [cuda_compiler_version != "None"]
+    ############################################################################
+    # Pin to CCCL 3 on CUDA 12 to workaround compilation error on older GPUs.  #
+    #                                                                          #
+    # xref: https://github.com/dmlc/xgboost/issues/11784                       #
+    ############################################################################
+    - cccl >=3.0.0,<3.1.0a0  # [(cuda_compiler_version or "").startswith("12")]
+    - cccl                   # [(cuda_compiler_version or "").startswith("13")]
     - nccl                   # [linux and cuda_compiler_version != "None"]
 
 outputs:
