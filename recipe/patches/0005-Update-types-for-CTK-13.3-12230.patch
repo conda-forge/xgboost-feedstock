@@ -1,17 +1,17 @@
-From b835912fdf45ea994333e5e69d61d9be2a922f15 Mon Sep 17 00:00:00 2001
+From af8092542c5577a7c0d456f058577df01fd5317a Mon Sep 17 00:00:00 2001
 From: jakirkham <jakirkham@gmail.com>
 Date: Thu, 4 Jun 2026 14:52:41 -0700
-Subject: [PATCH] Update types for CTK 13.3 (#12230)
+Subject: [PATCH 5/5] Update types for CTK 13.3 (#12230)
 
 ---------
 
 Co-authored-by: Paul Taylor <178183+trxcllnt@users.noreply.github.com>
 Co-authored-by: Jiaming Yuan <jm.yuan@outlook.com>
 ---
- src/data/cat_container.cu |  4 ++--
- src/encoder/ordinal.cuh   | 12 +++++-------
- src/encoder/ordinal.h     |  3 ++-
- 3 files changed, 9 insertions(+), 10 deletions(-)
+ src/data/cat_container.cu | 4 ++--
+ src/encoder/ordinal.cuh   | 3 +--
+ src/encoder/ordinal.h     | 3 ++-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/data/cat_container.cu b/src/data/cat_container.cu
 index d957089b8..99dba3c75 100644
@@ -36,31 +36,10 @@ index d957089b8..99dba3c75 100644
  
              col.resize(values.size());
 diff --git a/src/encoder/ordinal.cuh b/src/encoder/ordinal.cuh
-index 879d5edcd..34baf9d58 100644
+index 2fa61bf06..fbacce347 100644
 --- a/src/encoder/ordinal.cuh
 +++ b/src/encoder/ordinal.cuh
-@@ -78,8 +78,7 @@ struct SegmentedSearchSortedStrOp {
-     auto candidate_idx = f_sorted_idx[sorted_idx];
-     auto candidate_beg = haystack.offsets[candidate_idx];
-     auto candidate_end = haystack.offsets[candidate_idx + 1];
--    auto candidate =
--        haystack.values.subspan(candidate_beg, candidate_end - candidate_beg);
-+    auto candidate = haystack.values.subspan(candidate_beg, candidate_end - candidate_beg);
-     return candidate == needle ? sorted_idx : detail::NotFound();
-   }
- };
-@@ -289,16 +288,15 @@ void Recode(ExecPolicy const& policy, DeviceColumnsView orig_enc,
-         f_mapping[i - f_beg] = idx;
-       });
- 
--  auto err_it = thrust::find_if(
--      exec, dh::tcbegin(mapping), dh::tcend(mapping),
--      [=] __device__(std::int32_t v) -> bool { return v == detail::NotFound(); });
-+  auto err_it =
-+      thrust::find_if(exec, dh::tcbegin(mapping), dh::tcend(mapping),
-+                      [=] __device__(std::int32_t v) -> bool { return v == detail::NotFound(); });
- 
-   if (err_it != dh::tcend(mapping)) {
+@@ -288,8 +288,7 @@ void Recode(ExecPolicy const& policy, DeviceColumnsView orig_enc,
      // Report missing cat.
      std::vector<decltype(mapping)::value_type> h_mapping(mapping.size());
      thrust::copy_n(dh::tcbegin(mapping), mapping.size(), h_mapping.begin());
@@ -71,7 +50,7 @@ index 879d5edcd..34baf9d58 100644
                   h_feature_segments.begin());
      auto h_idx = std::distance(dh::tcbegin(mapping), err_it);
 diff --git a/src/encoder/ordinal.h b/src/encoder/ordinal.h
-index e46018ec5..f0ce15b27 100644
+index 44612e833..e77aab453 100644
 --- a/src/encoder/ordinal.h
 +++ b/src/encoder/ordinal.h
 @@ -124,11 +124,12 @@ constexpr std::int32_t NotFound() { return -1; }
