@@ -1,7 +1,7 @@
-From 6ee8126694a87e86c18608ab55e00f4edd8a570d Mon Sep 17 00:00:00 2001
+From 6c4ed66915da21c4d7e5876aa3b1bc5cd67a24fd Mon Sep 17 00:00:00 2001
 From: Hyunsu Cho <phcho@nvidia.com>
 Date: Wed, 25 Feb 2026 23:44:42 -0800
-Subject: [PATCH] Fix compilation with the latest CCCL
+Subject: [PATCH 4/5] Fix compilation with the latest CCCL
 
 ---
  src/common/hist_util.cu               |  1 +
@@ -431,5 +431,5 @@ index 7be12ac9c..3862d3b9f 100644
                      });
    data::CupyAdapter adapter_1(interface_str_1);
 -- 
-2.43.0
+2.54.0
 

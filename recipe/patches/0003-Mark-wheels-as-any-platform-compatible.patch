@@ -1,14 +1,14 @@
-From 956e84c13477ad3c6141d3481e83fd9a19af37b1 Mon Sep 17 00:00:00 2001
+From de2126f02f7288e3de9bb251c8c718d153112d67 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Sat, 28 Sep 2024 21:12:02 +0200
-Subject: [PATCH] Mark wheels as any platform compatible
+Subject: [PATCH 3/5] Mark wheels as any platform compatible
 
 ---
  python-package/hatch_build.py | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/python-package/hatch_build.py b/python-package/hatch_build.py
-index d81a21cd5..710530ce4 100644
+index 27e475324..e0920d760 100644
 --- a/python-package/hatch_build.py
 +++ b/python-package/hatch_build.py
 @@ -6,13 +6,11 @@ Here, we customize the tag of the generated wheels.
@@ -27,5 +27,5 @@ index d81a21cd5..710530ce4 100644
  
  class CustomBuildHook(BuildHookInterface):
 -- 
-2.48.1
+2.54.0
 

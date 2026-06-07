@@ -1,0 +1,72 @@
+From af8092542c5577a7c0d456f058577df01fd5317a Mon Sep 17 00:00:00 2001
+From: jakirkham <jakirkham@gmail.com>
+Date: Thu, 4 Jun 2026 14:52:41 -0700
+Subject: [PATCH 5/5] Update types for CTK 13.3 (#12230)
+
+---------
+
+Co-authored-by: Paul Taylor <178183+trxcllnt@users.noreply.github.com>
+Co-authored-by: Jiaming Yuan <jm.yuan@outlook.com>
+---
+ src/data/cat_container.cu | 4 ++--
+ src/encoder/ordinal.cuh   | 3 +--
+ src/encoder/ordinal.h     | 3 ++-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/data/cat_container.cu b/src/data/cat_container.cu
+index d957089b8..99dba3c75 100644
+--- a/src/data/cat_container.cu
++++ b/src/data/cat_container.cu
+@@ -35,7 +35,7 @@ struct CatContainerImpl {
+       auto const& col_v = that.columns[f_idx];
+       auto dispatch = enc::Overloaded{
+           [this, f_idx, &h_columns_v, stream](enc::CatStrArrayView const& str) {
+-            this->columns[f_idx].emplace<CatStrArray>();
++            this->columns[f_idx].template emplace<CatStrArray>();
+             auto& col = std::get<CatStrArray>(this->columns[f_idx]);
+             // Handle the offsets
+             col.offsets.resize(str.offsets.size());
+@@ -59,7 +59,7 @@ struct CatContainerImpl {
+           [this, f_idx, &h_columns_v, stream](auto&& values) {
+             using T = std::remove_cv_t<typename std::decay_t<decltype(values)>::value_type>;
+ 
+-            this->columns[f_idx].emplace<dh::device_vector<T>>();
++            this->columns[f_idx].template emplace<dh::device_vector<T>>();
+             auto& col = std::get<dh::device_vector<T>>(this->columns[f_idx]);
+ 
+             col.resize(values.size());
+diff --git a/src/encoder/ordinal.cuh b/src/encoder/ordinal.cuh
+index 2fa61bf06..fbacce347 100644
+--- a/src/encoder/ordinal.cuh
++++ b/src/encoder/ordinal.cuh
+@@ -288,8 +288,7 @@ void Recode(ExecPolicy const& policy, DeviceColumnsView orig_enc,
+     // Report missing cat.
+     std::vector<decltype(mapping)::value_type> h_mapping(mapping.size());
+     thrust::copy_n(dh::tcbegin(mapping), mapping.size(), h_mapping.begin());
+-    std::vector<decltype(new_enc.feature_segments)::value_type> h_feature_segments(
+-        new_enc.feature_segments.size());
++    std::vector<DeviceColumnsView::SegIdxT> h_feature_segments(new_enc.feature_segments.size());
+     thrust::copy(dh::tcbegin(new_enc.feature_segments), dh::tcend(new_enc.feature_segments),
+                  h_feature_segments.begin());
+     auto h_idx = std::distance(dh::tcbegin(mapping), err_it);
+diff --git a/src/encoder/ordinal.h b/src/encoder/ordinal.h
+index 44612e833..e77aab453 100644
+--- a/src/encoder/ordinal.h
++++ b/src/encoder/ordinal.h
+@@ -124,11 +124,12 @@ constexpr std::int32_t NotFound() { return -1; }
+ template <typename Variant>
+ struct ColumnsViewImpl {
+   using VariantT = Variant;
++  using SegIdxT = std::int32_t;
+ 
+   Span<Variant const> columns;
+ 
+   // Segment pointer for features, each segment represents the number of categories in a feature.
+-  Span<std::int32_t const> feature_segments;
++  Span<SegIdxT const> feature_segments;
+   // The total number of cats in all features, equals feature_segments.back()
+   std::int32_t n_total_cats{0};
+ 
+-- 
+2.54.0
+
