@@ -14,4 +14,6 @@ provider:
   linux_ppc64le: default
 test: native
 workflow_settings:
-  free_disk_space: quick
+  free_disk_space:
+    - platform: [linux_64, linux_aarch64, linux_ppc64le]
+      value: quick
