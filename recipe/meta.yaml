@@ -1,6 +1,6 @@
-{% set version = "3.2.0" %}
+{% set version = "3.3.0" %}
 {% set build_number = 1 %}
-{% set python_min = "3.10" %}
+{% set python_min = "3.12" %}
 {% set posix = 'm2-' if win else '' %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-src-{{ version }}.tar.gz
-  sha256: 16a31dfbc0c54544c9c36ab5f696fa7b646c125f161c52c814d757a58241a404
+  sha256: 22d4fba822fba5cd02299bf0c63ec68ff72606bc1b1bd910423d4b83c2f108ff
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
@@ -22,11 +22,7 @@ source:
 build:
   number: {{ build_number }}
   # Skip if `python_min` is undefined. This ensures re-rendering picks it up.
-  #
-  # Skip CUDA 12.6 in favor of 12.9. This package supports CUDA Compatibility.
-  # So packages built with CUDA 12.9 work for all CUDA 12.x versions.
-  # ref: https://docs.nvidia.com/deploy/cuda-compatibility/index.html
-  skip: true  # [(not python_min) or (cuda_compiler_version == "12.6")]
+  skip: true  # [not python_min]
 
 requirements:
   build:
@@ -95,16 +91,8 @@ outputs:
     build:
       noarch: python
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
-      script_env:
-        # Workaround an upstream conda-build issue w/pip & `outputs` by setting env vars manually.
-        # xref: https://github.com/conda/conda-build/issues/3993
-        - PIP_NO_BUILD_ISOLATION=False
-        - PIP_NO_DEPENDENCIES=True
-        - PIP_IGNORE_INSTALLED=True
-        - PIP_CACHE_DIR=pip_cache
-        - PIP_NO_INDEX=True
     requirements:
-      build:   # [build_platform != target_platform]
+      build:                                                   # [build_platform != target_platform]
         - python {{ python_min }}                              # [build_platform != target_platform]
         - cross-python_{{ target_platform }} {{ python_min }}  # [build_platform != target_platform]
       host:

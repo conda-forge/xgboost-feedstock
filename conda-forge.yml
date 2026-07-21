@@ -1,5 +1,3 @@
-azure:
-  free_disk_space: true
 build_platform:
   linux_aarch64: linux_64
   linux_ppc64le: linux_64
@@ -15,3 +13,7 @@ provider:
   linux_aarch64: default
   linux_ppc64le: default
 test: native
+workflow_settings:
+  free_disk_space:
+    - platform: [linux_64, linux_aarch64, linux_ppc64le]
+      value: quick
