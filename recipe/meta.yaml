@@ -225,6 +225,7 @@ about:
 extra:
   feedstock-name: xgboost
   recipe-maintainers:
+    - chyunsu3
     - trivialfis
     - aldanor
     - danielnachun
