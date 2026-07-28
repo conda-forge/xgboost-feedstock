@@ -208,9 +208,9 @@ Feedstock Maintainers
 =====================
 
 * [@aldanor](https://github.com/aldanor/)
+* [@chyunsu3](https://github.com/chyunsu3/)
 * [@danielnachun](https://github.com/danielnachun/)
 * [@fhoehle](https://github.com/fhoehle/)
-* [@chyunsu3](https://github.com/chyunsu3/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@ksangeek](https://github.com/ksangeek/)
 * [@mfansler](https://github.com/mfansler/)
