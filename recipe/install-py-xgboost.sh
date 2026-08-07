@@ -3,6 +3,9 @@
 
 pushd ${SRC_DIR}/python-package
 
-    ${PYTHON} -m pip install . -vv --config-settings use_system_libxgboost=True
+    # Remove NCCL dependency
+    ${PYTHON} ${SRC_DIR}/ops/script/pypi_variants.py --use-suffix=na --require-nccl-dep=na
+    ${PYTHON} -m pip install . -vv \
+        --config-settings=wheel.platlib=false --config-settings=wheel.cmake=false
 
 popd
