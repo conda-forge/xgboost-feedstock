@@ -1,14 +1,14 @@
-From 323af65bb1deae1ae82579c47811b73c41c86255 Mon Sep 17 00:00:00 2001
+From 7b5a3d0347abc947c2d19730bf38f5460b4881ad Mon Sep 17 00:00:00 2001
 From: Hyunsu Cho <phcho@nvidia.com>
-Date: Fri, 28 Jun 2024 17:40:28 -0700
-Subject: [PATCH 1/5] Enable latest libcxx on MacOS
+Date: Fri, 7 Aug 2026 23:28:19 +0800
+Subject: [PATCH] Enable latest libcxx on MacOS.
 
 ---
  R-package/src/Makevars.in | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/R-package/src/Makevars.in b/R-package/src/Makevars.in
-index 3563f4e6a..5754f4f8a 100644
+index afc1bff67..f02dd7a93 100644
 --- a/R-package/src/Makevars.in
 +++ b/R-package/src/Makevars.in
 @@ -13,7 +13,8 @@ XGB_RFLAGS = \
@@ -18,9 +18,8 @@ index 3563f4e6a..5754f4f8a 100644
 -    -DDMLC_LOG_CUSTOMIZE=1
 +    -DDMLC_LOG_CUSTOMIZE=1 \
 +    -D_LIBCPP_DISABLE_AVAILABILITY
- 
- # disable the use of thread_local for 32 bit windows:
- ifeq ($(R_OSTYPE)$(WIN),windows)
--- 
-2.54.0
+ $(foreach v, $(XGB_RFLAGS), $(warning $(v)))
 
+ PKG_CPPFLAGS = \
+--
+2.53.0
