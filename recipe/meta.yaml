@@ -15,7 +15,6 @@ source:
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
-    - patches/0002-Remove-nvidia-nccl-cu12-from-pyproject.toml.patch
 
 build:
   number: {{ build_number }}

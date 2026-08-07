@@ -3,7 +3,8 @@
 
 pushd ${SRC_DIR}/python-package
 
-    ${PYTHON} -m pip install . -vv \
-        -C=cmake.define.XGBOOST_USE_SYSTEM_LIBXGBOOST=ON -Cwheel.platlib=false
+    # Remove NCCL dependency
+    ${PYTHON} ${SRC_DIR}/ops/script/pypi_variants.py --use-suffix=na --require-nccl-dep=na
+    ${PYTHON} -m pip install . -vv -C=cmake.define.XGBOOST_USE_SYSTEM_LIBXGBOOST=ON -Cwheel.platlib=false
 
 popd
