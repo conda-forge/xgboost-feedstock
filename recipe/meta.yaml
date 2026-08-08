@@ -220,8 +220,8 @@ about:
 extra:
   feedstock-name: xgboost
   recipe-maintainers:
+    - chyunsu3
     - trivialfis
-    - hcho3
     - aldanor
     - danielnachun
     - fhoehle
