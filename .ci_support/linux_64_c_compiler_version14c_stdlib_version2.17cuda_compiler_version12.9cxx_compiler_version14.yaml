@@ -27,7 +27,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python_min:
-- '3.10'
+- '3.11'
 r_base:
 - '4.4'
 - '4.5'

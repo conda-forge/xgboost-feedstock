@@ -1,0 +1,77 @@
+From b1cd695173300981dc92f49b0e8d391b544f0b96 Mon Sep 17 00:00:00 2001
+From: Hyunsu Cho <phcho@nvidia.com>
+Date: Mon, 27 Jul 2026 21:50:45 -0700
+Subject: [PATCH] Add back support for Python 3.11
+
+---
+ python-package/pyproject.toml         | 3 ++-
+ python-package/pyproject.toml.in      | 3 ++-
+ python-package/pyproject.toml.stub.in | 3 ++-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/python-package/pyproject.toml b/python-package/pyproject.toml
+index 6de114260..3b5316a5c 100644
+--- a/python-package/pyproject.toml
++++ b/python-package/pyproject.toml
+@@ -16,7 +16,7 @@ authors = [
+     { name = "Jiaming Yuan", email = "jm.yuan@outlook.com" }
+ ]
+ version = "3.3.0"
+-requires-python = ">=3.12"
++requires-python = ">=3.11"
+ license = { text = "Apache-2.0" }
+ classifiers = [
+     "License :: OSI Approved :: Apache Software License",
+@@ -25,6 +25,7 @@ classifiers = [
+     "Typing :: Typed",
+     "Programming Language :: Python",
+     "Programming Language :: Python :: 3",
++    "Programming Language :: Python :: 3.11",
+     "Programming Language :: Python :: 3.12",
+     "Programming Language :: Python :: 3.13",
+     "Programming Language :: Python :: 3.14",
+diff --git a/python-package/pyproject.toml.in b/python-package/pyproject.toml.in
+index a241e9485..9fa5de8ea 100644
+--- a/python-package/pyproject.toml.in
++++ b/python-package/pyproject.toml.in
+@@ -15,7 +15,7 @@ authors = [
+     { name = "Jiaming Yuan", email = "jm.yuan@outlook.com" }
+ ]
+ version = "3.3.0"
+-requires-python = ">=3.12"
++requires-python = ">=3.11"
+ license = { text = "Apache-2.0" }
+ classifiers = [
+     "License :: OSI Approved :: Apache Software License",
+@@ -24,6 +24,7 @@ classifiers = [
+     "Typing :: Typed",
+     "Programming Language :: Python",
+     "Programming Language :: Python :: 3",
++    "Programming Language :: Python :: 3.11",
+     "Programming Language :: Python :: 3.12",
+     "Programming Language :: Python :: 3.13",
+     "Programming Language :: Python :: 3.14",
+diff --git a/python-package/pyproject.toml.stub.in b/python-package/pyproject.toml.stub.in
+index 8a46cb4b3..9219fc7f6 100644
+--- a/python-package/pyproject.toml.stub.in
++++ b/python-package/pyproject.toml.stub.in
+@@ -13,7 +13,7 @@ authors = [
+     { name = "Jiaming Yuan", email = "jm.yuan@outlook.com" }
+ ]
+ version = "3.3.0"
+-requires-python = ">=3.12"
++requires-python = ">=3.11"
+ license = { text = "Apache-2.0" }
+ classifiers = [
+     "License :: OSI Approved :: Apache Software License",
+@@ -22,6 +22,7 @@ classifiers = [
+     "Typing :: Typed",
+     "Programming Language :: Python",
+     "Programming Language :: Python :: 3",
++    "Programming Language :: Python :: 3.11",
+     "Programming Language :: Python :: 3.12",
+     "Programming Language :: Python :: 3.13",
+ ]
+-- 
+2.54.0
+
