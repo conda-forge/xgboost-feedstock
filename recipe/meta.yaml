@@ -21,7 +21,12 @@ source:
 build:
   number: {{ build_number }}
   # Skip if `python_min` is undefined. This ensures re-rendering picks it up.
-  skip: true  # [not python_min]
+  #
+  # Skip CUDA 13.0 in favor of latest CUDA 13.x.
+  # This package supports CUDA Compatibility.
+  # So packages built with CUDA 13.x work for all CUDA 13 versions.
+  # ref: https://docs.nvidia.com/deploy/cuda-compatibility/index.html
+  skip: true  # [not python_min or (cuda_compiler_version == "13.0")]
 
 requirements:
   build:
