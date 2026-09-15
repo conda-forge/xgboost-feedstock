@@ -1,6 +1,6 @@
-{% set version = "3.4.1" %}
+{% set version = "3.4.2" %}
 {% set build_number = 0 %}
-{% set python_min = "3.12" %}
+{% set python_min = "3.11" %}
 {% set posix = 'm2-' if win else '' %}
 
 {% set string_prefix = "cuda" ~ (cuda_compiler_version | replace('.', '')) if (cuda_compiler_version or "None") != "None" else "cpu" %}
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/dmlc/xgboost/releases/download/v{{ version }}/xgboost-src-{{ version }}.tar.gz
-  sha256: 34a5cb99a67bb98b44f204767eeeae642b65a86b2ecfca60082e4d74fd4d169a
+  sha256: d7de76bdaf48e9e0bc84b27c0c42f15f3d831e624d102d6c019bab7027b3cabd
   patches:
     # xgboost patches
     - patches/0001-Enable-latest-libcxx-on-MacOS.patch                # [osx]
